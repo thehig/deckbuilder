@@ -38,6 +38,7 @@ if(Meteor.isClient){
 
   Template.cardList.helpers({
     cards: function(){return Session.get('cards');},
+    other: function(){return Session.get('other');},
     creatures: function(){return Session.get('creatures');},
     lands: function(){return Session.get('lands');},
     instants: function(){return Session.get('instants');},
@@ -67,6 +68,7 @@ if(Meteor.isClient){
 
       Session.set('loadingCards', true);
       Session.set('cards', null);
+      Session.set('other', null);
       Session.set('creatures', null);
       Session.set('lands', null);
       Session.set('instants', null);
@@ -81,7 +83,7 @@ if(Meteor.isClient){
             instants = [],
             sorceries = []
         ;
-        result.forEach(function(uniqueCard){
+        result.maindeck.forEach(function(uniqueCard){
           var cardType = "" + uniqueCard["type"];
           var lowertype = cardType.toLowerCase();
 
@@ -96,7 +98,8 @@ if(Meteor.isClient){
         Session.set('lands', lands);
         Session.set('instants', instants);
         Session.set('sorceries', sorceries);
-        Session.set('cards', result);
+        Session.set('cards', result.maindeck);
+        Session.set('other', result.other);
         Session.set('loadingCards', false);
       });
     }
@@ -173,24 +176,62 @@ if(Meteor.isServer){
 
       var page = $.load(Meteor.http.get(url).content);
 
-      var members = [];
-      page('.member').each(function(i, el){
-        var member = $.load(el);
-        //var name = member('a').attr('data-name');
-        var card = {};
-        member('a').each(function(j, element){
-          var a = $.load(element);
-          card[j] = a('a').text();
+      //var boardContainer = $.load(page('.board-container'));
+      //boardContainer('h3').each(function(key, value){
+      //  var h3 = $.load(this);
+      //  console.log(h3.text());
+      //});
+      console.log("Parsing");
+      var sideboardHit = false;
+      var cardsCollection = {
+        maindeck: [],
+        other: []
+      };
+
+      var pageLists = page('.board-container h3').each(function(i, el){
+        var collection = $.load(el);
+
+        var heading = collection('h3').text();
+        if(heading.toLowerCase().indexOf('sorcery') > -1){
+          sideboardHit = true;
+        }
+
+        var boardlist = collection('h3').next().hasClass('.boardlist');
+        ($.load(boardlist))('.member').each(function(i, el){
+          console.log("\n\n\n");
+          console.log(i);
         });
 
-        members.push(card);
+        //boardlist('.member').each(function(i, el){
+        //  console.log(i);
+        //});
+
+        //collection('h3').next().('.boardlist .member').each(function(i, el){
+        //  console.log(i);
+        //  //var member = $.load(el);
+        //  //var card = {};
+        //  //member('a').each(function(j, element){
+        //  //  var a = $.load(element);
+        //  //  card[j] = a('a').text();
+        //  //});
+        //  //
+        //  //if(!sideboardHit)
+        //  //  cardsCollection.maindeck.push(card);
+        //  //else
+        //  //  cardsCollection.other.push(card);
+        //});
+
       });
 
-      var apiParsedCards = [];
+      console.log("Got " + cardsCollection.maindeck.length + " maindeck and " + cardsCollection.other.length + " other");
 
-      //console.log("Parsing " + members.length + " cards");
+      var apiParsedCards = {
+        maindeck: [],
+        other: []
+      };
 
-      members.forEach(function(card){
+      //todo refactor this
+      cardsCollection.maindeck.forEach(function(card){
         var safeCardname =  encodeURIComponent(card[1].replace(':', ''));
         //console.log("Getting API object " + card[1]);
         var apiCard = lookupApiFunc(safeCardname);
@@ -198,11 +239,23 @@ if(Meteor.isServer){
         if(apiCard){
           //console.log("Got API card");
           apiCard.quantity = card[0].toLowerCase().replace('x', '');
-          apiParsedCards.push(apiCard);
+          apiParsedCards.maindeck.push(apiCard);
         }
       });
 
-      console.log("Returning " + apiParsedCards.length + " cards");
+      cardsCollection.other.forEach(function(card){
+        var safeCardname =  encodeURIComponent(card[1].replace(':', ''));
+        //console.log("Getting API object " + card[1]);
+        var apiCard = lookupApiFunc(safeCardname);
+        //console.log("Got API object " + card[1] + " : " + apiCard);
+        if(apiCard){
+          //console.log("Got API card");
+          apiCard.quantity = card[0].toLowerCase().replace('x', '');
+          apiParsedCards.other.push(apiCard);
+        }
+      });
+
+      console.log("Returning " + (apiParsedCards.maindeck.length + apiParsedCards.other.length) + " cards");
       return apiParsedCards;
     }
   });
