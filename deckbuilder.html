@@ -38,16 +38,47 @@
 </template>
 
 <template name="cardList">
-    <h2>Card List</h2>
+    <h2>Card List ({{cardscount}})</h2>
 
     {{#each cards}}
-      {{> card}}
+        {{> card}}
     {{/each}}
 
+    {{#if creatures}}
+        <h2>Creatures ({{creaturescount}})</h2>
+        {{#each creatures}}
+            {{> card}}
+        {{/each}}
+    {{/if}}
+
+
+    {{#if lands}}
+        <h2>Lands ({{landscount}})</h2>
+        {{#each lands}}
+            {{> card}}
+        {{/each}}
+    {{/if}}
+
+
+    {{#if instants}}
+        <h2>Instants ({{instantscount}})</h2>
+        {{#each instants}}
+            {{> card}}
+        {{/each}}
+    {{/if}}
+
+
+    {{#if sorceries}}
+        <h2>Sorceries ({{sorceriescount}})</h2>
+        {{#each sorceries}}
+            {{> card}}
+        {{/each}}
+    {{/if}}
 </template>
 
 <template name="card">
     <a href="http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid={{id}}">
         <img src="http://api.mtgdb.info/content/card_images/{{id}}.jpeg" alt="{{quantity}}"/>
     </a>
+    <a href="http://api.mtgdb.info/cards/{{id}}">{{quantity}}</a>
 </template>

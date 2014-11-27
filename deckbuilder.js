@@ -23,11 +23,33 @@
 //}
 
 if(Meteor.isClient){
-  Session.set('cards', null);
+  Session.set('loadingCards', false);
+
+  function reduceQ(collection){
+    var sum = 0;
+    var cards = Session.get(collection);
+    if(cards){
+      cards.forEach(function(card){
+        sum += parseInt(card.quantity);
+      });
+    }
+    return sum;
+  }
 
   Template.cardList.helpers({
-    cards: function(){return Session.get('cards');}
+    cards: function(){return Session.get('cards');},
+    creatures: function(){return Session.get('creatures');},
+    lands: function(){return Session.get('lands');},
+    instants: function(){return Session.get('instants');},
+    sorceries: function(){return Session.get('sorceries');},
+
+    cardscount: function(){return reduceQ('cards')},
+    creaturescount: function(){return reduceQ('creatures')},
+    landscount: function(){return reduceQ('lands')},
+    instantscount: function(){return reduceQ('instants')},
+    sorceriescount: function(){return reduceQ('sorceries')}
   });
+
 
 
   // ======= Load Deck  Template ======
@@ -45,10 +67,35 @@ if(Meteor.isClient){
 
       Session.set('loadingCards', true);
       Session.set('cards', null);
+      Session.set('creatures', null);
+      Session.set('lands', null);
+      Session.set('instants', null);
+      Session.set('sorceries', null);
 
       var tappedOutUrl = template.find('#ld-tappedouturl').value;
 
       Meteor.call('scrapeTappedout', tappedOutUrl, function(error, result){
+
+        var creatures = [],
+            lands = [],
+            instants = [],
+            sorceries = []
+        ;
+        result.forEach(function(uniqueCard){
+          var cardType = "" + uniqueCard["type"];
+          var lowertype = cardType.toLowerCase();
+
+
+          if(lowertype.indexOf('land') > -1) lands.push(uniqueCard);
+          if(lowertype.indexOf('creature') > -1) creatures.push(uniqueCard);
+          if(lowertype.indexOf('instant') > -1) instants.push(uniqueCard);
+          if(lowertype.indexOf('sorcery') > -1) sorceries.push(uniqueCard);
+        });
+
+        Session.set('creatures', creatures);
+        Session.set('lands', lands);
+        Session.set('instants', instants);
+        Session.set('sorceries', sorceries);
         Session.set('cards', result);
         Session.set('loadingCards', false);
       });
