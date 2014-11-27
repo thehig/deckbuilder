@@ -1,0 +1,9 @@
+/* CSS declarations go here */
+
+.login {
+    border: solid 1px #000;
+    margin: 0;
+    padding: 0;
+    background: #ececec;
+    display: block;
+}

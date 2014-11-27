@@ -1,0 +1,53 @@
+<template name="layout">
+    <div class="login">
+      {{>loginButtons}}
+    </div>
+
+
+    <div class="main">
+        {{> yield}}
+    </div>
+</template>
+
+
+<!--  ==========================  Home  ==========================  -->
+<template name="home">
+    <a href="/build">Build a deck</a>
+</template>
+
+
+<!--  ==========================  Deck Builder  ==========================  -->
+<template name="build">
+    <h2>Welcome to the Deck Builder</h2>
+    {{>loadDeck}}
+</template>
+
+<template name="loadDeck">
+    <form>
+        <input id="ld-tappedouturl" type="text" placeholder="Tapped-Out Deck Url"/>
+        <button> Load . . . </button>
+    </form>
+
+    {{#if loadingCards}}
+        <h2>Loading . . .</h2>
+    {{/if}}
+
+    {{#if cards}}
+      {{> cardList }}
+    {{/if}}
+</template>
+
+<template name="cardList">
+    <h2>Card List</h2>
+
+    {{#each cards}}
+      {{> card}}
+    {{/each}}
+
+</template>
+
+<template name="card">
+    <a href="http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid={{id}}">
+        <img src="http://api.mtgdb.info/content/card_images/{{id}}.jpeg" alt="{{quantity}}"/>
+    </a>
+</template>
