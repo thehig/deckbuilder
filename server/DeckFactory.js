@@ -1,94 +1,112 @@
-//DeckFactory = {};
-//
-//DeckFactory.scrapeFromTappedOut = function(url){
-//    return Meteor.call('scrapeTappedOut', url);
-//};
-//
+//Virtual DOM manager
+$ = Meteor.npmRequire('cheerio');
+
+//Promise management
+Future = Meteor.npmRequire('fibers/future');
 
 
-//function parseMtgDbResponse(mtgDbCardResult){
-//    //console.log("\n\n\n\n\n");
-//    //console.log(JSON.stringify(mtgDbCardResult));
-//    //console.log(Object.keys(mtgDbCardResult));
-//
-//    //Object.keys(mtgDbCardResult).forEach(function(id){
-//    //  var card = mtgDbCardResult[id];
-//    //});
-//
-//
-//    //
-//    var mtgCard = [-1, null];
-//
-//    if(mtgDbCardResult instanceof Array)
-//    {
-//        //console.log("Parsing an array");
-//        //Get the most recent printing of the card
-//        mtgDbCardResult.forEach(function(cardPrinting){
-//            if(cardPrinting.setNumber > mtgCard[0]){
-//                mtgCard[0] = cardPrinting.setNumber;
-//                mtgCard[1] = cardPrinting;
-//            }
-//        });
-//
-//        if(mtgCard[0] === -1){
-//            return mtgDbCardResult[0];
-//        }else{
-//            return mtgCard[1];
-//        }
-//    }
-//}
+/**
+ * Look up a card by name with the mtgJsonDB API
+ * @param cardName
+ * @returns {*}
+ */
+function apiLookup(cardName) {
+    if (!cardName) return {};
 
+    var sanitizedCardName = encodeURIComponent(cardName.replace(':', ''));
+    var myFuture = new Future();
 
-if(Meteor.isServer){
-
-    Meteor.methods({
-        scrapeFromTappedOut: function(url) {
-
-            if(!url) return [];
-            console.log("Getting " + url);
-
-            var tappedOutPageContents = $.load(Meteor.http.get(url).content),
-                cardsCollection = [];
-
-            tappedOutPageContents('.member a').each(function(index, element){
-                if(this.attribs['data-name'])
-                {
-                    var card = {
-                        name: this.attribs['data-name'],
-                        quantity: this.attribs['data-quantity'],
-                        board: this.attribs['data-board'],
-                        category: this.attribs['data-category']
-                    };
-                    cardsCollection.push(card);
-                }
-            });
-
-            console.log("Got " + cardsCollection.length + "cards");
-
-            //cardsCollection.forEach(function(card){
-            //  var safeCardname =  encodeURIComponent(card.name.replace(':', ''));
-            //  var apiCard = lookupApiFunc(safeCardname);
-            //  if(apiCard) card.apiCard = apiCard;
-            //});
-
-            return cardsCollection;
-        },
-        apiLookup: function(sanitizedCardName){
-
-            var myFuture = new Future();
-
-            if(!sanitizedCardName) return [];
-            var safeurl = "http://api.mtgdb.info/cards/" + sanitizedCardName;
-            Meteor.http.get(safeurl, function(error, result){
-                if(error){
-                    myFuture.throw(error);
-                }
-
-                var parsedResult = parseMtgDbResponse(JSON.parse(result.content));
-                myFuture.return(parsedResult);
-            });
-
-            return myFuture.wait();
+    var safeurl = "http://api.mtgdb.info/cards/" + sanitizedCardName;
+    Meteor.http.get(safeurl, function (error, result) {
+        if (error) {
+            myFuture.throw(error);
         }
+
+        var parsedResult = parseMtgDbResponse(JSON.parse(result.content));
+        myFuture.return(parsedResult);
     });
+
+    return myFuture.wait();
 }
+
+function parseMtgDbResponse(mtgDbCardResult){
+    var mtgCard = [-1, null];
+
+    if(mtgDbCardResult instanceof Array)
+    {
+        //Get the most recent printing of the card
+        mtgDbCardResult.forEach(function(cardPrinting){
+            if(cardPrinting.setNumber > mtgCard[0]){
+                mtgCard[0] = cardPrinting.setNumber;
+                mtgCard[1] = cardPrinting;
+            }
+        });
+
+        if(mtgCard[0] === -1){
+            return mtgDbCardResult[0];
+        }else{
+            return mtgCard[1];
+        }
+    }
+}
+
+
+
+Meteor.methods({
+    scrapeFromTappedOut: function(url) {
+        if(!url) return [];
+        console.log("Getting " + url);
+
+        var tappedOutPageContents = $.load(Meteor.http.get(url).content),
+            cardsCollection = [];
+
+        tappedOutPageContents('.member a').each(function(index, element){
+            if(this.attribs['data-name'])
+            {
+                var card = {
+                    name: this.attribs['data-name'],
+                    quantity: this.attribs['data-quantity'],
+                    board: this.attribs['data-board'],
+                    category: this.attribs['data-category']
+                };
+                cardsCollection.push(card);
+            }
+        });
+
+        return cardsCollection;
+    },
+    createDeck: function(deck){
+
+        var apiCards = deck.cards.map(function(card){
+            //TODO: Local card storage
+            return {
+                card: apiLookup(card.name),
+                quantity: card.quantity,
+                board: card.board,
+                category: card.category
+            };
+        });
+
+        var mainboard = [];//_(apiCards, {board: 'main'});
+        var sideboard = [];//_(apiCards, {board: 'side'});
+        var other = {};
+
+        apiCards.forEach(function(apiCard){
+            if(apiCard.board === 'main') mainboard.push(apiCard);
+            else if(apiCard.board === 'side') sideboard.push(apiCard);
+            else {
+                if(other[apiCard.board]) other[apiCard.board].push(apiCard);
+                else other[apiCard.board] = [apiCard];
+            }
+        });
+
+        Decks.insert({
+            created: new Date(),
+            createdBy: Meteor.userId(),
+            name: deck.name,
+            mainboard: mainboard,
+            sideboard: sideboard,
+            other: other
+        });
+    }
+});

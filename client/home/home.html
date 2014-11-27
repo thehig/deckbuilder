@@ -3,13 +3,29 @@
       {{>loginButtons}}
     </div>
 
+    {{#if currentUser}}
+        <div class="navigation">
+            <ul><li><a href="/build">Build a deck</a></li></ul>
+            <ul><li><a href="/decks">View your decks</a></li></ul>
+        </div>
+
+        {{#if selectedDeck}}
+            <div class="selected-deck">Selected Deck: ( {{selectedDeck.name}} )</div>
+        {{/if}}
+    {{/if}}
 
     <div class="main">
-      {{> yield}}
+        {{#if loggingIn}}
+            <h2>Logging In . . .</h2>
+        {{else}}
+            {{#if currentUser}}
+                {{> yield}}
+            {{else}}
+                <h2>You must login to view this page</h2>
+            {{/if}}
+        {{/if}}
     </div>
 </template>
 
-
 <template name="home">
-    <a href="/build">Build a deck</a>
 </template>

@@ -1,9 +1,13 @@
 /* CSS declarations go here */
 
-.login {
+.login, .navigation, .main, .selected-deck {
     border: solid 1px #000;
     margin: 0;
     padding: 0;
     background: #ececec;
     display: block;
+}
+
+.main{
+    background: #ffffff;
 }

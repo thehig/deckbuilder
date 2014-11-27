@@ -1,10 +1,76 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body>
+<template name="decks">
+    <h2>Your Decks</h2>
+    {{#each decks}}
+      <ul>
+      {{> deckName}}
+      </ul>
+    {{/each}}
 
-</body>
-</html>
+    {{#if selectedDeck}}
+        <h2>Selected Deck</h2>
+        {{> deck }}
+    {{/if}}
+</template>
+
+<template name="deckName">
+    <li><a>{{name}}</a> <span>Created {{age}}</span></li>
+</template>
+
+<template name="deck">
+    {{#with selectedDeck}}
+        <h2>Deck: {{name}}</h2>
+
+        <h2>Mainboard ( {{mainboardDeck.cardCount}} )</h2>
+        <ul>
+        {{#each mainboard}}
+            <li>{{quantity}} x {{card.name}}</li>
+        {{/each}}
+        </ul>
+
+        {{#if mainboardDeck.creatureCount}}
+            <h3>creature ( {{mainboardDeck.creatureCount}} )</h3>
+            {{#each mainboardDeck.creature}}
+                {{> deckCard }}
+            {{/each}}
+        {{/if}}
+
+        {{#if mainboardDeck.instantCount}}
+            <h3>instant ( {{mainboardDeck.instantCount}} )</h3>
+            {{#each mainboardDeck.instant}}
+                {{> deckCard}}
+            {{/each}}
+        {{/if}}
+
+        {{#if mainboardDeck.sorceryCount}}
+            <h3>sorcery ( {{mainboardDeck.sorceryCount}} )</h3>
+            {{#each mainboardDeck.sorcery}}
+                {{> deckCard }}
+            {{/each}}
+        {{/if}}
+
+        {{#if mainboardDeck.landCount}}
+            <h3>land ( {{mainboardDeck.landCount}} )</h3>
+            {{#each mainboardDeck.land}}
+                {{> deckCard }}
+            {{/each}}
+        {{/if}}
+
+        {{#if mainboardDeck.artifactCount}}
+            <h3>artifact ( {{mainboardDeck.artifactCount}} )</h3>
+            {{#each mainboardDeck.artifact}}
+                {{> deckCard }}
+            {{/each}}
+        {{/if}}
+
+        {{#if mainboardDeck.enchantmentCount}}
+            <h3>enchantment ( {{mainboardDeck.enchantmentCount}} )</h3>
+            {{#each mainboardDeck.enchantment}}
+                {{> deckCard }}
+            {{/each}}
+        {{/if}}
+    {{/with}}
+</template>
+
+<template name="deckCard">
+    {{quantity}} x {{card.name}},
+</template>

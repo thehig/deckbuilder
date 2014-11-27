@@ -4,8 +4,6 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
 iron:router
 accounts-ui
 accounts-password
@@ -13,3 +11,5 @@ accounts-password
 
 npm-container
 http
+mrt:moment
+

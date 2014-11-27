@@ -1,70 +1,46 @@
-
-
-
-<!--  ==========================  Deck Builder  ==========================  -->
 <template name="build">
-    <h2>Welcome to the Deck Builder</h2>
-  {{>loadDeck}}
+  {{#if currentUser}}
+      <h2>Welcome to the Deck Builder</h2>
+    {{>loadDeck}}
+  {{/if}}
 </template>
 
+
+
 <template name="loadDeck">
+  {{#if loadingCards}}
+      <h2>Loading . . .</h2>
+  {{else}}
+
     <form>
         <h4>http://tappedout.net/mtg-decks/red-green-gatecrash-aggro/</h4>
         <input id="ld-tappedouturl" type="text" placeholder="Tapped-Out Deck Url"/>
-        <button> Load . . . </button>
+        <button id="load"> Load . . . </button>
     </form>
 
-  {{#if loadingCards}}
-      <h2>Loading . . .</h2>
-  {{/if}}
+    {{#if cards}}
+        <form>
+            <input id="deck-name" type="text" placeholder="Deck Name"/>
+            <button id="save"> Save . . . </button>
+        </form>
+      {{> cardList }}
+    {{/if}}
 
-  {{#if cards}}
-    {{> cardList }}
   {{/if}}
 </template>
 
-<template name="cardList">
-    <h2>Card List ({{cardscount}})</h2>
 
+<template name="cardList">
+  <h2>Card List ({{cards.length}})</h2>
   {{#each cards}}
     {{> card}}
   {{/each}}
-
-  {{#if creatures}}
-      <h2>Creatures ({{creaturescount}})</h2>
-    {{#each creatures}}
-      {{> card}}
-    {{/each}}
-  {{/if}}
-
-
-  {{#if lands}}
-      <h2>Lands ({{landscount}})</h2>
-    {{#each lands}}
-      {{> card}}
-    {{/each}}
-  {{/if}}
-
-
-  {{#if instants}}
-      <h2>Instants ({{instantscount}})</h2>
-    {{#each instants}}
-      {{> card}}
-    {{/each}}
-  {{/if}}
-
-
-  {{#if sorceries}}
-      <h2>Sorceries ({{sorceriescount}})</h2>
-    {{#each sorceries}}
-      {{> card}}
-    {{/each}}
-  {{/if}}
 </template>
+
 
 <template name="card">
     <a href="http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid={{id}}">
-        <img src="http://api.mtgdb.info/content/card_images/{{id}}.jpeg" alt="{{quantity}}"/>
+        <img src="http://mtgimage.com/card/{{name}}.jpg" alt="{{quantity}}"/>
     </a>
     <a href="http://api.mtgdb.info/cards/{{id}}">{{quantity}}</a>
 </template>

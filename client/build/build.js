@@ -11,7 +11,7 @@ Template.loadDeck.helpers({
 });
 
 Template.loadDeck.events({
-    'click button': function(evt, template){
+    'click #load': function(evt, template){
         evt.preventDefault();
 
         Session.set('loadingCards', true);
@@ -25,5 +25,16 @@ Template.loadDeck.events({
             Session.set('cards', result);
         });
 
+    },
+    'click #save': function(evt, template){
+        evt.preventDefault();
+
+        var cards = Session.get('cards');
+        var deck = {
+            name: template.find('#deck-name').value || 'New Deck',
+            cards: cards
+        };
+
+        Meteor.call('createDeck', deck);
     }
 });
