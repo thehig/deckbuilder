@@ -53,7 +53,7 @@ Template.decks.events({
         //console.log(this);
 
         var completeCard = function(card){
-            card.card = Cards.findOne({_id: card.card_id})
+            if(!card.card) card.card = Cards.findOne({_id: card.card_id})
             return card;
         };
 
