@@ -1,0 +1,45 @@
+<template name="layoutheader">
+    <div class="col-md-10"><a href="/"><h2>Online Card Game</h2></a></div>
+    <div class="col-md-2">{{>loginButtons}}</div>
+</template>
+
+<template name="layoutsidebar">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/decks">Manage Decks</a></li>
+        <li><a href="/play">Play Game</a></li>
+    </ul>
+</template>
+
+
+<template name="layout">
+    <div class="container-fluid">
+
+        <div class="row col-md-10 col-md-offset-1 layout-header">
+            {{>layoutheader}}
+        </div>
+
+        <div class="row col-md-10 col-md-offset-1">
+            <div class="col-md-2 layout-sidebar">
+                {{>layoutsidebar}}
+            </div>
+            <div class="col-md-10 layout-main">
+                {{#if currentUser}}
+                    {{>yield}}
+                {{else}}
+                    {{>home }}
+                {{/if}}
+            </div>
+        </div>
+
+        <div class="row col-md-10 col-md-offset-1 layout-footer">
+            {{>layoutfooter}}
+        </div>
+    </div>
+</template>
+
+<template name="layoutfooter">
+    <div class="col-md-2 col-md-offset-5">
+        Copyright @higtactular 2014 &copy;
+    </div>
+</template>

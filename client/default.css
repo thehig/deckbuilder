@@ -1,13 +1,11 @@
-/* CSS declarations go here */
-
-.login, .navigation, .main, .selected-deck {
+.layout-header, .layout-sidebar, .layout-main, .layout-footer {
     border: solid 1px #000;
-    margin: 0;
-    padding: 0;
+    /*margin: 0;*/
+    /*padding: 0;*/
     background: #ececec;
-    display: block;
 }
 
-.main{
-    background: #ffffff;
+.layout-sidebar, .layout-main {
+    height: 768px;
+    overflow-y:  auto;
 }

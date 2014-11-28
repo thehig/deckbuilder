@@ -1,0 +1,14 @@
+<template name="game">
+    {{#if selectedDeck}}
+        <h2>Selected Deck:</h2><span>{{selectedDeck.name}}</span>
+    {{/if}}
+
+    <h2>Players:</h2>
+    {{#each opponents}}
+        {{> gameOpponent }}
+    {{/each}}
+</template>
+
+<template name="gameOpponent">
+    <button>{{username}}</button>
+</template>
