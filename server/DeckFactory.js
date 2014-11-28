@@ -115,6 +115,7 @@ Meteor.methods({
         Decks.insert({
             created: new Date(),
             createdBy: Meteor.userId(),
+            origin: deck.origin,
             name: deck.name,
             mainboard: mainboard,
             sideboard: sideboard,

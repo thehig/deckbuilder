@@ -17,6 +17,7 @@ Template.loadDeck.events({
         Session.set('loadingCards', true);
         Session.set('cards', null);
         var tappedOutUrl = template.find('#ld-tappedouturl').value;
+        Session.set('deckOriginUrl', tappedOutUrl);
 
         Meteor.call('scrapeFromTappedOut', tappedOutUrl, function(error, result){
             console.log(JSON.stringify(result));
@@ -24,7 +25,6 @@ Template.loadDeck.events({
             Session.set('loadingCards', false);
             Session.set('cards', result);
         });
-
     },
     'click #save': function(evt, template){
         evt.preventDefault();
@@ -32,7 +32,8 @@ Template.loadDeck.events({
         var cards = Session.get('cards');
         var deck = {
             name: template.find('#deck-name').value || 'New Deck',
-            cards: cards
+            cards: cards,
+            origin: Session.get('deckOriginUrl')
         };
 
         Meteor.call('createDeck', deck);
