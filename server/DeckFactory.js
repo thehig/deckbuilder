@@ -78,9 +78,19 @@ Meteor.methods({
     createDeck: function(deck){
 
         var apiCards = deck.cards.map(function(card){
-            //TODO: Local card storage
+
+            var lookupCard = Cards.findOne({name: card.name});
+            var cardId = -1;
+
+            if(lookupCard) cardId = lookupCard._id;
+            else{
+                console.log("Creating card " + card.name);
+                Cards.insert(apiLookup(card.name));
+                cardId = Cards.findOne({name: card.name})._id;
+            }
+
             return {
-                card: apiLookup(card.name),
+                card_id: cardId,
                 quantity: card.quantity,
                 board: card.board,
                 category: card.category
@@ -100,6 +110,8 @@ Meteor.methods({
             }
         });
 
+
+        console.log("Creating deck " + deck.name);
         Decks.insert({
             created: new Date(),
             createdBy: Meteor.userId(),

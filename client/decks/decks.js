@@ -50,7 +50,16 @@ Template.deck.helpers({
 
 Template.decks.events({
     'click a': function(evt, template){
-        console.log(this);
+        //console.log(this);
+
+        var completeCard = function(card){
+            card.card = Cards.findOne({_id: card.card_id})
+            return card;
+        };
+
+        this.mainboard.cards = this.mainboard.map(completeCard);
+        this.sideboard.cards = this.sideboard.map(completeCard);
+
         Session.set('selectedDeck', this);
     }
 });
