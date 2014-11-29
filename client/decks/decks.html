@@ -1,77 +1,143 @@
 <template name="decks">
-    <h2>Your Decks</h2>
-    {{#each decks}}
-      <ul>
-      {{> deckName}}
-      </ul>
-    {{/each}}
+    {{> decks_mydecks }}
+    {{> decks_deckscraper}}
+</template>
 
-    {{#if selectedDeck}}
-        <h2>Selected Deck</h2>
-        {{> deck }}
+<template name="decks_mydecks">
+    <h3>My Decks</h3>
+    <ul>
+        {{#each mydecks}}
+            {{> decks_decklist_item }}
+        {{/each}}
+    </ul>
+
+</template>
+
+<template name="decks_decklist_item">
+    <li><a href="/browseDeck/{{_id}}">{{name}} (Created {{age}})</a></li>
+</template>
+
+<template name="decks_deckscraper">
+    <h3>Deck Scraper</h3>
+
+    {{#if loadingCards}}
+        Loading . . .
+    {{else}}
+
+        {{#with cards}}
+            {{> decks_cardList }}
+        {{/with}}
+
+        <form class="form-inline" role="form">
+            {{#if cards}}
+                {{!-- Save Deck --}}
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" id="deck-name" type="text" placeholder="Deck Name"/>
+                        <button class="btn btn-default form-control" id="save">Save Deck</button>
+                    </div>
+                </div>
+
+            {{else}}
+
+                {{!-- Load/Scrape Deck --}}
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" id="ld-tappedouturl" type="text" placeholder="deck-url-here"/>
+                        <button class="btn btn-default form-control" id="load">Scrape Deck</button>
+                    </div>
+                </div>
+
+            {{/if}}
+        </form>
+
+
     {{/if}}
 </template>
 
-<template name="deckName">
-    <li><a>{{name}}</a> <span>Created {{age}}</span></li>
-</template>
-
-<template name="deck">
-    {{#with selectedDeck}}
-        <h2>Deck: {{name}}</h2>
-        <h2>Origin: {{origin}}</h2>
-
-        <h2>Mainboard ( {{mainboardDeck.cardCount}} )</h2>
-        <ul>
-        {{#each mainboard}}
-            <li>{{quantity}} x {{card.name}}</li>
+<template name="decks_cardList">
+    <h4>Decklist (Don't forget to save)</h4>
+    <ul>
+        {{#each this}}
+            <li>{{quantity}} x {{name}}</li>
         {{/each}}
-        </ul>
-
-        {{#if mainboardDeck.creatureCount}}
-            <h3>creature ( {{mainboardDeck.creatureCount}} )</h3>
-            {{#each mainboardDeck.creature}}
-                {{> deckCard }}
-            {{/each}}
-        {{/if}}
-
-        {{#if mainboardDeck.instantCount}}
-            <h3>instant ( {{mainboardDeck.instantCount}} )</h3>
-            {{#each mainboardDeck.instant}}
-                {{> deckCard}}
-            {{/each}}
-        {{/if}}
-
-        {{#if mainboardDeck.sorceryCount}}
-            <h3>sorcery ( {{mainboardDeck.sorceryCount}} )</h3>
-            {{#each mainboardDeck.sorcery}}
-                {{> deckCard }}
-            {{/each}}
-        {{/if}}
-
-        {{#if mainboardDeck.landCount}}
-            <h3>land ( {{mainboardDeck.landCount}} )</h3>
-            {{#each mainboardDeck.land}}
-                {{> deckCard }}
-            {{/each}}
-        {{/if}}
-
-        {{#if mainboardDeck.artifactCount}}
-            <h3>artifact ( {{mainboardDeck.artifactCount}} )</h3>
-            {{#each mainboardDeck.artifact}}
-                {{> deckCard }}
-            {{/each}}
-        {{/if}}
-
-        {{#if mainboardDeck.enchantmentCount}}
-            <h3>enchantment ( {{mainboardDeck.enchantmentCount}} )</h3>
-            {{#each mainboardDeck.enchantment}}
-                {{> deckCard }}
-            {{/each}}
-        {{/if}}
-    {{/with}}
+    </ul>
 </template>
 
-<template name="deckCard">
-    {{quantity}} x {{card.name}},
-</template>
+<!--<template name="decks">-->
+    <!--<h2>Your Decks</h2>-->
+    <!--{{#each decks}}-->
+      <!--<ul>-->
+      <!--{{> deckName}}-->
+      <!--</ul>-->
+    <!--{{/each}}-->
+
+    <!--{{#if selectedDeck}}-->
+        <!--<h2>Selected Deck</h2>-->
+        <!--{{> deck }}-->
+    <!--{{/if}}-->
+<!--</template>-->
+
+<!--<template name="deckName">-->
+    <!--<li><a>{{name}}</a> <span>Created {{age}}</span></li>-->
+<!--</template>-->
+
+<!--<template name="deck">-->
+    <!--{{#with selectedDeck}}-->
+        <!--<h2>Deck: {{name}}</h2>-->
+        <!--<h2>Origin: {{origin}}</h2>-->
+
+        <!--<h2>Mainboard ( {{mainboardDeck.cardCount}} )</h2>-->
+        <!--<ul>-->
+        <!--{{#each mainboard}}-->
+            <!--<li>{{quantity}} x {{card.name}}</li>-->
+        <!--{{/each}}-->
+        <!--</ul>-->
+
+        <!--{{#if mainboardDeck.creatureCount}}-->
+            <!--<h3>creature ( {{mainboardDeck.creatureCount}} )</h3>-->
+            <!--{{#each mainboardDeck.creature}}-->
+                <!--{{> deckCard }}-->
+            <!--{{/each}}-->
+        <!--{{/if}}-->
+
+        <!--{{#if mainboardDeck.instantCount}}-->
+            <!--<h3>instant ( {{mainboardDeck.instantCount}} )</h3>-->
+            <!--{{#each mainboardDeck.instant}}-->
+                <!--{{> deckCard}}-->
+            <!--{{/each}}-->
+        <!--{{/if}}-->
+
+        <!--{{#if mainboardDeck.sorceryCount}}-->
+            <!--<h3>sorcery ( {{mainboardDeck.sorceryCount}} )</h3>-->
+            <!--{{#each mainboardDeck.sorcery}}-->
+                <!--{{> deckCard }}-->
+            <!--{{/each}}-->
+        <!--{{/if}}-->
+
+        <!--{{#if mainboardDeck.landCount}}-->
+            <!--<h3>land ( {{mainboardDeck.landCount}} )</h3>-->
+            <!--{{#each mainboardDeck.land}}-->
+                <!--{{> deckCard }}-->
+            <!--{{/each}}-->
+        <!--{{/if}}-->
+
+        <!--{{#if mainboardDeck.artifactCount}}-->
+            <!--<h3>artifact ( {{mainboardDeck.artifactCount}} )</h3>-->
+            <!--{{#each mainboardDeck.artifact}}-->
+                <!--{{> deckCard }}-->
+            <!--{{/each}}-->
+        <!--{{/if}}-->
+
+        <!--{{#if mainboardDeck.enchantmentCount}}-->
+            <!--<h3>enchantment ( {{mainboardDeck.enchantmentCount}} )</h3>-->
+            <!--{{#each mainboardDeck.enchantment}}-->
+                <!--{{> deckCard }}-->
+            <!--{{/each}}-->
+        <!--{{/if}}-->
+    <!--{{/with}}-->
+<!--</template>-->
+
+<!--<template name="deckCard">-->
+    <!--{{quantity}} x {{card.name}},-->
+<!--</template>-->
