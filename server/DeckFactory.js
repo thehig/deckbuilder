@@ -121,5 +121,8 @@ Meteor.methods({
             sideboard: sideboard,
             other: other
         });
+    },
+    deleteDeck: function(deckId){
+        Decks.remove({_id: deckId});
     }
 });

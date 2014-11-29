@@ -78,6 +78,11 @@ Template.decks_decklist_item.helpers({
 });
 
 
+Template.decks_decklist_item.events({
+    'click button': function(){
+        Meteor.call('deleteDeck', this._id);
+    }
+});
 
 
 
