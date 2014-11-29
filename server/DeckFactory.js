@@ -5,50 +5,6 @@ $ = Meteor.npmRequire('cheerio');
 Future = Meteor.npmRequire('fibers/future');
 
 
-/**
- * Look up a card by name with the mtgJsonDB API
- * @param cardName
- * @returns {*}
- */
-function apiLookup(cardName) {
-    if (!cardName) return {};
-
-    var sanitizedCardName = encodeURIComponent(cardName.replace(':', ''));
-    var myFuture = new Future();
-
-    var safeurl = "http://api.mtgdb.info/cards/" + sanitizedCardName;
-    Meteor.http.get(safeurl, function (error, result) {
-        if (error) {
-            myFuture.throw(error);
-        }
-
-        var parsedResult = parseMtgDbResponse(JSON.parse(result.content));
-        myFuture.return(parsedResult);
-    });
-
-    return myFuture.wait();
-}
-
-function parseMtgDbResponse(mtgDbCardResult){
-    var mtgCard = [-1, null];
-
-    if(mtgDbCardResult instanceof Array)
-    {
-        //Get the most recent printing of the card
-        mtgDbCardResult.forEach(function(cardPrinting){
-            if(cardPrinting.setNumber > mtgCard[0]){
-                mtgCard[0] = cardPrinting.setNumber;
-                mtgCard[1] = cardPrinting;
-            }
-        });
-
-        if(mtgCard[0] === -1){
-            return mtgDbCardResult[0];
-        }else{
-            return mtgCard[1];
-        }
-    }
-}
 
 
 
@@ -79,27 +35,36 @@ Meteor.methods({
 
         var apiCards = deck.cards.map(function(card){
 
-            var lookupCard = Cards.findOne({name: card.name});
-            var cardId = -1;
+            var lookupCard = Cards.findOne({name: card.name}),
+                cardId = -1;
 
             if(lookupCard) cardId = lookupCard._id;
             else{
+                //todo: Better error handling here
                 console.log("Creating card " + card.name);
-                Cards.insert(apiLookup(card.name));
-                cardId = Cards.findOne({name: card.name})._id;
+                var apiResult = apiLookup(card.name);
+                if(apiResult) Cards.insert(apiResult);
+                //String replace for (Turn / Burn) => (Turn // Burn)
+                var lookupResult = Cards.findOne({name: card.name.replace('/', '//')});
+
+                cardId = lookupResult ? lookupResult._id : -1;
             }
 
-            return {
-                card_id: cardId,
-                quantity: card.quantity,
-                board: card.board,
-                category: card.category
-            };
+            //Cards that can't be looked up will just be ignored for the moment
+            //Current issue card: 'Wear' from 'Wear // Tear' not having an individual mtgDbApi entry
+            if(cardId){
+                return {
+                    card_id: cardId,
+                    quantity: card.quantity,
+                    board: card.board,
+                    category: card.category
+                };
+            }
         });
 
-        var mainboard = [];//_(apiCards, {board: 'main'});
-        var sideboard = [];//_(apiCards, {board: 'side'});
-        var other = {};
+        var mainboard = [],
+            sideboard = [],
+            other = {};
 
         apiCards.forEach(function(apiCard){
             if(apiCard.board === 'main') mainboard.push(apiCard);
@@ -123,6 +88,69 @@ Meteor.methods({
         });
     },
     deleteDeck: function(deckId){
-        Decks.remove({_id: deckId});
+        Decks.remove({_id: deckId, createdBy: Meteor.userId()});
     }
 });
+
+
+
+/**
+ * Look up a card by name with the mtgJsonDB API
+ * @param cardName
+ * @returns {*}
+ */
+function apiLookup(cardName) {
+    if (!cardName) return {};
+
+    var sanitizedCardName = sanitizeCardName(cardName);
+    var myFuture = new Future();
+
+    var safeurl = "http://api.mtgdb.info/cards/" + sanitizedCardName;
+    Meteor.http.get(safeurl, function (error, result) {
+        if (error) {
+            myFuture.throw(error);
+        }
+
+        var parsedResult = parseMtgDbResponse(JSON.parse(result.content));
+        myFuture.return(parsedResult);
+    });
+
+    return myFuture.wait();
+}
+
+/**
+ * Clean up a name for api safe lookup
+ * Remove ':' symbol (Circle of protection: Red)
+ * Remove '/' symbol (Turn / Burn)
+ * @param cardName
+ * @returns {string}
+ */
+function sanitizeCardName(cardName){
+    return encodeURIComponent(cardName.replace(':', '').replace(' / ', ''));
+}
+
+/**
+ * When multiple cards (printings) are returned, always store the latest printing (highest set)
+ * @param mtgDbCardResult
+ * @returns {*}
+ */
+function parseMtgDbResponse(mtgDbCardResult){
+    var mtgCard = [-1, null];
+
+    if(mtgDbCardResult instanceof Array)
+    {
+        //Get the most recent printing of the card
+        mtgDbCardResult.forEach(function(cardPrinting){
+            if(cardPrinting.setNumber > mtgCard[0]){
+                mtgCard[0] = cardPrinting.setNumber;
+                mtgCard[1] = cardPrinting;
+            }
+        });
+
+        if(mtgCard[0] === -1){
+            return mtgDbCardResult[0];
+        }else{
+            return mtgCard[1];
+        }
+    }
+}

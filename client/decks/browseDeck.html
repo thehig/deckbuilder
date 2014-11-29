@@ -1,5 +1,5 @@
 <template name="browseDeck">
-    <h2>Deck: {{name}} ( {{mainboard_cardcount}} )</h2>
+    <h2>Deck: {{name}} ( {{mainboard_count}} )</h2>
     <h4>Origin: {{origin}} </h4>
     <h4>Imported By: {{creator}} {{age}}</h4>
 
@@ -15,7 +15,6 @@
           {{#with enchantment}} {{> browse_cardList}} {{/with}}
     {{#if artifact}} <h2>Artifacts ( {{artifact_count}} )</h2> {{/if}}
           {{#with artifact}} {{> browse_cardList}} {{/with}}
-
 </template>
 
 <!-- Display a list of provided cards (this) -->

@@ -6,9 +6,11 @@
 </template>
 
 
+
+
 <!-- List this users decks -->
 <template name="decks_mydecks">
-    <h3>My Decks</h3>
+    <h3>Decks</h3>
     <ul>
         {{#each mydecks}}
             {{> decks_decklist_item }}
@@ -19,9 +21,11 @@
 <!-- Display a single deck -->
 <template name="decks_decklist_item">
     <li>
-        <button type="button" class="btn btn-danger btn-sm">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-        </button>
+        {{#if isOwner}}
+            <button type="button" class="btn btn-danger btn-sm">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+        {{/if}}
         <a href="/browseDeck/{{_id}}">{{name}} (Created {{age}})</a>
     </li>
 </template>
