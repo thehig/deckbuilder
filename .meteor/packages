@@ -13,4 +13,5 @@ npm-container
 http
 mrt:moment
 mizzao:bootstrap-3
+mizzao:user-status
 

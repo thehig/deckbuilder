@@ -1,0 +1,54 @@
+<template name="game">
+    <h2>Games in progress:</h2>
+    {{>games_in_progress}}
+    <h2>Challenge an opponent:</h2>
+    {{>game_userlist}}
+</template>
+
+
+
+
+
+
+
+<template name="games_in_progress">
+    <ul>
+        {{#each game_in_progress}}
+            {{> game_status}}
+        {{/each}}
+    </ul>
+</template>
+
+<template name="game_status">
+    <li>
+        <!--<a href="/game/{{_id}}">-->
+        <span>Game between {{playerA}} and {{playerB}} (Last activity - {{last_activity}})</span>
+        <!--</a>-->
+    </li>
+</template>
+
+
+
+
+
+
+
+<template name="game_userlist">
+    Online:
+    <ul>
+        {{#each online_users}}
+            {{> game_user}}
+        {{/each}}
+    </ul>
+
+    Idle:
+    <ul>
+        {{#each idle_users}}
+            {{game_user}}
+        {{/each}}
+    </ul>
+</template>
+
+<template name="game_user">
+    <li>Name: <button>{{username}}</button></li>
+</template>

@@ -5,6 +5,8 @@ GameFactory.createGame = function(playerIds){
 
     return {
         created: new Date(),
+        lastActivity: new Date(),
+        inProgress: true,
         players: playerIds.map(function(id){return GameFactory.createPlayer(id)}),
         gameState: {
             turn: playerIds,
@@ -19,7 +21,7 @@ GameFactory.createGame = function(playerIds){
 };
 
 GameFactory.createPlayer = function (playerId){
-    var player = {
+    return {
         playerId: playerId,
         deckId: undefined,
         life: 20,
@@ -39,6 +41,9 @@ if(Meteor.isServer){
         createGame: function(otherPlayerId){
             var game = GameFactory.createGame([Meteor.userId(), otherPlayerId]);
             Games.insert(game);
+        },
+        deleteGame: function(gameId){
+            Games.remove({_id: gameId});
         }
     });
 }

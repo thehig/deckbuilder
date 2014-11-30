@@ -1,46 +1,46 @@
-<template name="build">
-  {{#if currentUser}}
-      <h2>Welcome to the Deck Builder</h2>
-    {{>loadDeck}}
-  {{/if}}
-</template>
+<!--<template name="build">-->
+  <!--{{#if currentUser}}-->
+      <!--<h2>Welcome to the Deck Builder</h2>-->
+    <!--{{>loadDeck}}-->
+  <!--{{/if}}-->
+<!--</template>-->
 
 
 
-<template name="loadDeck">
-  {{#if loadingCards}}
-      <h2>Loading . . .</h2>
-  {{else}}
+<!--<template name="loadDeck">-->
+  <!--{{#if loadingCards}}-->
+      <!--<h2>Loading . . .</h2>-->
+  <!--{{else}}-->
 
-    <form>
-        <h4>http://tappedout.net/mtg-decks/red-green-gatecrash-aggro/</h4>
-        <input id="ld-tappedouturl" type="text" placeholder="Tapped-Out Deck Url"/>
-        <button id="load"> Load . . . </button>
-    </form>
+    <!--<form>-->
+        <!--<h4>http://tappedout.net/mtg-decks/red-green-gatecrash-aggro/</h4>-->
+        <!--<input id="ld-tappedouturl" type="text" placeholder="Tapped-Out Deck Url"/>-->
+        <!--<button id="load"> Load . . . </button>-->
+    <!--</form>-->
 
-    {{#if cards}}
-        <form>
-            <input id="deck-name" type="text" placeholder="Deck Name"/>
-            <button id="save"> Save . . . </button>
-        </form>
-      {{> cardList }}
-    {{/if}}
+    <!--{{#if cards}}-->
+        <!--<form>-->
+            <!--<input id="deck-name" type="text" placeholder="Deck Name"/>-->
+            <!--<button id="save"> Save . . . </button>-->
+        <!--</form>-->
+      <!--{{> cardList }}-->
+    <!--{{/if}}-->
 
-  {{/if}}
-</template>
-
-
-<template name="cardList">
-  <h2>Card List ({{cards.length}})</h2>
-  {{#each cards}}
-    {{> card}}
-  {{/each}}
-</template>
+  <!--{{/if}}-->
+<!--</template>-->
 
 
-<template name="card">
-    <a href="http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid={{id}}">
-        <img src="http://mtgimage.com/card/{{name}}.jpg" alt="{{quantity}}"/>
-    </a>
-    <a href="http://api.mtgdb.info/cards/{{id}}">{{quantity}}</a>
-</template>
+<!--<template name="cardList">-->
+  <!--<h2>Card List ({{cards.length}})</h2>-->
+  <!--{{#each cards}}-->
+    <!--{{> card}}-->
+  <!--{{/each}}-->
+<!--</template>-->
+
+
+<!--<template name="card">-->
+    <!--<a href="http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid={{id}}">-->
+        <!--<img src="http://mtgimage.com/card/{{name}}.jpg" alt="{{quantity}}"/>-->
+    <!--</a>-->
+    <!--<a href="http://api.mtgdb.info/cards/{{id}}">{{quantity}}</a>-->
+<!--</template>-->
