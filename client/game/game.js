@@ -16,11 +16,11 @@ Template.game_status.helpers({
    }
 });
 
-Template.game_status.events({
-    'click': function(evt, template){
-        Meteor.call('deleteGame', template.data._id);
-    }
-});
+//Template.game_status.events({
+//    'click': function(evt, template){
+//        Meteor.call('deleteGame', template.data._id);
+//    }
+//});
 
 
 

@@ -1,0 +1,61 @@
+<template name="play">
+    <h2>Game in progress . . .</h2>
+
+    <h3>Players:</h3>
+    {{#each players}}
+      {{> play_player_details }}
+    {{/each}}
+
+    {{#with gameState}} {{> play_gamestate }} {{/with}}
+    {{> play_battlefield }}
+
+    {{#with activePlayer}}
+      {{> play_players_hand }}
+    {{/with}}
+</template>
+
+<template name="play_player_details">
+    <div class="player_details">
+        Player Details:  {{username}}
+        Life: {{life}}
+    </div>
+</template>
+
+<template name="play_gamestate">
+    <div class="gamestate">
+        <div class="phase">
+          Phase: {{phase}}
+        </div>
+
+        <div class="stack">
+            Stack:
+            {{#each stack}}
+              {{>play_card}}
+            {{/each}}
+        </div>
+    </div>
+</template>
+
+<template name="play_battlefield">
+    <div class="battlefield container-fluid">
+        Battlefield:
+        <div class="col-md-10">
+            <div class="row">Opponent Land</div>
+            <div class="row">Center</div>
+            <div class="row">Player Land</div>
+        </div>
+    </div>
+</template>
+
+<template name="play_players_hand">
+    <div class="hand">
+        Players Hand:
+        {{#each hand}}
+          {{this}}
+        {{/each}}
+    </div>
+</template>
+
+<template name="play_card">
+    <div class="card">Card!</div>
+</template>
