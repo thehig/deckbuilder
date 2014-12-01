@@ -24,4 +24,10 @@ if(Meteor.isClient){
     Meteor.subscribe('users');
     Meteor.subscribe('cards');
     Meteor.subscribe('games');
+
+    // At the bottom of the client code
+    Accounts.ui.config({
+        passwordSignupFields: "USERNAME_ONLY"
+    });
 }
+

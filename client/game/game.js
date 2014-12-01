@@ -5,11 +5,11 @@ Template.games_in_progress.helpers({
 Template.game_status.helpers({
    playerA: function() {
        if(this.players)
-        return Meteor.users.findOne({_id: this.players[0].playerId}).emails[0].address;
+        return Meteor.users.findOne({_id: this.players[0].playerId});
    },
    playerB: function() {
        if(this.players)
-        return Meteor.users.findOne({_id: this.players[1].playerId}).emails[0].address;
+        return Meteor.users.findOne({_id: this.players[1].playerId});
    },
    last_activity: function() {
         return moment(this.lastActivity).fromNow();
@@ -35,10 +35,6 @@ Template.game_userlist.helpers({
     idle_users: function(){ return Meteor.users.find({ "status.idle": true }); }
 });
 
-// A single user template
-Template.game_user.helpers({
-    username: function(){ return this.emails[0].address; }
-});
 
 Template.game_user.events({
     'click button': function(evt, template){
