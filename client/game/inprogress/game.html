@@ -2,28 +2,106 @@
 <template name="play">
     {{!-- Layout grid for this page --}}
     <!-- this : game -->
-    In Progress
-    {{#each players}}
-        {{#if me}}
-            {{> play_me_template }}
-        {{/if}}
-    {{/each}}
+
+    {{> play_layout}}
+
+
+    <!--<div class="play">
+        {{#each players}}
+            {{#if me}}
+                <div class="row">
+                    {{> play_hand}}
+                </div>
+            {{/if}}
+        {{/each}}
+        
+    </div>-->
+    
 </template>
 
-<template name="play_me_template">
-    <!-- this: player -->
-    <button>Draw Card</button>
-
-    <ul>
+<template name="play_hand">
+    {{!-- this : player --}}
+    <div class="col-md-12 play_fb_control play_hand">
         {{#each hand}}
-            <li>
-                {{> play_card}}
-            </li>
+            {{> play_card}}
         {{/each}}
-    </ul>
+    </div>
 </template>
 
 <template name="play_card">
     <!-- this: apiCard -->
     <img src="http://mtgimage.com/card/{{name}}.jpg">
+</template>
+
+
+
+
+
+
+<template name="play_layout">
+    <div class="container fill-vertical">
+        <div class="col-sm-2">
+            <div class="row">
+                <div class="col-sm-2 turnstate">
+                    <div class="upkeep">
+                        <div class="row phase text-center"><span class="{{#if state.untap}}play-phase-active{{/if}}">Ut</span></div> <!-- Untap -->
+                        <div class="row phase text-center"><span class="{{#if state.upkeep}}play-phase-active{{/if}}">Uk</span></div> <!-- Upkeep -->
+                        <div class="row phase text-center"><span class="{{#if state.draw}}play-phase-active{{/if}}">Dr</span></div> <!-- Draw -->
+                    </div>
+                    <div class="main">
+                        <div class="row phase text-center"><span class="{{#if state.main1}}play-phase-active{{/if}}">M1</span></div> <!-- Main 1 -->
+                    </div>
+                    <div class="combat">
+                        <div class="row phase text-center"><span class="{{#if state.combat}}play-phase-active{{/if}}">C</span></div> <!-- Combat -->
+                        <div class="row phase text-center"><span class="{{#if state.attackers}}play-phase-active{{/if}}">Da</span></div> <!-- Declare Attackers -->
+                        <div class="row phase text-center"><span class="{{#if state.blockers}}play-phase-active{{/if}}">Db</span></div> <!-- Declare Blockers -->
+                        <div class="row phase text-center"><span class="{{#if state.damage}}play-phase-active{{/if}}">Dmg</span></div> <!-- Damage -->
+                    </div>
+                    <div class="main">
+                        <div class="row phase text-center"><span class="{{#if state.main2}}play-phase-active{{/if}}">M2</span></div> <!-- Main 2 -->
+                    </div>
+                    <div class="end">
+                        <div class="row phase text-center"><span class="{{#if state.end}}play-phase-active{{/if}}">End</span></div> <!-- End -->
+                    </div>
+                </div>
+                <div class="col-sm-8 col-sm-offset-1">
+                    {{#each players}}
+                        {{> play_player_status }}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-10">
+            <div class="row land">Opponent Land</div>
+            <div class="row battlefield">Opponent Battlefield</div>
+            <div class="row battlefield">Player Battlefield</div>
+            <div class="row land">Player Land</div>
+
+            {{#if activePlayer}}
+                <div class="row hand">Player Hand</div>
+            {{/if}}
+        </div>
+    </div>
+</template>
+
+
+
+<template name="play_player_status">
+    <!-- this:: player -->
+
+    <div class="row">
+        <table class="table table-bordered table-hover">
+            <th colspan="3" class="text-center">{{username}} ({{hand.length}})</th>
+            <tr>
+                <td class="text-center"><button class="btn btn-danger">-</button></td>
+                <td class="text-center">{{life}}</td>
+                <td class="text-center"><button class="btn btn-success">+</button></td>
+            </tr>
+            <tr>
+                <td class="text-center">({{exile.length}})</td>
+                <td class="text-center">({{graveyard.length}})</td>
+                <td class="text-center">({{library.length}})</td>
+            </tr>
+        </table>
+    </div>
 </template>
