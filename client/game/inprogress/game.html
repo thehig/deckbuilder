@@ -22,7 +22,7 @@
 <!-- Main layout div for this page -->
 <template name="play_layout">
     <div class="container fill-vertical">
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <div class="row">
                 <div class="col-sm-2 turnstate">
                     <div class="upkeep">
@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-10">
+        <div class="col-sm-9">
             <div class="row land">Opponent Land</div>
             <div class="row battlefield">Opponent Battlefield</div>
             <div class="row battlefield">Player Battlefield</div>
@@ -91,18 +91,23 @@
     <!-- this:: player -->
 
     <div class="row">
-        <table class="table table-bordered table-hover">
-            <th colspan="3" class="text-center">{{username}} ({{hand.length}})</th>
-            <tr>
-                <td class="text-center"><button class="btn btn-xs btn-danger">-</button></td>
-                <td class="text-center">{{life}}</td>
-                <td class="text-center"><button class="btn btn-xs btn-success">+</button></td>
-            </tr>
-            <tr>
-                <td class="text-center">({{exile.length}})</td>
-                <td class="text-center">({{graveyard.length}})</td>
-                <td class="text-center">({{library.length}})</td>
-            </tr>
+        <table class="table table-bordered">
+            <thead>
+                <th colspan="3" class="text-center">{{username}} ({{hand.length}})</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center"><button class="btn btn-xs btn-danger">-</button></td>
+                    <td class="text-center">{{life}}</td>
+                    <td class="text-center"><button class="btn btn-xs btn-success">+</button></td>
+                </tr>
+                <tr>
+                    <td class="text-center">({{exile.length}})</td>
+                    <td class="text-center">({{graveyard.length}})</td>
+                    <td class="text-center">({{library.length}})</td>
+                </tr>
+            </tbody>
+
         </table>
     </div>
 </template>
