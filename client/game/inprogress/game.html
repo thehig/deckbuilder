@@ -1,32 +1,29 @@
 
-<template name="game_inprogress">
+<template name="play">
+    {{!-- Layout grid for this page --}}
     <!-- this : game -->
-
     In Progress
-
-
     {{#each players}}
         {{#if me}}
-            {{> meTemplate }}
+            {{> play_me_template }}
         {{/if}}
     {{/each}}
-
 </template>
 
-<template name="meTemplate">
+<template name="play_me_template">
+    <!-- this: player -->
     <button>Draw Card</button>
 
     <ul>
-
         {{#each hand}}
             <li>
                 {{> play_card}}
             </li>
         {{/each}}
     </ul>
-
 </template>
 
 <template name="play_card">
-    {{name}}
+    <!-- this: apiCard -->
+    <img src="http://mtgimage.com/card/{{name}}.jpg">
 </template>

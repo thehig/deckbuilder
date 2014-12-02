@@ -1,4 +1,4 @@
-Template.game_inprogress.helpers({
+Template.play.helpers({
    game: function(){
        console.log(this);
        return this;
@@ -8,7 +8,7 @@ Template.game_inprogress.helpers({
     }
 });
 
-Template.game_inprogress.events({
+Template.play.events({
    'click button': function(evt, template){
        //console.log("Draw Card");
        Meteor.call('drawCard', Session.get("currentGame")._id, function(error, result){
@@ -17,12 +17,12 @@ Template.game_inprogress.events({
    }
 });
 
-Template.meTemplate.helpers({
+Template.play_me_template.helpers({
     hand: function(){
         console.log(this);
         var hand = this.hand;
         return hand.map(function(card){
-            return Cards.findOne({_id: card})
+            return Cards.findOne({_id: card});
         });
     }
 });
