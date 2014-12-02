@@ -46,24 +46,24 @@
 
                 <div class="col-sm-2 turnstate">
                     <div class="upkeep">
-                        <div class="row phase text-center">Ut</div> <!-- Untap -->
-                        <div class="row phase text-center">Uk</div> <!-- Upkeep -->
-                        <div class="row phase text-center">Dr</div> <!-- Draw -->
+                        <div class="row phase text-center"><span class="{{#if state.untap}}play-phase-active{{/if}}">Ut</span></div> <!-- Untap -->
+                        <div class="row phase text-center"><span class="{{#if state.upkeep}}play-phase-active{{/if}}">Uk</span></div> <!-- Upkeep -->
+                        <div class="row phase text-center"><span class="{{#if state.draw}}play-phase-active{{/if}}">Dr</span></div> <!-- Draw -->
                     </div>
                     <div class="main">
-                        <div class="row phase text-center">M1</div> <!-- Main 1 -->
+                        <div class="row phase text-center"><span class="{{#if state.main1}}play-phase-active{{/if}}">M1</span></div> <!-- Main 1 -->
                     </div>
                     <div class="combat">
-                        <div class="row phase text-center">C</div> <!-- Combat -->
-                        <div class="row phase text-center">Da</div> <!-- Declare Attackers -->
-                        <div class="row phase text-center">Db</div> <!-- Declare Blockers -->
-                        <div class="row phase text-center">Dmg</div> <!-- Damage -->
+                        <div class="row phase text-center"><span class="{{#if state.combat}}play-phase-active{{/if}}">C</span></div> <!-- Combat -->
+                        <div class="row phase text-center"><span class="{{#if state.attackers}}play-phase-active{{/if}}">Da</span></div> <!-- Declare Attackers -->
+                        <div class="row phase text-center"><span class="{{#if state.blockers}}play-phase-active{{/if}}">Db</span></div> <!-- Declare Blockers -->
+                        <div class="row phase text-center"><span class="{{#if state.damage}}play-phase-active{{/if}}">Dmg</span></div> <!-- Damage -->
                     </div>
                     <div class="main">
-                        <div class="row phase text-center">M2</div> <!-- Main 2 -->
+                        <div class="row phase text-center"><span class="{{#if state.main2}}play-phase-active{{/if}}">M2</span></div> <!-- Main 2 -->
                     </div>
                     <div class="end">
-                        <div class="row phase text-center">End</div> <!-- End -->
+                        <div class="row phase text-center"><span class="{{#if state.end}}play-phase-active{{/if}}">End</span></div> <!-- End -->
                     </div>
                 </div>
 

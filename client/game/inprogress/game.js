@@ -33,3 +33,19 @@ Template.play_card.helpers({
     }
 });
 
+Template.play_layout.helpers({
+  state: function(){
+    return {
+      untap: true,
+      upkeep: false,
+      draw: false,
+      main1: false,
+      combat: false,
+      attackers: false,
+      blockers: false,
+      damage: false,
+      main2: false,
+      end: false,
+    }
+  }
+});

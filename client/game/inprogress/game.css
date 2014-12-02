@@ -49,18 +49,21 @@
 .phase {
     height: 50px;
     line-height: 50px;
-    margin-bottom: 8px;
     width: auto;
+    border-top: 1px solid;
+    border-right: 3px solid;
+    border-left: 3px solid;
 }
 
 .phase:last-child {
-    margin-bottom: 0px;
+    border-bottom: 3px solid;
+}
+.phase:first-child {
+    border-top: 3px solid;
 }
 
 .upkeep, .main, .combat, .end {
-    border: 1px solid #000;
-    width: auto;
-    display: block; 
+ 
 }
 
 .upkeep .phase {
@@ -77,4 +80,8 @@
 
 .end .phase {
     background: grey;
+}
+
+.play-phase-active {
+    color: red;
 }
