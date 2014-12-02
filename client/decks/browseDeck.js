@@ -23,7 +23,7 @@ Template.browseDeck.helpers({
     age: function(){ return moment(this.created).fromNow()},
     creator: function(){
         var user = Meteor.users.findOne({_id: this.createdBy});
-        if(user) return user.emails[0].address;
+        if(user) return user.username;
         return "Unknown";
     },
 

@@ -1,3 +1,4 @@
+/*
 .land {
     background: blue;
     height: 20%;
@@ -18,11 +19,15 @@
 }
 
 
-/*Phases*/
+*/
+/*Phases*//*
+
 .phase {
     height: 50px;
     margin-bottom: 8px;
-    /*width: 100%;*/
+    */
+/*width: 100%;*//*
+
 }
 
 .fill-horizontal {
@@ -32,15 +37,31 @@
 .fill-vertical {
     height: 750px;
 }
-/*.phase:last-child {*/
-    /*margin-bottom: 0px;*/
-/*}*/
+*/
+/*.phase:last-child {*//*
 
-/*.upkeep, .main, .combat, .end {*/
-    /*border: 1px solid #000;*/
-    /*width: 100%;*/
-    /*display: block;*/
-/*}*/
+    */
+/*margin-bottom: 0px;*//*
+
+*/
+/*}*//*
+
+
+*/
+/*.upkeep, .main, .combat, .end {*//*
+
+    */
+/*border: 1px solid #000;*//*
+
+    */
+/*width: 100%;*//*
+
+    */
+/*display: block;*//*
+
+*/
+/*}*//*
+
 
 .upkeep .phase {
     background: greenyellow;
@@ -57,3 +78,7 @@
 .end .phase {
     background: grey;
 }
+
+.ready {
+    background-color: green;
+}*/

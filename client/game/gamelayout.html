@@ -1,0 +1,104 @@
+
+<!-- Game destination without a parameter -->
+<template name="game">
+    <h3>Games:</h3>
+
+    <table>
+        <tr>
+            <th>Players</th>
+            <th>Last Activity</th>
+        </tr>
+
+        {{#each gamesInProgress}}
+          {{> game_row}}
+        {{/each}}
+    </table>
+
+    <h3>Players:</h3>
+
+    <ul>
+        {{#each usersOnline}}
+          <li>
+              {{> game_player_row }}
+          </li>
+        {{/each}}
+    </ul>
+</template>
+
+
+<template name="game_row">
+    <tr>
+        <td>{{players}}</td>
+        <td>{{lastActivity}}</td>
+    </tr>
+</template>
+
+<template name="game_player_row">
+    <!-- this: player -->
+    <button>{{username}}</button>
+</template>
+
+
+
+
+
+
+
+<!-- Game destination with a valid game parameter -->
+<template name="gamelayout">
+    <!-- this: game -->
+
+    {{#if inProgress}}
+      <!-- Show the game in progress -->
+      {{> game_inprogress }}
+    {{else}}
+      <!-- A game is not in progress, so it must be in pregame -->
+      {{> game_pregame }}
+    {{/if}}
+
+</template>
+
+<template name="game_inprogress">
+    <!-- this : game -->
+
+    {{#if game}}
+      Game
+    {{/if}}
+    In Progress
+</template>
+
+<template name="game_pregame">
+    <!-- this : game -->
+    <!-- Show Deck Selectors and Ready states -->
+
+  <ul>
+        {{#each players}}
+          <li>
+            {{> game_player_status }}
+          </li>
+        {{/each}}
+  </ul>
+
+    {{#if allPlayersReady}}
+      <button class="startGame">Start!</button>
+    {{/if}}
+
+</template>
+
+<template name="game_player_status">
+    <!-- this : player -->
+  {{#if mine}}
+    {{username}} : {{>game_deckselector_dropdown}} : <button class="{{#if ready}}ready{{/if}}">Ready {{#unless ready}}?{{/unless}}</button>
+  {{else}}
+    {{username}} : {{deckname}}{{#if ready}} : READY{{/if}}
+  {{/if}}
+</template>
+
+<template name="game_deckselector_dropdown">
+    <select>
+        <option>Choose a deck</option>
+        {{#each decks}}
+          <option>{{name}}</option>
+        {{/each}}
+    </select>
+</template>

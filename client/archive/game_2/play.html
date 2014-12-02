@@ -1,4 +1,10 @@
-<template name="play">
+<!--
+
+
+
+
+
+<template name="play_wip">
     <div class="container-fluid fill-vertical">
         <div class="col-sm-2">
             <div class="row">
@@ -6,24 +12,24 @@
 
                 <div class="col-sm-2 turnstate">
                     <div class="upkeep">
-                        <div class="row phase text-center">Ut</div> <!-- Untap -->
-                        <div class="row phase text-center">Uk</div> <!-- Upkeep -->
-                        <div class="row phase text-center">Dr</div> <!-- Draw -->
+                        <div class="row phase text-center">Ut</div> &lt;!&ndash; Untap &ndash;&gt;
+                        <div class="row phase text-center">Uk</div> &lt;!&ndash; Upkeep &ndash;&gt;
+                        <div class="row phase text-center">Dr</div> &lt;!&ndash; Draw &ndash;&gt;
                     </div>
                     <div class="main">
-                        <div class="row phase text-center">M1</div> <!-- Main 1 -->
+                        <div class="row phase text-center">M1</div> &lt;!&ndash; Main 1 &ndash;&gt;
                     </div>
                     <div class="combat">
-                        <div class="row phase text-center">C</div> <!-- Combat -->
-                        <div class="row phase text-center">Da</div> <!-- Declare Attackers -->
-                        <div class="row phase text-center">Db</div> <!-- Declare Blockers -->
-                        <div class="row phase text-center">Dmg</div> <!-- Damage -->
+                        <div class="row phase text-center">C</div> &lt;!&ndash; Combat &ndash;&gt;
+                        <div class="row phase text-center">Da</div> &lt;!&ndash; Declare Attackers &ndash;&gt;
+                        <div class="row phase text-center">Db</div> &lt;!&ndash; Declare Blockers &ndash;&gt;
+                        <div class="row phase text-center">Dmg</div> &lt;!&ndash; Damage &ndash;&gt;
                     </div>
                     <div class="main">
-                        <div class="row phase text-center">M2</div> <!-- Main 2 -->
+                        <div class="row phase text-center">M2</div> &lt;!&ndash; Main 2 &ndash;&gt;
                     </div>
                     <div class="end">
-                        <div class="row phase text-center">End</div> <!-- End -->
+                        <div class="row phase text-center">End</div> &lt;!&ndash; End &ndash;&gt;
                     </div>
                 </div>
 
@@ -59,13 +65,59 @@
 
 
 
+<template name="play_deckselector_temp">
+    {{#if selectedDeck}}
+        <h3>Selected Deck</h3>
+        {{selectedDeck.name}}
+    {{/if}}
+
+    <h3>Deck Selector</h3>
+    <select>
+        {{#each decks}}
+            <option>{{name}}</option>
+        {{/each}}
+    </select>
+
+    {{#each players}}
+        {{> player_ready_indicator }}
+        &lt;!&ndash;<button class="{{#if ready}}ready{{/if}}">Ready</button>&ndash;&gt;
+    {{/each}}
+
+
+
+    &lt;!&ndash;<ul>&ndash;&gt;
+        &lt;!&ndash;{{#each decks}}&ndash;&gt;
+            &lt;!&ndash;{{>deck_listitem}}&ndash;&gt;
+        &lt;!&ndash;{{/each}}&ndash;&gt;
+    &lt;!&ndash;</ul>&ndash;&gt;
+</template>
+
+<template name="player_ready_indicator">
+    {{#if ready}}READY{{/if}}
+
+    <button class="{{#if ready}}ready{{/if}}">Ready</button>
+</template>
+
+
+<template name="deck_listitem">
+    <li>
+        <a href="/browseDeck/{{_id}}">{{name}} (Created {{age}})</a>
+        <button>Select</button>
+    </li>
+</template>
 
 
 
 
 
 
-<template name="play_temp">
+
+
+
+
+
+
+<template name="play_gameInProgress">
     <h2>Game in progress . . .</h2>
 
     <h3>Players:</h3>
@@ -125,4 +177,4 @@
 
 <template name="play_card">
     <div class="card">Card!</div>
-</template>
+</template>-->
