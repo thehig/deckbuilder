@@ -17,7 +17,7 @@ Template.play.events({
    }
 });
 
-Template.play_me_template.helpers({
+Template.play_hand.helpers({
     hand: function(){
         console.log(this);
         var hand = this.hand;

@@ -1,0 +1,25 @@
+.play {
+	background: red;
+	height: 500px;
+}
+
+.play_fb_control {
+	display: flex;
+	height: 120px;
+} 
+.play_hand {
+	background: olive;
+}
+.play_hand img {
+	height: 100px;
+	width: auto;
+	-webkit-transition: all 0.3 ease;
+	   -moz-transition: all 0.3 ease;
+	    -ms-transition: all 0.3 ease;
+	     -o-transition: all 0.3 ease;
+	        transition: all 0.3 ease;
+}
+
+.play_hand img:hover {
+	height: 120px;
+}

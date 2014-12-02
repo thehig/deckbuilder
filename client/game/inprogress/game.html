@@ -1,17 +1,24 @@
 
 <template name="play">
+
+    <div class="play">
+        {{#each players}}
+            {{#if me}}
+                <div class="row">
+                    {{> play_hand}}
+                </div>
+            {{/if}}
+        {{/each}}
+        
+    </div>
     {{!-- Layout grid for this page --}}
     <!-- this : game -->
-    In Progress
-    {{#each players}}
-        {{#if me}}
-            {{> play_me_template }}
-        {{/if}}
-    {{/each}}
+   {{!--  In Progress
+     --}}
 </template>
 
-<template name="play_me_template">
-    <!-- this: player -->
+<!-- <template name="play_me_template">
+    this: player
     <button>Draw Card</button>
 
     <ul>
@@ -22,8 +29,17 @@
         {{/each}}
     </ul>
 </template>
-
+ -->
 <template name="play_card">
     <!-- this: apiCard -->
     <img src="http://mtgimage.com/card/{{name}}.jpg">
+</template>
+
+
+<template name="play_hand">
+    <div class="col-md-12 play_fb_control play_hand">
+        {{#each hand}}
+            {{> play_card}}
+        {{/each}}
+    </div>
 </template>
