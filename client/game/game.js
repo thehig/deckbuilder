@@ -102,7 +102,7 @@ Template.game_row.helpers({
         //Iterate through the players, look them up and return their usernames
         return this.players.map(function(player){
             return Meteor.users.findOne({_id: player.playerId}).username
-        }).join(',');
+        }).join(' vs ');
     },
     lastActivity: function(){
         return moment(this.lastActivity).fromNow();
@@ -120,6 +120,40 @@ Template.game_player_row.events({
         Meteor.call('createGame', template.data._id);
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
