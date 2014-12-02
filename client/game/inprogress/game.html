@@ -14,30 +14,12 @@
                 </div>
             {{/if}}
         {{/each}}
-        
+
     </div>-->
-    
+
 </template>
 
-<template name="play_hand">
-    {{!-- this : player --}}
-    <div class="col-md-12 play_fb_control play_hand">
-        {{#each hand}}
-            {{> play_card}}
-        {{/each}}
-    </div>
-</template>
-
-<template name="play_card">
-    <!-- this: apiCard -->
-    <img src="http://mtgimage.com/card/{{name}}.jpg">
-</template>
-
-
-
-
-
-
+<!-- Main layout div for this page -->
 <template name="play_layout">
     <div class="container fill-vertical">
         <div class="col-sm-2">
@@ -78,14 +60,33 @@
             <div class="row land">Player Land</div>
 
             {{#if activePlayer}}
-                <div class="row hand">Player Hand</div>
+                {{> play_hand}}
             {{/if}}
         </div>
     </div>
 </template>
 
+<!-- Displays a players hand -->
+<template name="play_hand">
+    {{!-- this : game --}}
+    <div class="row play_hand">
+        <div class="col-md-12 play_fb_control">
+            {{#each cardsInHand}}
+                {{> play_card}}
+            {{/each}}
+        </div>
+    </div>
+  
+</template>
+
+<!-- Displays a single card image -->
+<template name="play_card">
+    <!-- this: apiCard -->
+    <img src="http://mtgimage.com/card/{{card.name}}.jpg">
+</template>
 
 
+<!-- Shows players health/status table -->
 <template name="play_player_status">
     <!-- this:: player -->
 
@@ -93,9 +94,9 @@
         <table class="table table-bordered table-hover">
             <th colspan="3" class="text-center">{{username}} ({{hand.length}})</th>
             <tr>
-                <td class="text-center"><button class="btn btn-danger">-</button></td>
+                <td class="text-center"><button class="btn btn-xs btn-danger">-</button></td>
                 <td class="text-center">{{life}}</td>
-                <td class="text-center"><button class="btn btn-success">+</button></td>
+                <td class="text-center"><button class="btn btn-xs btn-success">+</button></td>
             </tr>
             <tr>
                 <td class="text-center">({{exile.length}})</td>
