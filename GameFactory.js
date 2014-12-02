@@ -52,6 +52,41 @@ if(Meteor.isServer){
             //console.log(JSON.stringify(game));
             game.lastActivity = new Date();
             Games.update({_id: game._id}, game);
+        },
+        startGame: function(gameId){
+            var game = Games.findOne({_id: gameId});
+            if(game){
+                game.players.forEach(function(player){
+                    var deck = Decks.findOne({_id: player.deckId});
+                    if(!deck){ return; }
+
+                    var cards = [];
+                    deck.mainboard.forEach(function(card){
+                       for(var i = 0; i < card.quantity; i++){
+                           cards.push(card.card_id);
+                       }
+                    });
+
+                    player.library = _.shuffle(cards);
+                });
+                game.inProgress = true;
+                Games.update({_id: game._id}, game);
+            }
+        },
+        drawCard: function(gameId){
+            var game = Games.findOne({_id: gameId});
+            if(game) {
+                var updated = false;
+                game.players.forEach(function(player){
+                    if(player.playerId === Meteor.userId()){
+                        var card = player.library.pop();
+                        //console.log(card);
+                        player.hand.push(card);
+                        updated = true;
+                    }
+                });
+                if(updated) Games.update({_id: game._id}, game);
+            }
         }
     });
 }

@@ -49,8 +49,7 @@ Template.game_pregame.helpers({
 Template.game_pregame.events({
     'click .startGame': function(evt, template){
         var game = Session.get('currentGame');
-        game.inProgress = true;
-        Meteor.call('updateGame', game);
+        Meteor.call('startGame', game._id);
     }
 });
 

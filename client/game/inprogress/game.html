@@ -1,0 +1,32 @@
+
+<template name="game_inprogress">
+    <!-- this : game -->
+
+    In Progress
+
+
+    {{#each players}}
+        {{#if me}}
+            {{> meTemplate }}
+        {{/if}}
+    {{/each}}
+
+</template>
+
+<template name="meTemplate">
+    <button>Draw Card</button>
+
+    <ul>
+
+        {{#each hand}}
+            <li>
+                {{> play_card}}
+            </li>
+        {{/each}}
+    </ul>
+
+</template>
+
+<template name="play_card">
+    {{name}}
+</template>
