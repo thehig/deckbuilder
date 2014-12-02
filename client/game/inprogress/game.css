@@ -85,3 +85,20 @@
 .play-phase-active {
     color: red;
 }
+
+
+
+
+.debug-orange {
+    background-color: orange;
+    height: 190px;
+}
+
+.debug-green {
+    background-color: green;
+}
+
+.debug-yellow {
+    background-color: yellow;
+    height: 30px;
+}

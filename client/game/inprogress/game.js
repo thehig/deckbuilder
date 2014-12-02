@@ -47,5 +47,12 @@ Template.play_layout.helpers({
       main2: false,
       end: false,
     }
-  }
+  },
+    players: function(){
+        return Session.get('currentGame').players;
+    }
+});
+
+Template.play_player_status.helpers({
+    username: function(){ console.log(this); return Meteor.users.findOne({_id: this.playerId}).username; }
 });
