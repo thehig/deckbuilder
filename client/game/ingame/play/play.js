@@ -17,14 +17,16 @@ Template.play_hand.helpers({
         //      but these cursors are not unique (multiples of each card are possible)
         //      Wrapping this card inside an object hides its' _id from the template
         //      which in turn removes the error
-
-        return player ? player.hand.slice(0).map(function(card){
-            return { card: Cards.findOne({_id: card.cardId}) };
-        }) : [];
+        return player.hand.map(function(card){
+            return { card: Cards.findOne({_id: card}) };
+        });
     }
 });
 
-Template.play_card.helpers({
+Template.play_card.events({
+    'click img': function(evt, template){
+        Meteor.call('playCard', [Session.get('currentGame')._id, this.card._id]);
+    }
 });
 
 Template.play_layout.helpers({

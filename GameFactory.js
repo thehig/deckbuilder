@@ -69,6 +69,21 @@ if(Meteor.isServer){
 
             res.me.life--;
             utils.server.update(res.game);
+        },
+        playCard: function(ids){
+            if(ids.length !== 2) return;
+            var gameId = ids[0],
+                cardId = ids[1];
+
+            var res = utils.server.lookup(gameId);
+            if(!res.me) return;
+
+            var index = res.me.hand.indexOf(cardId);
+            if(index > -1){
+                res.me.hand.splice(index, 1);
+                res.game.gameState.stack.push(utils.datastructures.createbattlefieldcard(cardId));
+                utils.server.update(res.game);
+            }
         }
     });
 }
