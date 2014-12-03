@@ -1,0 +1,43 @@
+
+<!-- Game destination without a parameter -->
+<template name="gameselector">
+    <!-- this: undefined -->
+    <h3>Games:</h3>
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Players</th>
+                <th>Last Activity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each gamesInProgress}}
+                {{> gameselector_game_row}}
+            {{/each}}
+        </tbody>
+    </table>
+
+    <h3>Players:</h3>
+
+    <ul class="game-player-row">
+        {{#each usersOnline}}
+          <li>
+              {{> gameselector_player_row }}
+          </li>
+        {{/each}}
+    </ul>
+</template>
+
+<template name="gameselector_game_row">
+    <!-- this: game -->
+    <tr>
+        <td>{{players}}</td>
+        <td>{{lastActivity}}</td>
+    </tr>
+</template>
+
+<template name="gameselector_player_row">
+    <!-- this: player -->
+    <button class="btn btn-default btn-small">{{username}}</button>
+</template>

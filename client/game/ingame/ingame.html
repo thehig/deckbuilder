@@ -1,0 +1,11 @@
+<!-- Game destination with a valid game parameter -->
+<template name="game">
+    <!-- this: game -->
+
+  {{#if inProgress}}
+    {{> play }}
+  {{else}}
+    {{> pregame }}
+  {{/if}}
+
+</template>

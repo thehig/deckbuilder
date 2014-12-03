@@ -1,0 +1,62 @@
+
+<template name="pregame">
+    <!-- this : game -->
+    <!-- Show Deck Selectors and Ready states -->
+    {{#each players}}
+        {{> pregame_player_status }}
+    {{/each}}
+
+
+    <div class="row">
+        <button class="btn btn-block
+            {{#if allPlayersReady}}
+                btn-success startGame
+            {{else}}
+                btn-disabled
+            {{/if}}">
+            Start!
+        </button>
+    </div>
+</template>
+
+
+<template name="pregame_player_status">
+    <!-- this: player -->
+    <div class="row pregame-player-status">
+        <div class="col-xs-3"><span class="vcenter">{{username}}</span></div>
+
+        <div class="col-xs-3">
+            {{#if mine}}
+                {{> pregame_deckdropdown}}
+            {{/if}}
+        </div>
+
+        <div class="col-xs-3 ">{{deckname}}</div>
+        <div class="col-xs-3">
+            <button
+                    class="btn
+                    {{#if mine}} btn-action-ready btn-default
+                        {{else}}btn-disabled
+                    {{/if}}
+                        {{#if ready}} btn-success
+                    {{/if}}">
+                Ready
+            </button>
+        </div>
+    </div>
+</template>
+
+<template name="pregame_deckdropdown">
+    <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+            Choose a deck <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu" role="menu">
+            {{#each decks}}
+                <li class="game-dc-dropdown-item" role="presentation"><a role="menuitem" tabindex="-1" href="#">{{name}}</a></li>
+            {{/each}}
+        </ul>
+
+    </div>
+</template>
