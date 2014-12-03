@@ -1,11 +1,19 @@
 .layout-header, .layout-sidebar, .layout-main, .layout-footer {
-    border: solid 1px #000;
+    
     /*margin: 0;*/
     /*padding: 0;*/
     background: #ececec;
 }
 
+.layout {
+	height: 100vh;
+}
+
+.layout-footer {
+    height: 3vh;	
+}
+
 .layout-sidebar, .layout-main {
-    height: 768px;
+    height: 88vh;
     overflow-y:  auto;
 }
