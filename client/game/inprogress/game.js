@@ -18,41 +18,43 @@ Template.play.events({
 });
 
 Template.play_hand.helpers({
-    hand: function(){
-        console.log(this);
-        var hand = this.hand;
-        return hand.map(function(card){
-            return Cards.findOne({_id: card});
+    cardsInHand: function(){
+        var player = _.find(this.players, function(player){ return player.playerId === Meteor.userId()});
+        return player.hand.map(function(cardId){
+            return {
+                card: Cards.findOne({_id: cardId}),
+                tapped: false
+            };
         });
     }
 });
 
 Template.play_card.helpers({
-    card: function(){
-        console.log(this);
-    }
 });
 
 Template.play_layout.helpers({
-  state: function(){
-    return {
-      untap: true,
-      upkeep: false,
-      draw: false,
-      main1: false,
-      combat: false,
-      attackers: false,
-      blockers: false,
-      damage: false,
-      main2: false,
-      end: false,
-    }
-  },
-    players: function(){
+    state: function () {
+        return {
+            untap: true,
+            upkeep: false,
+            draw: false,
+            main1: false,
+            combat: false,
+            attackers: false,
+            blockers: false,
+            damage: false,
+            main2: false,
+            end: false
+        }
+    },
+    players: function () {
         return Session.get('currentGame').players;
+    },
+    activePlayer: function () {
+        if (this.players) return _.findWhere(this.players, {playerId: Meteor.userId()});
     }
 });
 
 Template.play_player_status.helpers({
-    username: function(){ console.log(this); return Meteor.users.findOne({_id: this.playerId}).username; }
+    username: function(){ return Meteor.users.findOne({_id: this.playerId}).username; }
 });

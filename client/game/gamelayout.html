@@ -3,20 +3,23 @@
 <template name="game">
     <h3>Games:</h3>
 
-    <table>
-        <tr>
-            <th>Players</th>
-            <th>Last Activity</th>
-        </tr>
-
-        {{#each gamesInProgress}}
-          {{> game_row}}
-        {{/each}}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Players</th>
+                <th>Last Activity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each gamesInProgress}}
+                {{> game_row}}
+            {{/each}}
+        </tbody>
     </table>
 
     <h3>Players:</h3>
 
-    <ul>
+    <ul class="game-player-row">
         {{#each usersOnline}}
           <li>
               {{> game_player_row }}
@@ -24,7 +27,6 @@
         {{/each}}
     </ul>
 </template>
-
 
 <template name="game_row">
     <tr>
@@ -35,7 +37,7 @@
 
 <template name="game_player_row">
     <!-- this: player -->
-    <button>{{username}}</button>
+    <button class="btn btn-default btn-small">{{username}}</button>
 </template>
 
 
@@ -61,20 +63,67 @@
 <template name="game_pregame">
     <!-- this : game -->
     <!-- Show Deck Selectors and Ready states -->
+    {{#each players}}
+        {{> game_pregame_player_status }}
+    {{/each}}
 
-  <ul>
-        {{#each players}}
-          <li>
-            {{> game_player_status }}
-          </li>
-        {{/each}}
-  </ul>
-
-    {{#if allPlayersReady}}
-      <button class="startGame">Start!</button>
-    {{/if}}
+    
+    <div class="row">
+      <button class="btn btn-block
+            {{#if allPlayersReady}}
+                btn-success startGame
+            {{else}}
+                btn-disabled
+            {{/if}}">
+        Start!
+      </button>
+    </div>
+    
 
 </template>
+
+
+<template name="game_pregame_player_status">
+    <!-- this: player -->
+    <div class="row pregame-player-status">
+        <div class="col-xs-3"><span class="vcenter">{{username}}</span></div>
+
+        <div class="col-xs-3">
+        {{#if mine}}
+            {{> game_dc_dropdown}}
+        {{/if}}
+        </div>
+
+        <div class="col-xs-3 ">{{deckname}}</div>
+        <div class="col-xs-3">
+            <button 
+                class="btn 
+                    {{#if mine}} btn-action-ready btn-default
+                        {{else}}btn-disabled
+                    {{/if}} 
+                    {{#if ready}} btn-success
+                    {{/if}}">
+                Ready
+            </button>
+        </div>
+    </div>
+</template>
+
+<template name="game_dc_dropdown">
+    <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+            Choose a deck <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu" role="menu">
+            {{#each decks}}
+                <li class="game-dc-dropdown-item" role="presentation"><a role="menuitem" tabindex="-1" href="#">{{name}}</a></li>
+            {{/each}}
+        </ul>
+
+    </div>
+</template>
+
 
 <template name="game_player_status">
     <!-- this : player -->

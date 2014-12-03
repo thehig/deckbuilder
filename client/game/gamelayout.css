@@ -1,0 +1,14 @@
+.pregame-player-status {
+	margin-top: 4px;
+	margin-bottom: 4px;
+	height: 3em;
+	line-height: 3em;
+	border-bottom: 1px solid;
+}
+
+.game-player-row
+{
+	list-style-type: none;
+	padding:0;
+	margin:0;
+}
