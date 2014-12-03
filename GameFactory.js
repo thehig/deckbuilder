@@ -41,16 +41,16 @@ GameFactory.createPlayer = function (playerId){
 
 if(Meteor.isServer){
     Meteor.methods({
+        /*deleteGame: function(gameId){
+         Games.remove({_id: gameId});
+         },
+         updateGame: function(game){
+         game.lastActivity = new Date();
+         Games.update({_id: game._id}, game);
+         },*/
         createGame: function(otherPlayerId){
             console.log("Creating game");
             Games.insert(GameFactory.createGame([Meteor.userId(), otherPlayerId]));
-        },
-        deleteGame: function(gameId){
-            Games.remove({_id: gameId});
-        },
-        updateGame: function(game){
-            game.lastActivity = new Date();
-            Games.update({_id: game._id}, game);
         },
         startGame: function(gameId){
             var game = Games.findOne({_id: gameId});
@@ -73,20 +73,29 @@ if(Meteor.isServer){
             }
         },
         drawCard: function(gameId){
-            var game = Games.findOne({_id: gameId});
-            if(game) {
-                var updated = false;
-                game.players.forEach(function(player){
-                    if(player.playerId === Meteor.userId()){
-                        if(player.library.length > 0){
-                            var card = player.library.pop();
-                            player.hand.push(card);
-                            updated = true;
-                        }
-                    }
-                });
-                if(updated) Games.update({_id: game._id}, game);
-            }
+            var res = utils.server.lookup(gameId);
+            if(!res || !res.me || res.me.library.length <= 0) return;
+
+            res.me.hand.push(res.me.library.pop());
+            utils.server.update(res);
+        },
+        playerReady: function(gameId){
+            var res = utils.server.lookup(gameId);
+            if(!res.me) return;
+
+            res.me.ready = !res.me.ready;
+            utils.server.update(res);
+        },
+        chooseDeck: function(ids){
+            if(ids.length !== 2) return;
+            var gameId = ids[0],
+                deckId = ids[1];
+
+            var res = utils.server.lookup(gameId);
+            if(!res.me) return;
+
+            res.me.deckId = deckId;
+            utils.server.update(res);
         }
     });
 }

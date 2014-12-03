@@ -21,53 +21,53 @@
 
 <!-- Main layout div for this page -->
 <template name="play_layout">
-    <div class="container fill-vertical">
-        <div class="col-sm-3">
-            <div class="row">
-                <div class="col-sm-2 turnstate">
-                    <div class="btn-group-vertical" role="group">
 
-                        <!--<div class="btn-group">-->
-                            <div class="btn-turnstate-action btn btn-default {{#if state.untap}}btn-success      {{else}} btn-disabled{{/if}}">Ut</div>
-                            <div class="btn-turnstate-action btn btn-default {{#if state.upkeep}}btn-success     {{else}} btn-disabled{{/if}}">Uk</div>
-                            <div class="btn-turnstate-action btn btn-default {{#if state.draw}}btn-success       {{else}} btn-disabled{{/if}}">Dr</div>
-                        <!--</div>-->
+    <div class="col-md-2">
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="btn-group-vertical" role="group">
 
-                        <!--<div class="btn-group">-->
-                            <div class="btn-turnstate-action btn btn-default {{#if state.main1}}btn-primary      {{else}} btn-disabled{{/if}}">M1</div>
-                        <!--</div>-->
-                        <!--<div class="btn-group">-->
-                            <div class="btn-turnstate-action btn btn-default {{#if state.combat}}btn-danger      {{else}} btn-disabled{{/if}}">Cb</div>
-                            <div class="btn-turnstate-action btn btn-default {{#if state.attackers}}btn-danger   {{else}} btn-disabled{{/if}}">Da</div>
-                            <div class="btn-turnstate-action btn btn-default {{#if state.blockers}}btn-danger    {{else}} btn-disabled{{/if}}">Db</div>
-                            <div class="btn-turnstate-action btn btn-default {{#if state.damage}}btn-danger      {{else}} btn-disabled{{/if}}">Dmg</div>
-                        <!--</div>-->
-                        <!--<div class="btn-group">-->
-                            <div class="btn-turnstate-action btn btn-default {{#if state.main2}}btn-primary      {{else}} btn-disabled{{/if}}">M2</div>
-                        <!--</div>-->
-                        <!--<div class="btn-group">-->
-                            <div class="btn-turnstate-action btn btn-default {{#if state.end}}btn-warning        {{else}} btn-disabled{{/if}}">End</div>
-                        <!--</div>-->
-                    </div>
+                    <!--<div class="btn-group">-->
+                    <div class="btn-turnstate-action btn btn-default {{#if state.untap}}btn-success      {{else}} btn-disabled{{/if}}">Ut</div>
+                    <div class="btn-turnstate-action btn btn-default {{#if state.upkeep}}btn-success     {{else}} btn-disabled{{/if}}">Uk</div>
+                    <div class="btn-turnstate-action btn btn-default {{#if state.draw}}btn-success       {{else}} btn-disabled{{/if}}">Dr</div>
+                    <!--</div>-->
 
-                </div>
-                <div class="col-sm-8 col-sm-offset-1">
-                    {{#each players}}
-                        {{> play_player_status }}
-                    {{/each}}
+                    <!--<div class="btn-group">-->
+                    <div class="btn-turnstate-action btn btn-default {{#if state.main1}}btn-primary      {{else}} btn-disabled{{/if}}">M1</div>
+                    <!--</div>-->
+                    <!--<div class="btn-group">-->
+                    <div class="btn-turnstate-action btn btn-default {{#if state.combat}}btn-danger      {{else}} btn-disabled{{/if}}">Cb</div>
+                    <div class="btn-turnstate-action btn btn-default {{#if state.attackers}}btn-danger   {{else}} btn-disabled{{/if}}">Da</div>
+                    <div class="btn-turnstate-action btn btn-default {{#if state.blockers}}btn-danger    {{else}} btn-disabled{{/if}}">Db</div>
+                    <div class="btn-turnstate-action btn btn-default {{#if state.damage}}btn-danger      {{else}} btn-disabled{{/if}}">Dmg</div>
+                    <!--</div>-->
+                    <!--<div class="btn-group">-->
+                    <div class="btn-turnstate-action btn btn-default {{#if state.main2}}btn-primary      {{else}} btn-disabled{{/if}}">M2</div>
+                    <!--</div>-->
+                    <!--<div class="btn-group">-->
+                    <div class="btn-turnstate-action btn btn-default {{#if state.end}}btn-warning        {{else}} btn-disabled{{/if}}">End</div>
+                    <!--</div>-->
                 </div>
             </div>
-        </div>
-        <div class="col-sm-9">
-            <div class="row land">Opponent Land</div>
-            <div class="row battlefield">Opponent Battlefield</div>
-            <div class="row battlefield">Player Battlefield</div>
-            <div class="row land">Player Land</div>
 
-            {{#if activePlayer}}
-                {{> play_hand}}
-            {{/if}}
+            <div class="col-xs-9">
+            {{#each players}}
+                {{> play_player_status }}
+            {{/each}}
+            </div>
         </div>
+    </div>
+
+    <div class="col-md-10">
+        <div class="row land">Opponent Land</div>
+        <div class="row battlefield">Opponent Battlefield</div>
+        <div class="row battlefield">Player Battlefield</div>
+        <div class="row land">Player Land</div>
+
+        {{#if activePlayer}}
+            {{> play_hand}}
+        {{/if}}
     </div>
 </template>
 
@@ -102,9 +102,9 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-center"><button class="btn btn-xs btn-danger">-</button></td>
+                    <td class="text-center"><button class="btn btn-block btn-danger">-</button></td>
                     <td class="text-center">{{life}}</td>
-                    <td class="text-center"><button class="btn btn-xs btn-success">+</button></td>
+                    <td class="text-center"><button class="btn btn-block btn-success">+</button></td>
                 </tr>
                 <tr>
                     <td class="text-center">({{exile.length}})</td>

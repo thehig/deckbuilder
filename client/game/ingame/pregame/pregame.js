@@ -21,23 +21,16 @@ Template.pregame.events({
 // Individual Player Table-Data
 Template.pregame_player_tabledata.helpers({
     mine: function(){return this.playerId === Meteor.userId();},
-    username: function(){return Meteor.users.findOne({_id: this.playerId}).username; },
+    username: function(){return utils.lookup.username(this.playerId);},
     deckname: function(){
-        var deck = Decks.findOne({_id: this.deckId});
-        return deck ? deck.name : "Undecided";
+        var deckname = utils.lookup.deckname(this.deckId);
+        return deckname ? deckname : "Undecided";
     }
 });
 Template.pregame_player_tabledata.events({
     'click .btn-action-ready': function(evt, template){
         var game = Session.get('currentGame');
-        //var player = game.players.findOne({playerId: Meteor.userId()});
-        game.players.forEach(function(player){
-            if(player.playerId === Meteor.userId()){
-                player.ready = !player.ready;
-                Meteor.call('updateGame', game);
-                return;
-            }
-        });
+        Meteor.call('playerReady', game._id);
     }
 });
 
@@ -46,27 +39,15 @@ Template.pregame_player_tabledata.events({
 Template.pregame_deckdropdown.helpers({
     decks: function(){ return Decks.find(); },
     deckname: function() {
-        var deck = Decks.findOne({_id: this.deckId});
-        if(deck)
-            return deck.name;
-        return "Undecided";
+        var deckname = utils.lookup.deckname(this.deckId);
+        return deckname ? deckname : "Undecided";
     }
 });
 Template.pregame_deckdropdown.events({
     'click .game-dc-dropdown-item': function(evt, template){
-        var clickedDeckName = evt.target.innerText;
+        var clickedDeckName = $(evt.target).text();
         var deck = Decks.findOne({name: clickedDeckName});
-        //console.log(deck._id);
-        //Meteor.call('chooseDeck', deck._id);
-
         var game = Session.get('currentGame');
-        //var player = game.players.findOne({playerId: Meteor.userId()});
-        game.players.forEach(function(player){
-            if(player.playerId === Meteor.userId()){
-                player.deckId = deck._id;
-                Meteor.call('updateGame', game);
-                return;
-            }
-        });
+        Meteor.call('chooseDeck', [game._id, deck._id]);
     }
 });

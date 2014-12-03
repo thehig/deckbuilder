@@ -19,7 +19,7 @@ Template.play.events({
 
 Template.play_hand.helpers({
     cardsInHand: function(){
-        var player = _.find(this.players, function(player){ return player.playerId === Meteor.userId()});
+        var player = utils.game.me(this);
         return player.hand.map(function(cardId){
             return {
                 card: Cards.findOne({_id: cardId}),
@@ -54,7 +54,7 @@ Template.play_layout.helpers({
         return Session.get('currentGame').players;
     },
     activePlayer: function () {
-        if (this.players) return _.findWhere(this.players, {playerId: Meteor.userId()});
+        return utils.game.me(this);
     }
 });
 
@@ -103,5 +103,5 @@ Template.play_layout.events({
 });
 
 Template.play_player_status.helpers({
-    username: function(){ return Meteor.users.findOne({_id: this.playerId}).username; }
+    username: function(){ return utils.lookup.username(this.playerId); }
 });

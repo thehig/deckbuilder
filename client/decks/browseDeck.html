@@ -1,20 +1,22 @@
 <template name="browseDeck">
-    <h2>Deck: {{name}} ( {{mainboard_count}} )</h2>
-    <h4>Origin: {{origin}} </h4>
-    <h4>Imported By: {{creator}} {{age}}</h4>
+    <div class="col-md-8 col-md-offset-2">
+        <h2>Deck: {{name}} ( {{mainboard_count}} )</h2>
+        <h4>Origin: {{origin}} </h4>
+        <h4>Imported By: {{creator}} {{age}}</h4>
 
-    {{#if creature}} <h2>Creatures ( {{creature_count}} )</h2> {{/if}}
-          {{#with creature}} {{> browse_cardList}} {{/with}}
-    {{#if land}} <h2>Land ( {{land_count}} )</h2> {{/if}}
-          {{#with land}} {{> browse_cardList}} {{/with}}
-    {{#if instant}} <h2>Instants ( {{instant_count}} )</h2> {{/if}}
-          {{#with instant}} {{> browse_cardList}} {{/with}}
-    {{#if sorcery}} <h2>Sorceries ( {{sorcery_count}} )</h2> {{/if}}
-          {{#with sorcery}} {{> browse_cardList}} {{/with}}
-    {{#if enchantment}} <h2>Enchantments ( {{enchantment_count}} )</h2> {{/if}}
-          {{#with enchantment}} {{> browse_cardList}} {{/with}}
-    {{#if artifact}} <h2>Artifacts ( {{artifact_count}} )</h2> {{/if}}
-          {{#with artifact}} {{> browse_cardList}} {{/with}}
+        {{#if creature}} <h2>Creatures ( {{creature_count}} )</h2> {{/if}}
+              {{#with creature}} {{> browse_cardList}} {{/with}}
+        {{#if land}} <h2>Land ( {{land_count}} )</h2> {{/if}}
+              {{#with land}} {{> browse_cardList}} {{/with}}
+        {{#if instant}} <h2>Instants ( {{instant_count}} )</h2> {{/if}}
+              {{#with instant}} {{> browse_cardList}} {{/with}}
+        {{#if sorcery}} <h2>Sorceries ( {{sorcery_count}} )</h2> {{/if}}
+              {{#with sorcery}} {{> browse_cardList}} {{/with}}
+        {{#if enchantment}} <h2>Enchantments ( {{enchantment_count}} )</h2> {{/if}}
+              {{#with enchantment}} {{> browse_cardList}} {{/with}}
+        {{#if artifact}} <h2>Artifacts ( {{artifact_count}} )</h2> {{/if}}
+              {{#with artifact}} {{> browse_cardList}} {{/with}}
+    </div>
 </template>
 
 <!-- Display a list of provided cards (this) -->
