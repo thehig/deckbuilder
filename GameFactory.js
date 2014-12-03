@@ -26,6 +26,7 @@ GameFactory.createPlayer = function (playerId){
         playerId: playerId,
         ready: false,
         deckId: undefined,
+        dead: false,
         life: 20,
         hand: [],
         library: [],
@@ -42,14 +43,12 @@ if(Meteor.isServer){
     Meteor.methods({
         createGame: function(otherPlayerId){
             console.log("Creating game");
-            var game = GameFactory.createGame([Meteor.userId(), otherPlayerId]);
-            Games.insert(game);
+            Games.insert(GameFactory.createGame([Meteor.userId(), otherPlayerId]));
         },
         deleteGame: function(gameId){
             Games.remove({_id: gameId});
         },
         updateGame: function(game){
-            //console.log(JSON.stringify(game));
             game.lastActivity = new Date();
             Games.update({_id: game._id}, game);
         },
@@ -79,10 +78,11 @@ if(Meteor.isServer){
                 var updated = false;
                 game.players.forEach(function(player){
                     if(player.playerId === Meteor.userId()){
-                        var card = player.library.pop();
-                        //console.log(card);
-                        player.hand.push(card);
-                        updated = true;
+                        if(player.library.length > 0){
+                            var card = player.library.pop();
+                            player.hand.push(card);
+                            updated = true;
+                        }
                     }
                 });
                 if(updated) Games.update({_id: game._id}, game);
