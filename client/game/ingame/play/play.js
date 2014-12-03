@@ -8,17 +8,18 @@ Template.play.helpers({
     }
 });
 
-Template.play.events({
-   'click button': function(evt, template){ Meteor.call('drawCard', Session.get("currentGame")._id); }
-});
 
 Template.play_hand.helpers({
     cardsInHand: function(){
         var player = utils.game.me(this);
 
+        //This object wrapping is required because the cards have Meteor cursors
+        //      but these cursors are not unique (multiples of each card are possible)
+        //      Wrapping this card inside an object hides its' _id from the template
+        //      which in turn removes the error
+
         return player ? player.hand.slice(0).map(function(card){
-            card.apiCard = Cards.findOne({_id: card.cardId});
-            return card;
+            return { card: Cards.findOne({_id: card.cardId}) };
         }) : [];
     }
 });
@@ -97,5 +98,18 @@ Template.play_layout.events({
 });
 
 Template.play_player_status.helpers({
-    username: function(){ return utils.lookup.username(this.playerId); }
+    username: function(){ return utils.lookup.username(this.playerId); },
+    mine: function() {return this.playerId === Meteor.userId();}
+});
+
+Template.play_player_status.events({
+    'click .btn-add-life-action': function(evt, template){
+        Meteor.call('addLife', Session.get("currentGame")._id);
+    },
+    'click .btn-subtract-life-action': function(evt, template){
+        Meteor.call('subtractLife', Session.get("currentGame")._id);
+    },
+    'click .btn-draw-card-action': function(evt, template){
+        Meteor.call('drawCard', Session.get("currentGame")._id);
+    }
 });

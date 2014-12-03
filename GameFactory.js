@@ -21,7 +21,7 @@ if(Meteor.isServer){
                     var cards = [];
                     deck.mainboard.forEach(function(card){
                        for(var i = 0; i < card.quantity; i++){
-                           cards.push(utils.datastructures.createcard(card.card_id));
+                           cards.push(card.card_id);
                        }
                     });
 
@@ -54,6 +54,20 @@ if(Meteor.isServer){
             if(!res.me) return;
 
             res.me.deckId = deckId;
+            utils.server.update(res.game);
+        },
+        addLife: function(gameId){
+            var res = utils.server.lookup(gameId);
+            if(!res.me) return;
+
+            res.me.life++;
+            utils.server.update(res.game);
+        },
+        subtractLife: function(gameId){
+            var res = utils.server.lookup(gameId);
+            if(!res.me) return;
+
+            res.me.life--;
             utils.server.update(res.game);
         }
     });

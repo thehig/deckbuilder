@@ -55,7 +55,7 @@ utils = {
                 }
             }
         },
-        createcard: function (cardId) {
+        createbattlefieldcard: function (cardId) {
             return {
                 cardId: cardId,
                 tapped: false

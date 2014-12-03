@@ -86,8 +86,8 @@
 
 <!-- Displays a single card image -->
 <template name="play_card">
-    <!-- this: card-in-game -->
-    <img src="http://mtgimage.com/card/{{apiCard.name}}.jpg">
+    <!-- this: card -->
+        <img src="http://mtgimage.com/card/{{card.name}}.jpg">
 </template>
 
 
@@ -98,18 +98,20 @@
     <div class="row">
         <table class="table table-bordered">
             <thead>
-                <th colspan="3" class="text-center">{{username}} ({{hand.length}})</th>
+                <tr>
+                    <th colspan="3" class="text-center">{{username}} ({{hand.length}})</th>
+                </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-center"><button class="btn btn-block btn-danger">-</button></td>
+                    <td class="text-center"><button class="btn btn-block btn-danger {{#if mine}}btn-subtract-life-action{{else}}disabled{{/if}}">-</button></td>
                     <td class="text-center">{{life}}</td>
-                    <td class="text-center"><button class="btn btn-block btn-success">+</button></td>
+                    <td class="text-center"><button class="btn btn-block btn-success {{#if mine}}btn-add-life-action{{else}}disabled{{/if}}">+</button></td>
                 </tr>
                 <tr>
                     <td class="text-center">({{exile.length}})</td>
                     <td class="text-center">({{graveyard.length}})</td>
-                    <td class="text-center">({{library.length}})</td>
+                    <td class="{{#if mine}}btn-draw-card-action{{/if}} text-center">({{library.length}})</td>
                 </tr>
             </tbody>
 
