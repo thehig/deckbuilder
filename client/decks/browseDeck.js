@@ -22,9 +22,8 @@ var where = function(array, cardtype){
 Template.browseDeck.helpers({
     age: function(){ return moment(this.created).fromNow()},
     creator: function(){
-        var user = Meteor.users.findOne({_id: this.createdBy});
-        if(user) return user.username;
-        return "Unknown";
+        var username = utils.lookup.username(this.createdBy);
+        return username ? username : "Unknown";
     },
 
 

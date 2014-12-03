@@ -25,7 +25,7 @@ if(Meteor.isClient){
     Meteor.subscribe('cards');
     Meteor.subscribe('games');
 
-    // At the bottom of the client code
+    // Set the automatic login prompts to request usernames only for brevity
     Accounts.ui.config({
         passwordSignupFields: "USERNAME_ONLY"
     });

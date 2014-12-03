@@ -14,7 +14,7 @@
             {{#if allPlayersReady}}
                 btn-success startGame
             {{else}}
-                btn-disabled
+                disabled
             {{/if}}">
             Start!
         </button>
@@ -60,7 +60,7 @@
         <button
             class="btn
                 {{#if mine}} btn-action-ready btn-default
-                    {{else}}btn-disabled
+                    {{else}}disabled
                 {{/if}}
 
                 {{#if ready}} btn-success

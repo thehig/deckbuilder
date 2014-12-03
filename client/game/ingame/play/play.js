@@ -9,23 +9,17 @@ Template.play.helpers({
 });
 
 Template.play.events({
-   'click button': function(evt, template){
-       //console.log("Draw Card");
-       Meteor.call('drawCard', Session.get("currentGame")._id, function(error, result){
-           //console.log(Session.get("currentGame"));
-       });
-   }
+   'click button': function(evt, template){ Meteor.call('drawCard', Session.get("currentGame")._id); }
 });
 
 Template.play_hand.helpers({
     cardsInHand: function(){
         var player = utils.game.me(this);
-        return player.hand.map(function(cardId){
-            return {
-                card: Cards.findOne({_id: cardId}),
-                tapped: false
-            };
-        });
+
+        return player ? player.hand.slice(0).map(function(card){
+            card.apiCard = Cards.findOne({_id: card.cardId});
+            return card;
+        }) : [];
     }
 });
 

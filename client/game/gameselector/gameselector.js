@@ -1,6 +1,6 @@
 //<!-- Game destination without a parameter -->
 Template.gameselector.helpers({
-    gamesInProgress: function(){ return Games.find()}, //{inProgress: true}
+    gamesInProgress: function(){ return Games.find({finished: false})}, //{inProgress: true}
     usersOnline: function() { return Meteor.users.find({ "status.online": true , _id: { $not: Meteor.userId()} }); }
 });
 
@@ -8,7 +8,7 @@ Template.gameselector_game_row.helpers({
     players: function(){
         //Iterate through the players, look them up and return their usernames
         return this.players.map(function(player){
-            return Meteor.users.findOne({_id: player.playerId}).username
+            return utils.lookup.username(player.playerId);
         }).join(' vs ');
     },
     lastActivity: function(){
