@@ -25,26 +25,31 @@
         <div class="col-sm-3">
             <div class="row">
                 <div class="col-sm-2 turnstate">
-                    <div class="upkeep">
-                        <div class="row phase text-center"><span class="{{#if state.untap}}play-phase-active{{/if}}">Ut</span></div> <!-- Untap -->
-                        <div class="row phase text-center"><span class="{{#if state.upkeep}}play-phase-active{{/if}}">Uk</span></div> <!-- Upkeep -->
-                        <div class="row phase text-center"><span class="{{#if state.draw}}play-phase-active{{/if}}">Dr</span></div> <!-- Draw -->
+                    <div class="btn-group-vertical" role="group">
+
+                        <!--<div class="btn-group">-->
+                            <div class="btn-turnstate-action btn btn-default {{#if state.untap}}btn-success      {{else}} btn-disabled{{/if}}">Ut</div>
+                            <div class="btn-turnstate-action btn btn-default {{#if state.upkeep}}btn-success     {{else}} btn-disabled{{/if}}">Uk</div>
+                            <div class="btn-turnstate-action btn btn-default {{#if state.draw}}btn-success       {{else}} btn-disabled{{/if}}">Dr</div>
+                        <!--</div>-->
+
+                        <!--<div class="btn-group">-->
+                            <div class="btn-turnstate-action btn btn-default {{#if state.main1}}btn-primary      {{else}} btn-disabled{{/if}}">M1</div>
+                        <!--</div>-->
+                        <!--<div class="btn-group">-->
+                            <div class="btn-turnstate-action btn btn-default {{#if state.combat}}btn-danger      {{else}} btn-disabled{{/if}}">Cb</div>
+                            <div class="btn-turnstate-action btn btn-default {{#if state.attackers}}btn-danger   {{else}} btn-disabled{{/if}}">Da</div>
+                            <div class="btn-turnstate-action btn btn-default {{#if state.blockers}}btn-danger    {{else}} btn-disabled{{/if}}">Db</div>
+                            <div class="btn-turnstate-action btn btn-default {{#if state.damage}}btn-danger      {{else}} btn-disabled{{/if}}">Dmg</div>
+                        <!--</div>-->
+                        <!--<div class="btn-group">-->
+                            <div class="btn-turnstate-action btn btn-default {{#if state.main2}}btn-primary      {{else}} btn-disabled{{/if}}">M2</div>
+                        <!--</div>-->
+                        <!--<div class="btn-group">-->
+                            <div class="btn-turnstate-action btn btn-default {{#if state.end}}btn-warning        {{else}} btn-disabled{{/if}}">End</div>
+                        <!--</div>-->
                     </div>
-                    <div class="main">
-                        <div class="row phase text-center"><span class="{{#if state.main1}}play-phase-active{{/if}}">M1</span></div> <!-- Main 1 -->
-                    </div>
-                    <div class="combat">
-                        <div class="row phase text-center"><span class="{{#if state.combat}}play-phase-active{{/if}}">C</span></div> <!-- Combat -->
-                        <div class="row phase text-center"><span class="{{#if state.attackers}}play-phase-active{{/if}}">Da</span></div> <!-- Declare Attackers -->
-                        <div class="row phase text-center"><span class="{{#if state.blockers}}play-phase-active{{/if}}">Db</span></div> <!-- Declare Blockers -->
-                        <div class="row phase text-center"><span class="{{#if state.damage}}play-phase-active{{/if}}">Dmg</span></div> <!-- Damage -->
-                    </div>
-                    <div class="main">
-                        <div class="row phase text-center"><span class="{{#if state.main2}}play-phase-active{{/if}}">M2</span></div> <!-- Main 2 -->
-                    </div>
-                    <div class="end">
-                        <div class="row phase text-center"><span class="{{#if state.end}}play-phase-active{{/if}}">End</span></div> <!-- End -->
-                    </div>
+
                 </div>
                 <div class="col-sm-8 col-sm-offset-1">
                     {{#each players}}

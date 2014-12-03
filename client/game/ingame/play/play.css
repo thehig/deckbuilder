@@ -5,7 +5,9 @@
 
 .play_fb_control {
 	display: flex;
+    -webkit-flex-flow: row-reverse;
 	height: 120px;
+    overflow-x: auto;
 } 
 .play_hand {
 	background: olive;
