@@ -1,12 +1,14 @@
-
 <template name="pregame">
-    <!-- this : game -->
-    <!-- Show Deck Selectors and Ready states -->
-    {{#each players}}
-        {{> pregame_player_status }}
-    {{/each}}
+    <!-- this: game -->
 
+    <!-- Show player table with usernames, decks and ready -->
+    <div class="row">
+        {{#with players}}
+            {{> pregame_player_table }}
+        {{/with}}
+    </div>
 
+    <!-- Show the ready button when all players are ready -->
     <div class="row">
         <button class="btn btn-block
             {{#if allPlayersReady}}
@@ -20,36 +22,58 @@
 </template>
 
 
-<template name="pregame_player_status">
+
+<template name="pregame_player_table">
+    <!-- this: players -->
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Selected Deck</th>
+                <th>Ready</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each this }}
+                <tr>
+                    {{> pregame_player_tabledata }}
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</template>
+
+<template name="pregame_player_tabledata">
     <!-- this: player -->
-    <div class="row pregame-player-status">
-        <div class="col-xs-3"><span class="vcenter">{{username}}</span></div>
+    <td>{{username}}</td>
 
-        <div class="col-xs-3">
-            {{#if mine}}
-                {{> pregame_deckdropdown}}
-            {{/if}}
-        </div>
+    <td>
+        {{#if mine}}
+            {{>pregame_deckdropdown}}
+        {{else}}
+            <span>{{deckname}}</span>
+        {{/if}}
+    </td>
 
-        <div class="col-xs-3 ">{{deckname}}</div>
-        <div class="col-xs-3">
-            <button
-                    class="btn
-                    {{#if mine}} btn-action-ready btn-default
-                        {{else}}btn-disabled
-                    {{/if}}
-                        {{#if ready}} btn-success
-                    {{/if}}">
-                Ready
-            </button>
-        </div>
-    </div>
+    <td>
+        <button
+            class="btn
+                {{#if mine}} btn-action-ready btn-default
+                    {{else}}btn-disabled
+                {{/if}}
+
+                {{#if ready}} btn-success
+                {{/if}}"
+        >Ready</button>
+    </td>
 </template>
 
 <template name="pregame_deckdropdown">
+    <!-- this: player -->
     <div class="dropdown">
         <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
-            Choose a deck <span class="caret"></span>
+            <span> {{deckname}} </span> <span class="caret"></span>
         </button>
 
         <ul class="dropdown-menu" role="menu">
@@ -57,6 +81,5 @@
                 <li class="game-dc-dropdown-item" role="presentation"><a role="menuitem" tabindex="-1" href="#">{{name}}</a></li>
             {{/each}}
         </ul>
-
     </div>
 </template>

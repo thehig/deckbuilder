@@ -1,4 +1,5 @@
 //<!-- Game destination with a valid game parameter -->
+
 // Pregame
 Template.pregame.helpers({
     allPlayersReady: function(){
@@ -9,7 +10,6 @@ Template.pregame.helpers({
         }
     }
 });
-
 Template.pregame.events({
     'click .startGame': function(evt, template){
         var game = Session.get('currentGame');
@@ -18,8 +18,8 @@ Template.pregame.events({
 });
 
 
-// Player Status
-Template.pregame_player_status.helpers({
+// Individual Player Table-Data
+Template.pregame_player_tabledata.helpers({
     mine: function(){return this.playerId === Meteor.userId();},
     username: function(){return Meteor.users.findOne({_id: this.playerId}).username; },
     deckname: function(){
@@ -27,11 +27,8 @@ Template.pregame_player_status.helpers({
         return deck ? deck.name : "Undecided";
     }
 });
-
-Template.pregame_player_status.events({
+Template.pregame_player_tabledata.events({
     'click .btn-action-ready': function(evt, template){
-        console.log(this);
-
         var game = Session.get('currentGame');
         //var player = game.players.findOne({playerId: Meteor.userId()});
         game.players.forEach(function(player){
@@ -45,7 +42,7 @@ Template.pregame_player_status.events({
 });
 
 
-// Deck Selector
+// Deck Selector dropdown list
 Template.pregame_deckdropdown.helpers({
     decks: function(){ return Decks.find(); },
     deckname: function() {
@@ -55,7 +52,6 @@ Template.pregame_deckdropdown.helpers({
         return "Undecided";
     }
 });
-
 Template.pregame_deckdropdown.events({
     'click .game-dc-dropdown-item': function(evt, template){
         var clickedDeckName = evt.target.innerText;
@@ -74,5 +70,3 @@ Template.pregame_deckdropdown.events({
         });
     }
 });
-
-
