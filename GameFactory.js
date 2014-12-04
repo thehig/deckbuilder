@@ -21,7 +21,10 @@ if(Meteor.isServer){
                     var cards = [];
                     deck.mainboard.forEach(function(card){
                        for(var i = 0; i < card.quantity; i++){
-                           cards.push(card.card_id);
+                           cards.push({
+                               _id: new Meteor.Collection.ObjectID()._str,
+                               cardId: card.card_id
+                           });
                        }
                     });
 
@@ -71,17 +74,22 @@ if(Meteor.isServer){
             utils.server.update(res.game);
         },
         playCard: function(ids){
+
             if(ids.length !== 2) return;
             var gameId = ids[0],
-                cardId = ids[1];
+                card = ids[1];
 
             var res = utils.server.lookup(gameId);
             if(!res.me) return;
 
-            var index = res.me.hand.indexOf(cardId);
+            var card = _.findWhere(res.me.hand, {_id: card._id});
+            if(!card) return;
+
+            var index = res.me.hand.indexOf(card);
+
             if(index > -1){
                 res.me.hand.splice(index, 1);
-                res.game.gameState.stack.push(utils.datastructures.createbattlefieldcard(cardId));
+                res.game.gameState.stack.push(utils.datastructures.createbattlefieldcard(card));
                 utils.server.update(res.game);
             }
         }
