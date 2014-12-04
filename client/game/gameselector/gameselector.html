@@ -8,8 +8,9 @@
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Players</th>
-                    <th>Last Activity</th>
+                    <th class="col-md-8">Players</th>
+                    <th class="col-md-3">Last Activity</th>
+                    <th class="col-md-1"></th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,15 @@
     <tr>
         <td>{{players}}</td>
         <td>{{lastActivity}}</td>
+        <td>
+            <!-- If in game show this -->
+            <!-- else show this -->
+            {{#if playerInGame}}
+                <button class="action-join-game btn btn-success btn-block">Join</button>
+            {{else}}
+                <button class="action-join-game btn btn-info btn-block">Spectate</button>
+            {{/if}}
+        </td>
     </tr>
 </template>
 

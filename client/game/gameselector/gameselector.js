@@ -13,11 +13,14 @@ Template.gameselector_game_row.helpers({
     },
     lastActivity: function(){
         return moment(this.lastActivity).fromNow();
+    },
+    playerInGame: function(){
+        return _.findWhere(this.players, {playerId: Meteor.userId()});
     }
 });
 
 Template.gameselector_game_row.events({
-    'click': function(evt, template){
+    'click .action-join-game': function(evt, template){
         Router.go('/game/' + this._id);
     }
 });
