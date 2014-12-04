@@ -25,6 +25,14 @@ Template.gameselector_game_row.events({
     }
 });
 
+
+Template.gameselector_player_row.helpers({
+    lastActivity: function(){
+        console.log(this);
+        return moment(this.status.lastLogin.date).fromNow();
+    }
+});
+
 Template.gameselector_player_row.events({
     'click button': function(evt, template){
         Meteor.call('createGame', template.data._id);

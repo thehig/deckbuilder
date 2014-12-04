@@ -1,8 +1,13 @@
+body {
+    padding-top: 70px;
+    background: #ececec;
+}
+
+
 .layout-header, .layout-sidebar, .layout-main, .layout-footer {
     
     /*margin: 0;*/
     /*padding: 0;*/
-    background: #ececec;
 }
 
 .layout {
