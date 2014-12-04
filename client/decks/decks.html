@@ -13,23 +13,45 @@
 <!-- List this users decks -->
 <template name="decks_mydecks">
     <h3>Decks</h3>
-    <ul>
-        {{#each mydecks}}
-            {{> decks_decklist_item }}
-        {{/each}}
-    </ul>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Deck Name</th>
+                <th>Created by</th>
+                <th>Created</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each mydecks}}
+                <tr>
+                    {{> decks_decklist_item }}
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
 </template>
 
 <!-- Display a single deck -->
 <template name="decks_decklist_item">
-    <li>
+    <td class="col-sm-5">
+       <span class="action-browse-deck btn btn-link">{{name}}</span>
+    </td>
+    <td class="col-sm-4">
+        <span class="action-browse-deck btn btn-link">{{owner}}</span>
+    </td>
+    <td class="col-sm-2">
+        <span class="btn btn-link">{{age}}</span>
+    </td>
+    <td class="col-sm-1">
         {{#if isOwner}}
-            <button type="button" class="btn btn-danger btn-sm">
+            <button type="button" class="action-delete-deck btn btn-danger">
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
             </button>
         {{/if}}
-        <a href="/browseDeck/{{_id}}">{{name}} (Created {{age}})</a>
-    </li>
+    </td>
+
+
 </template>
 
 
@@ -49,21 +71,29 @@
             {{> decks_cardList }}
         {{/with}}
 
-        <form class="form-inline" role="form">
+        <form class="" role="form">
             {{#if cards}}
                 {{!-- Save Deck if cards loaded --}}
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group input-group-lg">
                         <input class="form-control" id="deck-name" type="text" placeholder="Deck Name"/>
-                        <button class="btn btn-default form-control" id="save">Save Deck</button>
+                        <span class="input-group-btn">
+                            <button id="save" class="btn btn-success">
+                                <span class="glyphicon glyphicon-floppy-disk"></span>
+                            </button>
+                        </span>
                     </div>
                 </div>
             {{else}}
                 {{!-- Load/Scrape Deck if no cards loaded --}}
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group input-group-lg">
                         <input class="form-control" id="ld-tappedouturl" type="text" placeholder="deck-url-here"/>
-                        <button class="btn btn-default form-control" id="load">Scrape Deck</button>
+                        <span class="input-group-btn">
+                            <button id="load" class="btn btn-info">
+                                <span class=" glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
                     </div>
                 </div>
             {{/if}}

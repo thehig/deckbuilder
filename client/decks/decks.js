@@ -6,15 +6,23 @@ Template.decks_mydecks.helpers({
 // == decks_decklist_item ===
 Template.decks_decklist_item.helpers({
     age: function(){return moment(this.created).fromNow()},
+    owner: function() {return utils.lookup.username(this.createdBy);},
     isOwner: function(){return this.createdBy === Meteor.userId()}
 });
 Template.decks_decklist_item.events({
-    'click button': function(){
+    'click .action-delete-deck': function(){
         Meteor.call('deleteDeck', this._id);
+    },
+    'click .action-browse-deck ': function(){
+        Router.go('/browseDeck/' + this._id);
     }
 });
 
 // == decks_deckscraper ===
+Template.decks_deckscraper.helpers({
+   loadingCards: function(){return Session.get('decks_loadingCards');},
+   cards: function(){return Session.get('decks_cards');}
+});
 Template.decks_deckscraper.events({
     'click #load': function(evt, template){
         evt.preventDefault();
@@ -42,8 +50,4 @@ Template.decks_deckscraper.events({
 
         Session.set('decks_cards', null);
     }
-});
-Template.decks_deckscraper.helpers({
-   loadingCards: function(){return Session.get('decks_loadingCards');},
-   cards: function(){return Session.get('decks_cards');}
 });
