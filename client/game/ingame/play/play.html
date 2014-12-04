@@ -55,6 +55,10 @@
             {{#each players}}
                 {{> play_player_status }}
             {{/each}}
+
+            {{#with selectedCard}}
+                {{> play_card }}
+            {{/with}}
             </div>
         </div>
     </div>
@@ -95,8 +99,8 @@
 
 <!-- Displays a single card image -->
 <template name="play_card">
-    <!-- this: card -->
-        <img src="http://mtgimage.com/card/{{card.name}}.jpg">
+    <!-- this: apiCard -->
+        <img src="http://mtgimage.com/card/{{imagename}}.jpg">
 </template>
 
 

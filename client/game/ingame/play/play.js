@@ -13,19 +13,26 @@ Template.play_hand.helpers({
     cardsInHand: function(){
         var player = utils.game.me(this);
 
-        //This object wrapping is required because the cards have Meteor cursors
-        //      but these cursors are not unique (multiples of each card are possible)
-        //      Wrapping this card inside an object hides its' _id from the template
-        //      which in turn removes the error
         return player.hand.map(function(card){
-            return { card: Cards.findOne({_id: card}) };
+            card.apicard = Cards.findOne({_id: card.cardId});
+            return card;
         });
     }
 });
 
+Template.play_card.helpers({
+    //Helper for cards like (Turn // Burn)
+    imagename: function(){ return this.apicard ? this.apicard.name.replace(' // ', '_') : undefined; }
+});
 Template.play_card.events({
     'click img': function(evt, template){
-        Meteor.call('playCard', [Session.get('currentGame')._id, this.card._id]);
+        Meteor.call('playCard', [Session.get('currentGame')._id, {
+            _id: this._id,
+            cardId: this.cardId
+        }]);
+    },
+    'mouseover img': function(evt, template){
+        Session.set('selectedCard', this);
     }
 });
 
@@ -52,7 +59,8 @@ Template.play_layout.helpers({
     },
     activePlayer: function () {
         return utils.game.me(this);
-    }
+    },
+    selectedCard: function(){return Session.get('selectedCard');}
 });
 
 Template.play_layout.events({
@@ -119,7 +127,7 @@ Template.play_player_status.events({
 Template.play_stack.helpers({
    stack: function() {
        return Session.get('currentGame').gameState.stack.map(function(card){
-           card.card = Cards.findOne({_id: card.cardId});
+           card.apicard = Cards.findOne({_id: card.cardId});
            return card;
        });
    }
