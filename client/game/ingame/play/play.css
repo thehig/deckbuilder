@@ -4,9 +4,9 @@
 }
 
 .play_fb_control {
-	display: flex;
-    -webkit-flex-flow: row-reverse;
-    overflow-x: auto;
+	/*display: flex;*/
+    /*-webkit-flex-flow: row-reverse;*/
+    /*overflow-x: auto;*/
 } 
 .play_hand {
 	background: olive;
@@ -14,16 +14,16 @@
 .play_hand img {
 	height: 100px;
 	width: auto;
-	-webkit-transition: all 0.3s ease;
-	   -moz-transition: all 0.3s ease;
-	    -ms-transition: all 0.3s ease;
-	     -o-transition: all 0.3s ease;
-	        transition: all 0.3s ease;
+	/*-webkit-transition: all 0.3s ease;*/
+	   /*-moz-transition: all 0.3s ease;*/
+	    /*-ms-transition: all 0.3s ease;*/
+	     /*-o-transition: all 0.3s ease;*/
+	        /*transition: all 0.3s ease;*/
 }
 
-.play_hand img:hover {
-	height: 120px;
-}
+/*.play_hand img:hover {*/
+	/*height: 120px;*/
+/*}*/
 
 
 
