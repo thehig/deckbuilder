@@ -64,10 +64,19 @@
         <div class="row battlefield">Opponent Battlefield</div>
         <div class="row battlefield">Player Battlefield</div>
         <div class="row land">Player Land</div>
+        <div class="row stack">{{>play_stack}}</div>
 
         {{#if activePlayer}}
             {{> play_hand}}
         {{/if}}
+    </div>
+</template>
+
+<template name="play_stack">
+    <div class="play_stack">
+        {{#each stack}}
+            {{>play_card}}
+        {{/each}}
     </div>
 </template>
 

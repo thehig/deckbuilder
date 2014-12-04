@@ -1,23 +1,25 @@
 <template name="pregame">
     <!-- this: game -->
 
-    <!-- Show player table with usernames, decks and ready -->
-    <div class="row">
-        {{#with players}}
-            {{> pregame_player_table }}
-        {{/with}}
-    </div>
-
-    <!-- Show the ready button when all players are ready -->
-    <div class="row">
-        <button class="btn btn-block
+    <div class="col-md-8 col-md-offset-2">
+        <div class="row">
+            <!--Show player table with usernames, decks and ready-->
+            {{#with players}}
+                {{> pregame_player_table }}
+            {{/with}}
+        </div>
+        <div class="row">
+            <!-- Show the ready button when all players are ready -->
+            <button class="btn btn-block
             {{#if allPlayersReady}}
                 btn-success startGame
             {{else}}
                 disabled
             {{/if}}">
-            Start!
-        </button>
+                Start!
+            </button>
+
+        </div>
     </div>
 </template>
 

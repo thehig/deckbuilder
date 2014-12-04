@@ -40,7 +40,7 @@ if(Meteor.isServer){
         },
         playerReady: function(gameId){
             var res = utils.server.lookup(gameId);
-            if(!res.me) return;
+            if(!res.me || !res.me.deckId) return;
 
             res.me.ready = !res.me.ready;
             utils.server.update(res.game);

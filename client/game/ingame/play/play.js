@@ -115,3 +115,12 @@ Template.play_player_status.events({
         Meteor.call('drawCard', Session.get("currentGame")._id);
     }
 });
+
+Template.play_stack.helpers({
+   stack: function() {
+       return Session.get('currentGame').gameState.stack.map(function(card){
+           card.card = Cards.findOne({_id: card.cardId});
+           return card;
+       });
+   }
+});
