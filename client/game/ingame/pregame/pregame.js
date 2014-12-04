@@ -31,6 +31,9 @@ Template.pregame_player_tabledata.events({
     'click .btn-action-ready': function(evt, template){
         var game = Session.get('currentGame');
         Meteor.call('playerReady', game._id);
+    },
+    'click .action-browse-deck': function(evt, template){
+        Router.go('/browseDeck/' + this.deckId);
     }
 });
 

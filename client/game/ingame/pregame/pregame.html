@@ -38,7 +38,10 @@
 
         <tbody>
             {{#each this }}
-                <tr>
+                <tr class="
+                {{#if this.ready}}
+                    success
+                {{/if}}">
                     {{> pregame_player_tabledata }}
                 </tr>
             {{/each}}
@@ -48,17 +51,17 @@
 
 <template name="pregame_player_tabledata">
     <!-- this: player -->
-    <td>{{username}}</td>
+    <td class="col-sm-5">{{username}}</td>
 
-    <td>
+    <td class="col-sm-6">
         {{#if mine}}
             {{>pregame_deckdropdown}}
         {{else}}
-            <span>{{deckname}}</span>
+            <span class="action-browse-deck btn btn-link">{{deckname}}</span>
         {{/if}}
     </td>
 
-    <td>
+    <td class="col-xs-1">
         <button
             class="btn
                 {{#if mine}} btn-action-ready btn-default

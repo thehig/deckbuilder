@@ -105,25 +105,26 @@
     <!-- this:: player -->
 
     <div class="row">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th colspan="3" class="text-center">{{username}} ({{hand.length}})</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-center"><button class="btn btn-block btn-danger {{#if mine}}btn-subtract-life-action{{else}}disabled{{/if}}">-</button></td>
-                    <td class="text-center">{{life}}</td>
-                    <td class="text-center"><button class="btn btn-block btn-success {{#if mine}}btn-add-life-action{{else}}disabled{{/if}}">+</button></td>
-                </tr>
-                <tr>
-                    <td class="text-center">({{exile.length}})</td>
-                    <td class="text-center">({{graveyard.length}})</td>
-                    <td class="{{#if mine}}btn-draw-card-action{{/if}} text-center">({{library.length}})</td>
-                </tr>
-            </tbody>
-
-        </table>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="3" class="text-center">{{username}} ({{hand.length}})</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center"><button class="btn btn-block btn-danger {{#if mine}}btn-subtract-life-action{{else}}disabled{{/if}}">-</button></td>
+                        <td class="text-center">{{life}}</td>
+                        <td class="text-center"><button class="btn btn-block btn-success {{#if mine}}btn-add-life-action{{else}}disabled{{/if}}">+</button></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">({{exile.length}})</td>
+                        <td class="text-center">({{graveyard.length}})</td>
+                        <td class="{{#if mine}}btn-draw-card-action{{/if}} text-center">({{library.length}})</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
