@@ -128,6 +128,27 @@ if(Meteor.isServer){
 
             //Save
             utils.server.update(res.game);
+        },
+        tapCard: function(ids){
+            var gameId = ids.gameId;
+            var cardId = ids.cardId;
+
+            if(!gameId || !cardId) return;
+            //cardUid, player
+            var res = utils.server.lookup(gameId);
+            if(!res || !res.game || !res.me) return;
+
+            var card = utils.server.findFromPlayer(cardId, res.me);
+            if(!card) return;
+
+            if(card.tapped === true)
+                card.tapped = false;
+            else if(card.tapped === false)
+                card.tapped = true;
+            else
+                card.tapped = true;
+
+            utils.server.update(res.game);
         }
     });
 }

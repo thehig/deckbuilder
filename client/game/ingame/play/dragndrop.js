@@ -114,7 +114,23 @@ interact('.dropzone-nonland').dropzone({
             gameId: Session.get('currentGame')._id
         };
 
-        console.log(moveInformation);
+        //console.log(moveInformation);
+        Meteor.call('moveCard', moveInformation);
+    }
+});
+
+interact('.dropzone-hand').dropzone({
+    accept: '.draggable',
+    ondrop: function (event) {
+        var data = Blaze.getData(event.relatedTarget);
+
+        var moveInformation = {
+            destination: 'hand',
+            cardUid: data._id,
+            gameId: Session.get('currentGame')._id
+        };
+
+        //console.log(moveInformation);
         Meteor.call('moveCard', moveInformation);
     }
 });

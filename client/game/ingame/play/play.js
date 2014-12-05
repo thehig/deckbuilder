@@ -26,6 +26,15 @@ Template.play_field_cards.helpers({
     }
 });
 
+Template.play_field_card.events({
+    'dblclick img': function(){
+        Meteor.call('tapCard', {
+            gameId: Session.get('currentGame')._id,
+            cardId: this._id
+        });
+    }
+});
+
 Template.play_apicard.helpers({
     mine: function(){ return this.owner === Meteor.userId(); },
     imagename: function(){ return this.apicard ? this.apicard.name.replace(' // ', '_') : undefined; }

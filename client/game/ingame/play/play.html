@@ -157,9 +157,11 @@
 
 <template name="player_battlefield_hand">
     <!--this: player-->
-    {{#with hand}}
-        {{> play_field_cards }}
-    {{/with}}
+    <div class="play-area dropzone-hand">
+        {{#with hand}}
+            {{> play_field_cards }}
+        {{/with}}
+    </div>
 </template>
 
 <template name="play_field_cards">
@@ -171,11 +173,13 @@
 
 <template name="play_field_card">
     <!-- this: card with apicard -->
-    {{> play_apicard }}
+    <div style="display: inline-block;" class="{{#if tapped}}tapped{{/if}}">
+        {{> play_apicard }}
+    </div>
 </template>
 
 <template name="play_apicard">
-    <div style="display: inline-block;"><img class="card-image {{#if mine}}draggable{{/if}}" src="http://mtgimage.com/card/{{imagename}}.jpg"></div>
+    <img class="card-image {{#if mine}}draggable{{/if}}" src="http://mtgimage.com/card/{{imagename}}.jpg">
 </template>
 
 

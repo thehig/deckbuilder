@@ -87,6 +87,25 @@ if(Meteor.isServer){
         update: function(game){
             Games.update({_id: game._id}, game);
         },
+        findCard:function(cardUid, collection){
+            return _.findWhere(collection, {_id: cardUid, owner: Meteor.userId()});
+        },
+        findFromPlayer: function(cardUid, player){
+            var card = utils.server.findCard(cardUid, player.hand);
+            if(card) return card;
+
+            card = utils.server.findCard(cardUid, player.field.land);
+            if(card) return card;
+
+            card = utils.server.findCard(cardUid, player.field.nonland);
+            if(card) return card;
+
+            card = utils.server.findCard(cardUid, player.graveyard);
+            if(card) return card;
+
+            card = utils.server.findCard(cardUid, player.exile);
+            if(card) return card;
+        },
         /**
          * Lookup a card with the given cardId, splice it and return it
          * @param cardUid
