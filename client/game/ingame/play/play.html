@@ -56,9 +56,9 @@
                 {{> play_player_status }}
             {{/each}}
 
-            {{#with selectedCard}}
-                {{> play_card }}
-            {{/with}}
+            <!--{{#with selectedCard}}-->
+                <!--{{> play_card }}-->
+            <!--{{/with}}-->
             </div>
         </div>
     </div>
@@ -100,7 +100,7 @@
 <!-- Displays a single card image -->
 <template name="play_card">
     <!-- this: apiCard -->
-        <div style="display: inline-block;"><img class="draggable" src="http://mtgimage.com/card/{{imagename}}.jpg"></div>
+        <div style="display: inline-block;"><img class="{{#if mine}}draggable{{/if}}" src="http://mtgimage.com/card/{{imagename}}.jpg"></div>
 
 </template>
 
@@ -126,7 +126,7 @@
                     <tr>
                         <td class="text-center {{#if mine}}my-exile{{/if}}">({{exile.length}})</td>
                         <td class="text-center {{#if mine}}my-graveyard{{/if}}">({{graveyard.length}})</td>
-                        <td class="{{#if mine}}btn-draw-card-action{{/if}} text-center">({{library.length}})</td>
+                        <td class="library {{#if mine}}btn-draw-card-action{{/if}} text-center">({{library.length}})</td>
                     </tr>
                 </tbody>
             </table>

@@ -22,7 +22,8 @@ Template.play_hand.helpers({
 
 Template.play_card.helpers({
     //Helper for cards like (Turn // Burn)
-    imagename: function(){ return this.apicard ? this.apicard.name.replace(' // ', '_') : undefined; }
+    imagename: function(){ return this.apicard ? this.apicard.name.replace(' // ', '_') : undefined; },
+    mine: function() { return this.owner === Meteor.userId(); }
 });
 Template.play_card.events({
     'click img': function(evt, template){
@@ -163,8 +164,6 @@ interact('.stack').dropzone({
     ondrop: function (event) {
         var data = Blaze.getData(event.relatedTarget);
 
-        console.log("Stack");
-
         var moveInformation = {
             destination: 'stack',
             cardUid: data._id,
@@ -197,6 +196,21 @@ interact('.my-exile').dropzone({
 
         var moveInformation = {
             destination: 'exile',
+            cardUid: data._id,
+            gameId: Session.get('currentGame')._id
+        };
+
+        Meteor.call('moveCard', moveInformation);
+    }
+});
+
+interact('.library').dropzone({
+    accept: '.draggable',
+    ondrop: function (event) {
+        var data = Blaze.getData(event.relatedTarget);
+
+        var moveInformation = {
+            destination: 'library',
             cardUid: data._id,
             gameId: Session.get('currentGame')._id
         };

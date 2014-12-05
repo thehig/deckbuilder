@@ -83,22 +83,23 @@ if(Meteor.isServer){
             var gameId = moveInformation.gameId;
             if(!cardDestination || !cardUid || !gameId) return;
 
-            console.log("Got all parameters");
+            //console.log("Got all parameters");
 
             //Lookup the game;
             var res = utils.server.lookup(gameId);
             if(!res || !res.game || !res.me) return;
 
-            console.log("Found game, and player");
+            //console.log("Found game, and player");
             //Look for the card in the players hand, field, graveyard and exile
             var poppedCard = utils.server.splicePlayer(cardUid, res.me);
 
             //Only other place a card can be is the stack
             poppedCard = poppedCard ? poppedCard : utils.server.spliceCard(cardUid, res.game.gameState.stack);
-            console.log("No Popped Card");
+            //console.log("No Popped Card");
             if(!poppedCard) return;
 
-            console.log("Found card");
+            //console.log("Found card");
+            //console.log(JSON.stringify(poppedCard));
 
             //Put the card in its new destination
             switch(cardDestination) {
@@ -119,6 +120,9 @@ if(Meteor.isServer){
                     break;
                 case 'hand':
                     res.me.hand.push(poppedCard);
+                    break;
+                case 'library':
+                    res.me.library.push(poppedCard);
                     break;
             }
 
