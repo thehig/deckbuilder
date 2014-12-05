@@ -1,6 +1,5 @@
-Template.play_battlefield.helpers({
+Template.play_battlefield_table.helpers({
     notme: function (){
-        console.log(this);
         var players = [];
         this.players.forEach(function(player){
            if (player.playerId !== Meteor.userId()){
@@ -8,11 +7,29 @@ Template.play_battlefield.helpers({
            }
         });
         return players;
+    },
+    me: function (){
+        return utils.game.me(this);
     }
 });
 
+Template.play_player_battlefield.helpers({
+    mine: function(){ return this.playerId === Meteor.userId(); }
+});
 
+Template.play_field_cards.helpers({
+    apicards: function(){
+        return this.map(function(card){
+            card.apicard = Cards.findOne({_id: card.cardId});
+            return card;
+        });
+    }
+});
 
+Template.play_apicard.helpers({
+    mine: function(){ return this.owner === Meteor.userId(); },
+    imagename: function(){ return this.apicard ? this.apicard.name.replace(' // ', '_') : undefined; }
+});
 
 
 
@@ -188,88 +205,6 @@ Template.play_stack.helpers({
    }
 });
 
-interact('.draggable').draggable({
-    onmove: function (event) {
-        var target = event.target,
-        // keep the dragged position in the data-x/data-y attributes
-        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
-
-        // translate the element
-        target.style.webkitTransform =
-            target.style.transform =
-                'translate(' + x + 'px, ' + y + 'px)';
-
-        // update the position attributes
-        target.setAttribute('data-x', x);
-        target.setAttribute('data-y', y);
-    }
-}).restrict({
-    drag: 'parent',
-    endOnly: true,
-    elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
-});
-
-interact('.stack').dropzone({
-    accept: '.draggable',
-    ondrop: function (event) {
-        var data = Blaze.getData(event.relatedTarget);
-
-        var moveInformation = {
-            destination: 'stack',
-            cardUid: data._id,
-            gameId: Session.get('currentGame')._id
-        };
-
-        Meteor.call('moveCard', moveInformation);
-    }
-});
-
-interact('.my-graveyard').dropzone({
-    accept: '.draggable',
-    ondrop: function (event) {
-        var data = Blaze.getData(event.relatedTarget);
-
-        var moveInformation = {
-            destination: 'graveyard',
-            cardUid: data._id,
-            gameId: Session.get('currentGame')._id
-        };
-
-        Meteor.call('moveCard', moveInformation);
-    }
-});
-
-interact('.my-exile').dropzone({
-    accept: '.draggable',
-    ondrop: function (event) {
-        var data = Blaze.getData(event.relatedTarget);
-
-        var moveInformation = {
-            destination: 'exile',
-            cardUid: data._id,
-            gameId: Session.get('currentGame')._id
-        };
-
-        Meteor.call('moveCard', moveInformation);
-    }
-});
-
-interact('.library').dropzone({
-    accept: '.draggable',
-    ondrop: function (event) {
-        var data = Blaze.getData(event.relatedTarget);
-
-        var moveInformation = {
-            destination: 'library',
-            cardUid: data._id,
-            gameId: Session.get('currentGame')._id
-        };
-
-        Meteor.call('moveCard', moveInformation);
-    }
-});
 
 //interact('.my-exile').dropzone({
 //    accept: '.draggable',

@@ -75,7 +75,7 @@ if(Meteor.isServer){
             utils.server.update(res.game);
         },
         moveCard: function(moveInformation){
-            console.log("Move Card");
+            //console.log("Move Card");
             //Check our parameters
             if(!moveInformation) return;
             var cardDestination = moveInformation.destination;
@@ -109,7 +109,7 @@ if(Meteor.isServer){
                 case 'land':
                     res.me.field.land.push(poppedCard);
                     break;
-                case 'battlefield':
+                case 'nonland':
                     res.me.field.nonland.push(poppedCard);
                     break;
                 case 'graveyard':

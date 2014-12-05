@@ -1,34 +1,14 @@
 
+<!--Router placeholder for the play page-->
 <template name="play">
     {{!-- Layout grid for this page --}}
     <!-- this : game -->
-
     {{> play_ingame}}
-
-
-    <!--<div class="play">
-        {{#each players}}
-            {{#if me}}
-                <div class="row">
-                    {{> play_hand}}
-                </div>
-            {{/if}}
-        {{/each}}
-
-    </div>-->
-
 </template>
 
-
-
-
-
-
-
-
-
-
+<!--In-game placeing for the game-->
 <template name="play_ingame">
+    <!--this: game-->
 
     <div class="col-xs-1">
         <div class="btn-group-vertical" role="group">
@@ -58,7 +38,7 @@
     </div>
 
     <div class="col-xs-9">
-        {{> play_battlefield}}
+        {{> play_battlefield_table}}
     </div>
 
     <div class="col-xs-2">
@@ -67,10 +47,8 @@
 
 </template>
 
-
-
-
-<template name="play_battlefield">
+<!-- Table of all the combatant players -->
+<template name="play_battlefield_table">
     <!--this: game-->
 
     <table class="table table-bordered">
@@ -86,13 +64,23 @@
         </thead>
 
         <tbody>
+            {{#each notme}}
+                <tr>
+                    {{> play_battlefield_tabledata}}
+                </tr>
+            {{/each}}
 
-                {{#each notme}}
-                    <tr>
-                        {{> play_battlefield_tabledata}}
-                    </tr>
-                {{/each}}
+            {{#with me}}
+                <tr>
+                    {{> play_battlefield_tabledata}}
+                </tr>
 
+                <tr>
+                    <td colspan="2" class="play-area dropzone-hand">
+                        {{> player_battlefield_hand }}
+                    </td>
+                </tr>
+            {{/with}}
         </tbody>
     </table>
 </template>
@@ -125,33 +113,70 @@
 
         </tr>
         <tr>
-            <td class="text-center">({{exile.length}})</td>
-            <td class="text-center">({{graveyard.length}})</td>
-            <td class="{{#if mine}}action-draw-card{{/if}} text-center">({{library.length}})</td>
+            <td class="text-center {{#if mine}}dropzone-exile{{/if}}">({{exile.length}})</td>
+            <td class="text-center {{#if mine}}dropzone-graveyard{{/if}}">({{graveyard.length}})</td>
+            <td class="{{#if mine}}action-draw-card dropzone-library{{/if}} text-center">({{library.length}})</td>
         </tr>
         </tbody>
     </table>
 </template>
 
 <template name="play_player_battlefield">
+    <!--this: player-->
     <table class="table table-bordered">
        <tbody>
            <tr>
-               <div class="play-area">
-                   NONLAND
-               </div>
+               <td>
+                   <div class="play-area {{#if mine}}dropzone-nonland{{/if}}">
+                       {{#with this.field.nonland}}
+                           {{> play_field_cards }}
+                       {{/with}}
+                   </div>
+               </td>
            </tr>
            <tr>
-               <div class="play-area">
-                   LAND
-               </div>
+               <td>
+                   <div class="play-area {{#if mine}}dropzone-land{{/if}}">
+                       {{#with this.field.land}}
+                           {{> play_field_cards }}
+                       {{/with}}
+                   </div>
+               </td>
            </tr>
        </tbody>
     </table>
 </template>
 
+<template name="play_stack">
+    <div class="stack dropzone-stack">
+        {{#each stack}}
+            {{> play_field_card }}
+        {{/each}}
+    </div>
+</template>
 
+<template name="player_battlefield_hand">
+    <!--this: player-->
+    {{#with hand}}
+        {{> play_field_cards }}
+    {{/with}}
+</template>
 
+<template name="play_field_cards">
+    <!--this: cards-->
+    {{#each apicards}}
+        {{> play_field_card }}
+    {{/each}}
+</template>
+
+<template name="play_field_card">
+    <!-- this: card with apicard -->
+    {{> play_apicard }}
+</template>
+
+<template name="play_apicard">
+    <div style="display: inline-block;"><img class="card-image {{#if mine}}draggable{{/if}}" src="http://mtgimage.com/card/{{imagename}}.jpg"></div>
+</template>
 
 
 
@@ -249,7 +274,7 @@
     </div>
 </template>
 
-<template name="play_stack">
+<template name="play_stack_OLD">
     <div class="play_stack">
         {{#each stack}}
             {{>play_card}}

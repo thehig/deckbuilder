@@ -1,113 +1,12 @@
-.play {
-	background: red;
-	height: 500px;
-}
-
-.play_fb_control {
-	display: flex;
-    -webkit-flex-flow: row-reverse;
-    overflow-x: auto;
-} 
-.play_hand {
-	background: olive;
-}
-.play_hand img {
-	height: 100px;
-	width: auto;
-	-webkit-transition: all 0.3s ease;
-	   -moz-transition: all 0.3s ease;
-	    -ms-transition: all 0.3s ease;
-	     -o-transition: all 0.3s ease;
-	        transition: all 0.3s ease;
-}
-
-.play_hand img:hover {
-	height: 120px;
-}
-
-
-
-.play_stack {
-	background: indianred;
-}
-.play_stack img {
-	height: 100px;
-	width: auto;
-	-webkit-transition: all 0.3s ease;
-	   -moz-transition: all 0.3s ease;
-	    -ms-transition: all 0.3s ease;
-	     -o-transition: all 0.3s ease;
-	        transition: all 0.3s ease;
-}
-
-.play_stack img:hover {
-	height: 120px;
-}
-
-
-
-.land {
-    background: blue;
-    height: 20%;
-}
-
-.battlefield {
-    background: green;
-    height: 20%;
-}
-
-.hand {
-    background: olive;
-    height: 20%;
-}
-
-.player {
+.play-area{
+    min-height: 130px;
     background: orange;
 }
-
-/*Phases*/
-.phase {
-    height: 50px;
-    line-height: 50px;
-    width: auto;
-    border-top: 1px solid;
-    border-right: 3px solid;
-    border-left: 3px solid;
+.card-image {
+    height: 120px;
 }
 
-.phase:last-child {
-    border-bottom: 3px solid;
-}
-.phase:first-child {
-    border-top: 3px solid;
-}
-
-.upkeep, .main, .combat, .end {
- 
-}
-
-.upkeep .phase {
-    background: greenyellow;
-}
-
-.main .phase {
-    background: cadetblue;
-}
-
-.combat .phase {
+.stack {
     background: indianred;
+    height: 300px;
 }
-
-.end .phase {
-    background: grey;
-}
-
-.play-phase-active {
-    color: red;
-}
-
-
-.play-area {
-    min-height: 120px;
-}
-
