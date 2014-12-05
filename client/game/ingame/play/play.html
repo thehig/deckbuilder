@@ -100,7 +100,8 @@
 <!-- Displays a single card image -->
 <template name="play_card">
     <!-- this: apiCard -->
-        <img class="draggable" src="http://mtgimage.com/card/{{imagename}}.jpg">
+        <div style="display: inline-block;"><img class="draggable" src="http://mtgimage.com/card/{{imagename}}.jpg"></div>
+
 </template>
 
 
@@ -123,8 +124,8 @@
                         <td class="text-center"><button class="btn btn-block btn-success {{#if mine}}btn-add-life-action{{else}}disabled{{/if}}">+</button></td>
                     </tr>
                     <tr>
-                        <td class="text-center">({{exile.length}})</td>
-                        <td class="text-center">({{graveyard.length}})</td>
+                        <td class="text-center {{#if mine}}my-exile{{/if}}">({{exile.length}})</td>
+                        <td class="text-center {{#if mine}}my-graveyard{{/if}}">({{graveyard.length}})</td>
                         <td class="{{#if mine}}btn-draw-card-action{{/if}} text-center">({{library.length}})</td>
                     </tr>
                 </tbody>

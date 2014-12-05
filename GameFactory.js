@@ -23,7 +23,8 @@ if(Meteor.isServer){
                        for(var i = 0; i < card.quantity; i++){
                            cards.push({
                                _id: new Meteor.Collection.ObjectID()._str,
-                               cardId: card.card_id
+                               cardId: card.card_id,
+                               owner: player.playerId
                            });
                        }
                     });
@@ -73,25 +74,56 @@ if(Meteor.isServer){
             res.me.life--;
             utils.server.update(res.game);
         },
-        playCard: function(ids){
+        moveCard: function(moveInformation){
+            console.log("Move Card");
+            //Check our parameters
+            if(!moveInformation) return;
+            var cardDestination = moveInformation.destination;
+            var cardUid = moveInformation.cardUid;
+            var gameId = moveInformation.gameId;
+            if(!cardDestination || !cardUid || !gameId) return;
 
-            if(ids.length !== 2) return;
-            var gameId = ids[0],
-                card = ids[1];
+            console.log("Got all parameters");
 
+            //Lookup the game;
             var res = utils.server.lookup(gameId);
-            if(!res.me) return;
+            if(!res || !res.game || !res.me) return;
 
-            var card = _.findWhere(res.me.hand, {_id: card._id});
-            if(!card) return;
+            console.log("Found game, and player");
+            //Look for the card in the players hand, field, graveyard and exile
+            var poppedCard = utils.server.splicePlayer(cardUid, res.me);
 
-            var index = res.me.hand.indexOf(card);
+            //Only other place a card can be is the stack
+            poppedCard = poppedCard ? poppedCard : utils.server.spliceCard(cardUid, res.game.gameState.stack);
+            console.log("No Popped Card");
+            if(!poppedCard) return;
 
-            if(index > -1){
-                res.me.hand.splice(index, 1);
-                res.game.gameState.stack.push(utils.datastructures.createbattlefieldcard(card));
-                utils.server.update(res.game);
+            console.log("Found card");
+
+            //Put the card in its new destination
+            switch(cardDestination) {
+                case 'stack':
+                    res.game.gameState.stack.push(poppedCard);
+                    break;
+                case 'land':
+                    res.me.field.land.push(poppedCard);
+                    break;
+                case 'battlefield':
+                    res.me.field.nonland.push(poppedCard);
+                    break;
+                case 'graveyard':
+                    res.me.graveyard.push(poppedCard);
+                    break;
+                case 'exile':
+                    res.me.exile.push(poppedCard);
+                    break;
+                case 'hand':
+                    res.me.hand.push(poppedCard);
+                    break;
             }
+
+            //Save
+            utils.server.update(res.game);
         }
     });
 }

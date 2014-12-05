@@ -10,38 +10,21 @@
 } 
 .play_hand {
 	background: olive;
+    min-height: 100px;
 }
 .play_hand img {
 	height: 100px;
 	width: auto;
-	/*-webkit-transition: all 0.3s ease;*/
-	   /*-moz-transition: all 0.3s ease;*/
-	    /*-ms-transition: all 0.3s ease;*/
-	     /*-o-transition: all 0.3s ease;*/
-	        /*transition: all 0.3s ease;*/
 }
-
-/*.play_hand img:hover {*/
-	/*height: 120px;*/
-/*}*/
-
 
 
 .play_stack {
 	background: indianred;
+    min-height: 100px;
 }
 .play_stack img {
 	height: 100px;
 	width: auto;
-	-webkit-transition: all 0.3s ease;
-	   -moz-transition: all 0.3s ease;
-	    -ms-transition: all 0.3s ease;
-	     -o-transition: all 0.3s ease;
-	        transition: all 0.3s ease;
-}
-
-.play_stack img:hover {
-	height: 120px;
 }
 
 
@@ -107,7 +90,9 @@
 }
 
 
-
+.my-graveyard {
+    background: #888;
+}
 
 .debug-orange {
     background-color: orange;

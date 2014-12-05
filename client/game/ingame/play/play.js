@@ -142,6 +142,7 @@ interact('.draggable').draggable({
         x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
         y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
+
         // translate the element
         target.style.webkitTransform =
             target.style.transform =
@@ -161,12 +162,57 @@ interact('.stack').dropzone({
     accept: '.draggable',
     ondrop: function (event) {
         var data = Blaze.getData(event.relatedTarget);
-        Meteor.call('playCard', [Session.get('currentGame')._id, {
-            _id: data._id,
-            cardId: data.cardId
-        }]);
+
+        console.log("Stack");
+
+        var moveInformation = {
+            destination: 'stack',
+            cardUid: data._id,
+            gameId: Session.get('currentGame')._id
+        };
+
+        Meteor.call('moveCard', moveInformation);
     }
 });
+
+interact('.my-graveyard').dropzone({
+    accept: '.draggable',
+    ondrop: function (event) {
+        var data = Blaze.getData(event.relatedTarget);
+
+        var moveInformation = {
+            destination: 'graveyard',
+            cardUid: data._id,
+            gameId: Session.get('currentGame')._id
+        };
+
+        Meteor.call('moveCard', moveInformation);
+    }
+});
+
+interact('.my-exile').dropzone({
+    accept: '.draggable',
+    ondrop: function (event) {
+        var data = Blaze.getData(event.relatedTarget);
+
+        var moveInformation = {
+            destination: 'exile',
+            cardUid: data._id,
+            gameId: Session.get('currentGame')._id
+        };
+
+        Meteor.call('moveCard', moveInformation);
+    }
+});
+
+//interact('.my-exile').dropzone({
+//    accept: '.draggable',
+//    ondrop: function (event) {
+//        var data = Blaze.getData(event.relatedTarget);
+//    }
+//});
+
+
 /*
 // target elements with the "draggable" class
 interact('.draggable')
