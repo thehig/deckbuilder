@@ -1,3 +1,39 @@
+Template.play_battlefield.helpers({
+    notme: function (){
+        console.log(this);
+        var players = [];
+        this.players.forEach(function(player){
+           if (player.playerId !== Meteor.userId()){
+               players.push(player);
+           }
+        });
+        return players;
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Template.play.helpers({
    game: function(){
        console.log(this);
@@ -39,6 +75,11 @@ Template.play_card.events({
     }
 });
 
+
+
+
+/*
+
 Template.play_layout.helpers({
     state: function () {
         var turnstate = Session.get('turnstate');
@@ -65,6 +106,11 @@ Template.play_layout.helpers({
     },
     selectedCard: function(){return Session.get('selectedCard');}
 });
+
+
+
+
+
 
 Template.play_layout.events({
     'click .btn-turnstate-action': function(evt, template){
@@ -109,6 +155,12 @@ Template.play_layout.events({
         }
     }
 });
+*/
+
+
+
+
+
 
 Template.play_player_status.helpers({
     username: function(){ return utils.lookup.username(this.playerId); },
@@ -116,13 +168,13 @@ Template.play_player_status.helpers({
 });
 
 Template.play_player_status.events({
-    'click .btn-add-life-action': function(evt, template){
+    'click .action-add-life': function(evt, template){
         Meteor.call('addLife', Session.get("currentGame")._id);
     },
-    'click .btn-subtract-life-action': function(evt, template){
+    'click .action-subtract-life': function(evt, template){
         Meteor.call('subtractLife', Session.get("currentGame")._id);
     },
-    'click .btn-draw-card-action': function(evt, template){
+    'click .action-draw-card': function(evt, template){
         Meteor.call('drawCard', Session.get("currentGame")._id);
     }
 });
