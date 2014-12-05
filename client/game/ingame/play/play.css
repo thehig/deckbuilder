@@ -107,18 +107,7 @@
 }
 
 
-
-
-.debug-orange {
-    background-color: orange;
-    height: 190px;
+.play-area {
+    min-height: 120px;
 }
 
-.debug-green {
-    background-color: green;
-}
-
-.debug-yellow {
-    background-color: yellow;
-    height: 30px;
-}
