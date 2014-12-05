@@ -3,7 +3,7 @@
     {{!-- Layout grid for this page --}}
     <!-- this : game -->
 
-    {{> play_layout}}
+    {{> play_ingame}}
 
 
     <!--<div class="play">
@@ -19,8 +19,181 @@
 
 </template>
 
+
+
+
+
+
+
+
+
+
+<template name="play_ingame">
+
+    <div class="col-xs-1">
+        <div class="btn-group-vertical" role="group">
+
+            <!--<div class="btn-group">-->
+            <div class="btn-turnstate-action btn btn-default {{#if state.untap}}btn-success      {{else}} btn-disabled{{/if}}">Ut</div>
+            <div class="btn-turnstate-action btn btn-default {{#if state.upkeep}}btn-success     {{else}} btn-disabled{{/if}}">Uk</div>
+            <div class="btn-turnstate-action btn btn-default {{#if state.draw}}btn-success       {{else}} btn-disabled{{/if}}">Dr</div>
+            <!--</div>-->
+
+            <!--<div class="btn-group">-->
+            <div class="btn-turnstate-action btn btn-default {{#if state.main1}}btn-primary      {{else}} btn-disabled{{/if}}">M1</div>
+            <!--</div>-->
+            <!--<div class="btn-group">-->
+            <div class="btn-turnstate-action btn btn-default {{#if state.combat}}btn-danger      {{else}} btn-disabled{{/if}}">Cb</div>
+            <div class="btn-turnstate-action btn btn-default {{#if state.attackers}}btn-danger   {{else}} btn-disabled{{/if}}">Da</div>
+            <div class="btn-turnstate-action btn btn-default {{#if state.blockers}}btn-danger    {{else}} btn-disabled{{/if}}">Db</div>
+            <div class="btn-turnstate-action btn btn-default {{#if state.damage}}btn-danger      {{else}} btn-disabled{{/if}}">Dmg</div>
+            <!--</div>-->
+            <!--<div class="btn-group">-->
+            <div class="btn-turnstate-action btn btn-default {{#if state.main2}}btn-primary      {{else}} btn-disabled{{/if}}">M2</div>
+            <!--</div>-->
+            <!--<div class="btn-group">-->
+            <div class="btn-turnstate-action btn btn-default {{#if state.end}}btn-warning        {{else}} btn-disabled{{/if}}">End</div>
+            <!--</div>-->
+        </div>
+    </div>
+
+    <div class="col-xs-9">
+        {{> play_battlefield}}
+    </div>
+
+    <div class="col-xs-2">
+        {{> play_stack}}
+    </div>
+
+</template>
+
+
+
+
+<template name="play_battlefield">
+    <!--this: game-->
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="col-xs-2">
+                    <h6>Player Status</h6>
+                </th>
+                <th class="col-xs-10">
+                    <h6>Player Battlefield</h6>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+                {{#each notme}}
+                    <tr>
+                        {{> play_battlefield_tabledata}}
+                    </tr>
+                {{/each}}
+
+        </tbody>
+    </table>
+</template>
+
+<template name="play_battlefield_tabledata">
+    <!-- this: player -->
+    <td>
+        {{> play_player_status}}
+    </td>
+    <td>
+        {{> play_player_battlefield}}
+    </td>
+</template>
+
+<template name="play_player_status">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th colspan="3" class="text-center">{{username}} ({{hand.length}})</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+
+            <td class="text-center"><button class="btn btn-block btn-danger {{#if mine}}action-subtract-life{{else}}hidden{{/if}}">-</button></td>
+
+            <td class="text-center">{{life}}</td>
+
+            <td class="text-center"><button class="btn btn-block btn-success {{#if mine}}action-add-life{{else}}hidden{{/if}}">+</button></td>
+
+        </tr>
+        <tr>
+            <td class="text-center">({{exile.length}})</td>
+            <td class="text-center">({{graveyard.length}})</td>
+            <td class="{{#if mine}}action-draw-card{{/if}} text-center">({{library.length}})</td>
+        </tr>
+        </tbody>
+    </table>
+</template>
+
+<template name="play_player_battlefield">
+    <table class="table table-bordered">
+       <tbody>
+           <tr>
+               <div class="play-area">
+                   NONLAND
+               </div>
+           </tr>
+           <tr>
+               <div class="play-area">
+                   LAND
+               </div>
+           </tr>
+       </tbody>
+    </table>
+</template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Main layout div for this page -->
-<template name="play_layout">
+<template name="play_layout_OLD">
 
     <div class="col-md-2">
         <div class="row">
@@ -105,7 +278,7 @@
 
 
 <!-- Shows players health/status table -->
-<template name="play_player_status">
+<template name="play_player_status_OLD">
     <!-- this:: player -->
 
     <div class="row">
