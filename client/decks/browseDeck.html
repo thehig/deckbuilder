@@ -4,6 +4,17 @@
         <h4>Origin: {{origin}} </h4>
         <h4>Imported By: {{creator}} {{age}}</h4>
 
+        {{#if missing}}
+            <h2>Missing from API ({{missing.length}})</h2>
+            <ul>
+                {{#each missing}}
+                    <li>
+                        {{this}}
+                    </li>
+                {{/each}}
+            </ul>
+        {{/if}}
+
         {{#if creature}} <h2>Creatures ( {{creature_count}} )</h2> {{/if}}
               {{#with creature}} {{> browse_cardList}} {{/with}}
         {{#if land}} <h2>Land ( {{land_count}} )</h2> {{/if}}
@@ -16,6 +27,8 @@
               {{#with enchantment}} {{> browse_cardList}} {{/with}}
         {{#if artifact}} <h2>Artifacts ( {{artifact_count}} )</h2> {{/if}}
               {{#with artifact}} {{> browse_cardList}} {{/with}}
+        {{#if planeswalker}} <h2>Planeswalkers ( {{planeswalker_count}} )</h2> {{/if}}
+              {{#with planeswalker}} {{> browse_cardList}} {{/with}}
     </div>
 </template>
 

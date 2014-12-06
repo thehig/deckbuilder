@@ -42,7 +42,7 @@ Template.decks_deckscraper.events({
     'click #save': function(evt, template){
         evt.preventDefault();
 
-        Meteor.call('createDeck', {
+        Meteor.call('createDeckAsync', {
             name: template.find('#deck-name').value || 'New Deck',
             cards: Session.get('decks_cards'),
             origin: Session.get('decks_deckOriginUrl')

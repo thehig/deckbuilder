@@ -14,4 +14,6 @@ http
 mrt:moment
 mizzao:bootstrap-3
 mizzao:user-status
+accounts-meteor-developer
+mvrx:bluebird
 

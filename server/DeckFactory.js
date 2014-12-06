@@ -31,6 +31,108 @@ Meteor.methods({
 
         return cardsCollection;
     },
+    createDeckAsync: function(deck){
+        console.log("Create Deck async");
+
+        var apiCards = [],
+            insertionPromises = [],
+            missingCards = [];
+
+        deck.cards.forEach(function(card){
+            var existingCard = Cards.findOne({name: card.name});
+            if(existingCard) return;
+
+            apiCards.push(new Promise(function(resolve, reject){
+                Meteor.http.get("http://api.mtgdb.info/cards/" + sanitizeCardName(card.name), function(error, result){
+                    if(result && result.content){
+                        var data = JSON.parse(result.content);
+                        resolve(data);
+                    }
+                    else{
+                        resolve();
+                    }
+                });
+            }));
+        });
+
+        console.log("Waiting for apiCards");
+        Promise.all(apiCards).then(Meteor.bindEnvironment(function(results) {
+
+            results.forEach(function (result) {
+                var promise = Meteor.bindEnvironment(new Promise(function (resolve, reject) {
+                    var card = parseMtgDbResponse(result);
+                    if (card) {
+                        console.log("\tInserting card " + card.name);
+                        Cards.insert(card);
+                        resolve();
+                    } else {
+                        resolve();
+                    }
+                }));
+                insertionPromises.push(promise);
+            });
+
+            console.log("Waiting for insertions");
+            Promise.all(insertionPromises).then(Meteor.bindEnvironment(function () {
+                console.log("Assembling Deck");
+                var secondaryLookups = [],
+                    mainboard = [],
+                    sideboard = [],
+                    other = {};
+
+                deck.cards.forEach(Meteor.bindEnvironment(function (card) {
+                    var promise = Meteor.bindEnvironment(new Promise(function (resolve, reject) {
+
+                        var lookupCard = Cards.findOne({name: card.name});
+                        //This should only fail when a card can't be looked up, i.e. there was no API value for that card
+                        if (!lookupCard) {
+                            missingCards.push(card.name);
+                            resolve();
+                        }
+
+                        var dbCard = {
+                            card_id: lookupCard._id,
+                            quantity: card.quantity,
+                            board: card.board,
+                            category: card.category
+                        };
+
+                        switch (card.board) {
+                            case 'main':
+                                mainboard.push(dbCard);
+                                break;
+                            case 'side':
+                                sideboard.push(dbCard);
+                                break;
+                            default:
+                                if (other[card.board]) other[card.board].push(dbCard);
+                                else other[card.board] = [dbCard];
+                                break;
+                        }
+
+                        resolve();
+                    }));
+                    secondaryLookups.push(promise);
+                }));
+
+                console.log("Waiting for secondary lookups");
+                Promise.all(secondaryLookups).then(Meteor.bindEnvironment(function(){
+                    console.log("Inserting deck " + deck.name);
+
+                    Decks.insert({
+                        created: new Date(),
+                        createdBy: Meteor.userId(),
+                        origin: deck.origin,
+                        name: deck.name,
+                        mainboard: mainboard,
+                        sideboard: sideboard,
+                        other: other,
+                        missing: missingCards
+                    });
+                }));
+            }));
+        }));
+    },
     createDeck: function(deck){
 
         var apiCards = deck.cards.map(function(card){

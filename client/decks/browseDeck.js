@@ -34,6 +34,7 @@ Template.browseDeck.helpers({
     sorcery:              function(){ return where(this.mainboard, 'sorcery');},
     enchantment:          function(){ return where(this.mainboard, 'enchantment');},
     artifact:             function(){ return where(this.mainboard, 'artifact');},
+    planeswalker:         function(){ return where(this.mainboard, 'planeswalker');},
 
     mainboard_count:      function(){ return this.mainboard ? this.mainboard.reduce(toQuantity, 0) : 0;},
     creature_count:       function(){ return where(this.mainboard, 'creature').reduce(toQuantity, 0);},
@@ -41,5 +42,6 @@ Template.browseDeck.helpers({
     instant_count:        function(){ return where(this.mainboard, 'instant').reduce(toQuantity, 0);},
     sorcery_count:        function(){ return where(this.mainboard, 'sorcery').reduce(toQuantity, 0);},
     enchantment_count:    function(){ return where(this.mainboard, 'enchantment').reduce(toQuantity, 0);},
-    artifact_count:       function(){ return where(this.mainboard, 'artifact').reduce(toQuantity, 0);}
+    artifact_count:       function(){ return where(this.mainboard, 'artifact').reduce(toQuantity, 0);},
+    planeswalker_count:   function(){ return where(this.mainboard, 'planeswalker').reduce(toQuantity, 0);}
 });

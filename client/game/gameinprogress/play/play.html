@@ -1,0 +1,176 @@
+<!--Battlefield layout -->
+<template name="play">
+    {{!-- Layout grid for this page --}}
+    <!-- this : game -->
+
+    <div class="col-xs-1">
+        <div class="btn-group-vertical" role="group">
+
+            <!--<div class="btn-group">-->
+            <div class="btn-turnstate-action btn btn-default {{#if state.untap}}btn-success      {{else}} btn-disabled{{/if}}">Ut</div>
+            <div class="btn-turnstate-action btn btn-default {{#if state.upkeep}}btn-success     {{else}} btn-disabled{{/if}}">Uk</div>
+            <div class="btn-turnstate-action btn btn-default {{#if state.draw}}btn-success       {{else}} btn-disabled{{/if}}">Dr</div>
+            <!--</div>-->
+
+            <!--<div class="btn-group">-->
+            <div class="btn-turnstate-action btn btn-default {{#if state.main1}}btn-primary      {{else}} btn-disabled{{/if}}">M1</div>
+            <!--</div>-->
+            <!--<div class="btn-group">-->
+            <div class="btn-turnstate-action btn btn-default {{#if state.combat}}btn-danger      {{else}} btn-disabled{{/if}}">Cb</div>
+            <div class="btn-turnstate-action btn btn-default {{#if state.attackers}}btn-danger   {{else}} btn-disabled{{/if}}">Da</div>
+            <div class="btn-turnstate-action btn btn-default {{#if state.blockers}}btn-danger    {{else}} btn-disabled{{/if}}">Db</div>
+            <div class="btn-turnstate-action btn btn-default {{#if state.damage}}btn-danger      {{else}} btn-disabled{{/if}}">Dmg</div>
+            <!--</div>-->
+            <!--<div class="btn-group">-->
+            <div class="btn-turnstate-action btn btn-default {{#if state.main2}}btn-primary      {{else}} btn-disabled{{/if}}">M2</div>
+            <!--</div>-->
+            <!--<div class="btn-group">-->
+            <div class="btn-turnstate-action btn btn-default {{#if state.end}}btn-warning        {{else}} btn-disabled{{/if}}">End</div>
+            <!--</div>-->
+        </div>
+    </div>
+
+    <div class="col-xs-9">
+        {{> bf_table}}
+    </div>
+
+    <div class="col-xs-2">
+        {{> bf_stack}}
+    </div>
+
+</template>
+
+<!-- Table of all the combatant players -->
+<template name="bf_table">
+    <!--this: game-->
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th class="col-xs-2">
+                <h6>Player Status</h6>
+            </th>
+            <th class="col-xs-10">
+                <h6>Player Battlefield</h6>
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {{#each notme}}
+            <tr>
+                <td>
+                    {{> bf_player_status}}
+                </td>
+                <td>
+                    {{> bf_player_field}}
+                </td>
+            </tr>
+        {{/each}}
+
+        {{#with me}}
+            <tr>
+                <td>
+                    {{> bf_player_status}}
+                </td>
+                <td>
+                    {{> bf_player_field}}
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="play-area dropzone-hand">
+                    {{> bf_hand }}
+                </td>
+            </tr>
+        {{/with}}
+        </tbody>
+    </table>
+</template>
+
+<!-- Battlefield Player Data -->
+<template name="bf_player_status">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th colspan="3" class="text-center">{{username}} ({{hand.length}})</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+
+            <td class="text-center"><button class="btn btn-block btn-danger {{#if mine}}action-subtract-life{{else}}hidden{{/if}}">-</button></td>
+
+            <td class="text-center">{{life}}</td>
+
+            <td class="text-center"><button class="btn btn-block btn-success {{#if mine}}action-add-life{{else}}hidden{{/if}}">+</button></td>
+
+        </tr>
+        <tr>
+            <td class="text-center {{#if mine}}dropzone-exile{{/if}}">({{exile.length}})</td>
+            <td class="text-center {{#if mine}}dropzone-graveyard{{/if}}">({{graveyard.length}})</td>
+            <td class="{{#if mine}}action-draw-card dropzone-library{{/if}} text-center">({{library.length}})</td>
+        </tr>
+        </tbody>
+    </table>
+</template>
+<template name="bf_player_field">
+    <!--this: player-->
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <td>
+                <div class="play-area {{#if mine}}dropzone-nonland{{/if}}">
+                    {{#with this.field.nonland}}
+                        {{> card_group }}
+                    {{/with}}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="play-area {{#if mine}}dropzone-land{{/if}}">
+                    {{#with this.field.land}}
+                        {{> card_group }}
+                    {{/with}}
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</template>
+
+<!-- Cards -->
+<template name="card_group">
+    <!--this: cards-->
+    {{#each apicards}}
+        {{> card_container }}
+    {{/each}}
+</template>
+<template name="card_container">
+    <!-- this: card with apicard -->
+    <div style="display: inline-block;" class="{{#if tapped}}tapped{{/if}}">
+        {{> card_data }}
+    </div>
+</template>
+<template name="card_data">
+    <!-- this: card with apicard -->
+    <img class="card-image {{#if mine}}draggable{{/if}}" src="http://mtgimage.com/card/{{imagename}}.jpg">
+</template>
+
+<!-- One-of Elements -->
+<template name="bf_stack">
+    <div class="stack dropzone-stack">
+        {{#each stack}}
+            {{> card_container }}
+        {{/each}}
+    </div>
+</template>
+<template name="bf_hand">
+    <!--this: player-->
+    <div class="play-area dropzone-hand">
+        {{#with hand}}
+            {{> card_group }}
+        {{/with}}
+    </div>
+</template>
