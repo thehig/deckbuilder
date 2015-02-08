@@ -1,15 +1,21 @@
 <template name="plane">
-    <!--Planechase Basic Template-->
-    <!-- Hello Planechase!
-    <a href="/images/planechase/krosa.hq.jpg" target="_blank">Link</a>
-    <img src="/images/planechase/krosa.hq.jpg"  /> -->
+    <form>
+            <fieldset>
+                    <legend>Planechase cards to include</legend>
+                            {{#each planes}}
+                            <input type="checkbox" name="planechoice" value="{{name}}"/>{{name}} <br />
+                            {{/each}}
+                            <input id="startplanechase" type="submit" value="Start Game" />
+            </fieldset>
+    </form>
+
+<!-- 
     <ul>
     {{#each planes}}
 		<li>
-			{{name}}
-			<img src="http://mtgimage.com/card/{{name}}.jpg">
 		</li>
-
     {{/each}}
-    </ul>
+
+    
+    </ul> -->
 </template>
