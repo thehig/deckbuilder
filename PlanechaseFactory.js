@@ -36,6 +36,9 @@ if(Meteor.isServer){
 				finished: false
 			});
 		},
+		destroyPlanechaseGame: function(){
+			PlaneGames.remove({startedBy: Meteor.userId()});
+		},
 		drawNextPlane: function(){
 			var planegame = PlaneGames.findOne({startedBy: Meteor.userId()});
 			if(!planegame) return;

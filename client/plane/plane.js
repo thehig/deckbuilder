@@ -32,6 +32,12 @@ Template.plane.events({
 		Meteor.call('drawNextPlane', function(err, data){
 
 		});
+	},
+	'click #btnEnd': function(evt, template){
+		evt.preventDefault();
+		Meteor.call('destroyPlanechaseGame', function(err, data){
+
+		});
 	}
 })
 
