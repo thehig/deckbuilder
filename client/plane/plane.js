@@ -1,12 +1,12 @@
 Template.plane.helpers({
 	gameInProgress: function(){
 		var game = PlaneGames.findOne({startedBy: Meteor.userId()});
-		if(game){
+		/*if(game){
 			game.cards = game.cards.map(function(card){
 				return Planes.findOne({_id: card});
 			});
 		}
-		console.log(game);
+		console.log(game);*/
 		return game;
 	},
 	planes: function (){
@@ -24,7 +24,41 @@ Template.plane.events({
 		});
 
 		Meteor.call('createPlanechaseGame', categories, function(err, data){
-			console.log(data);
+			// console.log(data);
+		});
+	},
+	'click #btnNext': function(evt, template){
+		evt.preventDefault();
+		Meteor.call('drawNextPlane', function(err, data){
+
 		});
 	}
 })
+
+
+Template.vplanegraveyard.helpers({
+	yard: function() {
+		return [].concat(this.planegraveyard);
+	}
+});
+
+
+Template.vplanedeck.helpers({
+	count: function(){
+		// this: planeGame
+		return this.planedeck.length;
+	}
+});
+
+Template.vplanecard.helpers({
+	me: function(){
+		var id = "" + this;
+		return Planes.findOne({_id: id});
+	}
+});
+Template.vplanecardimg.helpers({
+	me: function(){
+		var id = "" + this;
+		return Planes.findOne({_id: id});
+	}
+});

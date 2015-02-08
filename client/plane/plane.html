@@ -3,18 +3,17 @@
 
     {{#if gameInProgress}}
         {{#with gameInProgress}}
-        <ul>
-        {{#each cards}}
-            <li>{{name}}</li>
-        {{/each}}
-        </ul>
+            {{>vplanedeck }}
+            {{>vplanecurrent }}
+            {{>vplanegraveyard }}
+            <button id="btnNext">Next</button>
         {{/with}}
     {{else}}
         <form>
                 <fieldset>
                         <legend>Planechase cards to include</legend>
                                 {{#each planes}}
-                                <input type="checkbox" name="planechoice" value="{{name}}"/>{{name}} <br />
+                                <input type="checkbox" name="planechoice" value="{{name}}" checked/>{{name}} <br />
                                 {{/each}}
                                 <input id="startplanechase" type="submit" value="Start Game" />
                 </fieldset>
@@ -30,4 +29,40 @@
 
     
     </ul> -->
+</template>
+
+<template name="vplanedeck">
+    <div>
+        <!-- Show the current deck -->
+        <span>Cards Remaining: {{count}}</span>
+    </div>
+</template>
+<template name="vplanecurrent">
+    <div>
+        <!-- Show the current planechase card -->
+        <span>Current Plane:</span>
+        {{#with planecurrent}}
+            {{>vplanecardimg}}
+        {{/with}}
+    </div>
+</template>
+<template name="vplanegraveyard">
+    <div>
+        <!-- Show all played planechase cards -->
+        <span>Graveyard: </span>
+        <ul>
+        {{#each yard}}
+            <li>{{>vplanecard}}</li>
+        {{/each}}
+        </ul>
+    </div>
+</template>
+
+<template name="vplanecard">
+    <span>Name: {{me.name}}</span>
+</template>
+
+
+<template name="vplanecardimg">
+    <img src="http://mtgimage.com/card/{{me.name}}.jpg">
 </template>

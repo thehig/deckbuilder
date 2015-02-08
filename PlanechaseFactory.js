@@ -30,9 +30,18 @@ if(Meteor.isServer){
 			return PlaneGames.insert({
 				startedBy: Meteor.userId(),
 				startedAt: new Date(),
-				cards: _.shuffle(desiredCards),
+				planedeck: _.shuffle(desiredCards),
+				planecurrent: undefined,
+				planegraveyard: [],
 				finished: false
 			});
+		},
+		drawNextPlane: function(){
+			var planegame = PlaneGames.findOne({startedBy: Meteor.userId()});
+			if(!planegame) return;
+			if(planegame.planecurrent) planegame.planegraveyard.push(planegame.planecurrent);
+			planegame.planecurrent = planegame.planedeck.pop();
+			PlaneGames.update({_id: planegame._id}, planegame);
 		}
 	})	
 }
