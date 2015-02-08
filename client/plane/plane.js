@@ -1,3 +1,6 @@
 Template.plane.helpers({
-	init: function (){}
+	planes: function (){
+		console.log("Planes");
+		return Planes.find({});
+	}
 })

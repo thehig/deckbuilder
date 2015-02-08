@@ -1,4 +1,4 @@
-var loadData = true;
+var loadData = false;
 
 function parseFiles (err, files){
 	files.forEach(function(filename){

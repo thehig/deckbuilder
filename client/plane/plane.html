@@ -1,6 +1,15 @@
 <template name="plane">
     <!--Planechase Basic Template-->
-    Hello Planechase!
+    <!-- Hello Planechase!
     <a href="/images/planechase/krosa.hq.jpg" target="_blank">Link</a>
-    <img src="/images/planechase/krosa.hq.jpg"  />
+    <img src="/images/planechase/krosa.hq.jpg"  /> -->
+    <ul>
+    {{#each planes}}
+		<li>
+			{{name}}
+			<img src="http://mtgimage.com/card/{{name}}.jpg">
+		</li>
+
+    {{/each}}
+    </ul>
 </template>
