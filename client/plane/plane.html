@@ -1,13 +1,25 @@
 <template name="plane">
-    <form>
-            <fieldset>
-                    <legend>Planechase cards to include</legend>
-                            {{#each planes}}
-                            <input type="checkbox" name="planechoice" value="{{name}}"/>{{name}} <br />
-                            {{/each}}
-                            <input id="startplanechase" type="submit" value="Start Game" />
-            </fieldset>
-    </form>
+
+
+    {{#if gameInProgress}}
+        {{#with gameInProgress}}
+        <ul>
+        {{#each cards}}
+            <li>{{name}}</li>
+        {{/each}}
+        </ul>
+        {{/with}}
+    {{else}}
+        <form>
+                <fieldset>
+                        <legend>Planechase cards to include</legend>
+                                {{#each planes}}
+                                <input type="checkbox" name="planechoice" value="{{name}}"/>{{name}} <br />
+                                {{/each}}
+                                <input id="startplanechase" type="submit" value="Start Game" />
+                </fieldset>
+        </form>
+    {{/if}}
 
 <!-- 
     <ul>
