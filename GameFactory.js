@@ -133,20 +133,29 @@ if(Meteor.isServer){
             var gameId = ids.gameId;
             var cardId = ids.cardId;
 
+            // Missing Parameter -> GTFO
             if(!gameId || !cardId) return;
-            //cardUid, player
+            
+            // Missing Game or Player not in game -> GTFO
             var res = utils.server.lookup(gameId);
             if(!res || !res.game || !res.me) return;
 
+            // Card not found owned by player -> GTFO
             var card = utils.server.findFromPlayer(cardId, res.me);
             if(!card) return;
 
-            if(card.tapped === true)
-                card.tapped = false;
-            else if(card.tapped === false)
-                card.tapped = true;
+            console.log("Tapping card: " + JSON.stringify(card));
+
+            // Card was somewhere other than the battlefield -> GTFO
+            if (['nonland', 'land'].indexOf(card.location) < 0) return;
+
+            var actualCard = card.card;
+            if(actualCard.tapped === true)
+                actualCard.tapped = false;
+            else if(actualCard.tapped === false)
+                actualCard.tapped = true;
             else
-                card.tapped = true;
+                actualCard.tapped = true;
 
             utils.server.update(res.game);
         }
