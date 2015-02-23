@@ -15,6 +15,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": ".meteor/.finished-upgraders",
+			"settings":
+			{
+				"buffer_size": 229,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "Packages/Python/Python.sublime-build",
 	"command_palette":
@@ -108,10 +116,25 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder"
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/server"
 	],
 	"file_history":
 	[
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/GameFactory.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play/dragndrop.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play/play.html",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/plane/plane.html",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/default.html",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/server/DeckFactory.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/PlanechaseFactory.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/lib/collections.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/utils.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/deckbuilder.sublime-project",
 		"/C/Users/David/Documents/GitHub/Manabase/decks/rdw-ver1.txt",
 		"/C/Users/David/Documents/GitHub/Manabase/decks/mardont-ver3.txt",
 		"/C/Users/David/Documents/GitHub/Manabase/test_manabase.py",
@@ -158,13 +181,14 @@
 	],
 	"find":
 	{
-		"height": 27.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 96.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -172,6 +196,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"{{#if",
+			"{{else}}",
+			"card",
+			"findFromPlayer",
 			"currentMax",
 			"readFile",
 			"WinJS.Utilities",
@@ -198,14 +226,43 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": ".meteor/.finished-upgraders",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 229,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 32.0
 	},
 	"input":
 	{
@@ -245,7 +302,7 @@
 	"project": "deckbuilder.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 60.0
 	},
 	"save_all_on_build": true,
 	"select_file":
