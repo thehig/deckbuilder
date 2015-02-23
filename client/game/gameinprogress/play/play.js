@@ -61,8 +61,10 @@ Template.card_container.events({
         });
     }
 });
+Template.card_container.helpers({    
+    mine: function(){ return this.owner === Meteor.userId(); }
+})
 Template.card_data.helpers({
-    mine: function(){ return this.owner === Meteor.userId(); },
     imagename: function(){ return this.apicard ? this.apicard.name.replace(' // ', '_') : undefined; }
 });
 
