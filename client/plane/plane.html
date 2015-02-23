@@ -3,10 +3,10 @@
 
     {{#if gameInProgress}}
         {{#with gameInProgress}}
-            {{>vplanedeck }}
+            {{>vplanedeck }}            
+            <button id="btnNext">Next</button>
             {{>vplanecurrent }}
             {{>vplanegraveyard }}
-            <button id="btnNext">Next</button>
             <button id="btnEnd">End Game</button>
         {{/with}}
     {{else}}

@@ -1,6 +1,8 @@
 
 if(Meteor.isServer){
 
+	// If this is the first time this is run, there may be no Planes in the DB (Think Meteor deployment)
+	// We can't do file scraping like we did, but we can just cheat and give it the last-known-good version of the card names
 	if(Planes.find().count() == 0){
 		var planes = ["academy at tolaria west", "agyrem", "akoum", "aretopolis", "astral arena", "bant", "bloodhill bastion", "chaotic aether", "cliffside market", "edge of malacol", "eloren wilds", "feeding grounds", "fields of summer", "furnace layer", "gavony", "glen elendra", "glimmervoid basin", "goldmeadow", "grand ossuary", "grixis", "grove of the dreampods", "hedron fields of agadeem", "immersturm", "interplanar tunnel", "isle of vesuva", "izzet steam maze", "jund", "kessig", "kharasha foothills", "kilnspire district", "krosa", "lair of the ashen idol", "lethe lake", "llanowar", "minamo", "morphic tide", "mount keralia", "murasa", "mutual epiphany", "naar isle", "naya", "nephalia", "norn's dominion", "onakke catacomb", "orochi colony", "orzhova", "otaria", "panopticon", "planewide disaster", "pools of becoming", "prahv", "quicksilver sea", "raven's run", "reality shaping", "sanctum of serra", "sea of sand", "selesnya loft gardens", "shiv", "skybreen", "sokenzan", "spatial merging", "stairs to infinity", "stensia", "stronghold furnace", "takenuma", "talon gates", "tazeem", "the aether flues", "the dark barony", "the eon fog", "the fourth sphere", "the great forest", "the hippodrome", "the maelstrom", "the zephyr maze", "time distortion", "trail of the mage-rings", "truga jungle", "turri island", "undercity reaches", "velis vel", "windriddle palace" ];
 		planes.forEach(function (planeName){
