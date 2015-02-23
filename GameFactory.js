@@ -144,7 +144,7 @@ if(Meteor.isServer){
             var card = utils.server.findFromPlayer(cardId, res.me);
             if(!card) return;
 
-            console.log("Tapping card: " + JSON.stringify(card));
+            // console.log("Tapping card: " + JSON.stringify(card));
 
             // Card was somewhere other than the battlefield -> GTFO
             if (['nonland', 'land'].indexOf(card.location) < 0) return;
