@@ -98,8 +98,11 @@ if(Meteor.isServer){
             //console.log("No Popped Card");
             if(!poppedCard) return;
 
-            //console.log("Found card");
-            //console.log(JSON.stringify(poppedCard));
+            // console.log("Found card");
+            // console.log(JSON.stringify(poppedCard));
+
+            // If the card is going to land or nonland, leave its' tapped state intact. Otherwise remove it
+            if(cardDestination.indexOf('land') < 0) delete poppedCard.tapped;
 
             //Put the card in its new destination
             switch(cardDestination) {
