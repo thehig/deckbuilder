@@ -147,16 +147,31 @@
         {{> card_container }}
     {{/each}}
 </template>
+
+
+
 <template name="card_container">
     <!-- this: card with apicard -->
-    <div style="display: inline-block;" class="{{#if tapped}}tapped{{/if}}">
-        {{> card_data }}
+    <div style="display: inline-block;" >
+        <!-- Note on draggable: In order for the card to snap back to its previous location on invalid-release
+                it needs a well-sized div to go back to. Without wrapping this div, the cards can float around the place -->
+        <div class="{{#if mine}}draggable{{/if}}">
+            {{> card_data }}
+        </div>
     </div>
 </template>
 <template name="card_data">
     <!-- this: card with apicard -->
-    <img class="card-image {{#if mine}}draggable{{/if}}" src="http://mtgimage.com/card/{{imagename}}.jpg">
+    <img class="card-image {{#if tapped}}tapped{{/if}}" src="http://mtgimage.com/card/{{imagename}}.jpg">
 </template>
+
+
+
+
+
+
+
+
 
 <!-- One-of Elements -->
 <template name="bf_stack">

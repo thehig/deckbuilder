@@ -92,19 +92,19 @@ if(Meteor.isServer){
         },
         findFromPlayer: function(cardUid, player){
             var card = utils.server.findCard(cardUid, player.hand);
-            if(card) return card;
+            if(card) return {card: card, location: 'hand'};
 
             card = utils.server.findCard(cardUid, player.field.land);
-            if(card) return card;
+            if(card) return {card: card, location: 'land'};
 
             card = utils.server.findCard(cardUid, player.field.nonland);
-            if(card) return card;
+            if(card) return {card: card, location: 'nonland'};
 
             card = utils.server.findCard(cardUid, player.graveyard);
-            if(card) return card;
+            if(card) return {card: card, location: 'graveyard'};
 
             card = utils.server.findCard(cardUid, player.exile);
-            if(card) return card;
+            if(card) return {card: card, location: 'exile'};
         },
         /**
          * Lookup a card with the given cardId, splice it and return it

@@ -1,0 +1,369 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"continu",
+				"continuousResult〔variable〕"
+			],
+			[
+				"timerSe",
+				"timerSetup"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": ".meteor/.finished-upgraders",
+			"settings":
+			{
+				"buffer_size": 229,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"gi",
+				"Gist: Open Gist"
+			],
+			[
+				"gist",
+				"Gist: Copy Gist URL"
+			],
+			[
+				"open g",
+				"Gist: Open Gist"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"list ",
+				"Package Control: List Packages"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"synjs",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"comb",
+				"Run CSScomb"
+			],
+			[
+				"syntax ht",
+				"Set Syntax: HTML"
+			],
+			[
+				"list pac",
+				"Package Control: List Packages"
+			],
+			[
+				"package remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Remove Package"
+			],
+			[
+				"install pac",
+				"Package Control: Install Package"
+			],
+			[
+				"install pack",
+				"Package Control: Install Package"
+			],
+			[
+				"list pack",
+				"Package Control: List Packages"
+			]
+		],
+		"width": 408.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/server"
+	],
+	"file_history":
+	[
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/GameFactory.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play/dragndrop.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play/play.html",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/plane/plane.html",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/default.html",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/server/DeckFactory.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/PlanechaseFactory.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/lib/collections.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/utils.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/deckbuilder.sublime-project",
+		"/C/Users/David/Documents/GitHub/Manabase/decks/rdw-ver1.txt",
+		"/C/Users/David/Documents/GitHub/Manabase/decks/mardont-ver3.txt",
+		"/C/Users/David/Documents/GitHub/Manabase/test_manabase.py",
+		"/C/Users/David/Documents/GitHub/Manabase/decks/mardont-ver2.txt",
+		"/C/Users/David/Desktop/Media App Templates/MediaAppTemplate_Hub_Light/pages/tvdetails/tvdetails.js",
+		"/C/Users/David/Desktop/Media App Templates/MediaAppTemplate_Hub_Light/pages/signin/signin.js",
+		"/C/Users/David/Desktop/Media App Templates/MediaAppTemplate_Hub_Light/pages/settings/settings.js",
+		"/C/Users/David/Desktop/Media App Templates/MediaAppTemplate_Hub_Light/pages/search/search.js",
+		"/C/Users/David/Desktop/Media App Templates/MediaAppTemplate_Hub_Light/pages/queue/queue.js",
+		"/C/Users/David/Desktop/Media App Templates/MediaAppTemplate_Hub_Light/pages/playback/playback.js",
+		"/C/Users/David/Desktop/Media App Templates/MediaAppTemplate_Hub_Light/pages/home/home.js",
+		"/C/Users/David/Desktop/Media App Templates/MediaAppTemplate_Hub_Light/pages/details/details.js",
+		"/C/Users/David/Desktop/Media App Templates/MediaAppTemplate_Hub_Light/pages/browseAll/browseAll.js",
+		"/C/Users/David/Desktop/Media App Templates/MediaAppTemplate_Hub_Light/MediaAppTemplate.sublime-project",
+		"/C/Users/David/Desktop/Manabase/decks/mardu_aggro_custom_1.txt",
+		"/C/Users/David/Desktop/Manabase/decks/mardu-midrange-mtgtop8.txt",
+		"/C/Users/David/Desktop/Manabase/README.md",
+		"/C/Users/David/Desktop/Manabase/manabase.py",
+		"/C/Users/David/Desktop/Manabase/test_manabase.py",
+		"/C/Users/David/Documents/GitHub/ai2/readdata.py",
+		"/c/users/david/appdata/local/temp/readdata.py",
+		"/C/Users/David/Desktop/helloworld.py",
+		"/C/Users/David/AppData/Roaming/Sublime Text 3/Packages/Default/Default (Windows).sublime-keymap",
+		"/C/Users/David/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Users/David/Documents/GitHub/Rainfall-POC/KinectSkeletonRenderer/KinectSkeletonRenderer/js/default.js",
+		"/C/Users/David/Documents/GitHub/Rainfall-POC/KinectSkeletonRenderer/KinectSkeletonRenderer/css/default.css",
+		"/C/Users/David/Documents/GitHub/Rainfall-POC/KinectSkeletonRenderer/KinectSkeletonRenderer/js/lib/jquery/jquery_1.11.2.js",
+		"/C/Users/David/Desktop/jquery-1.11.2.js",
+		"/C/Users/David/Documents/GitHub/Rainfall-POC/Snapshot.sublime-project",
+		"/C/Users/David/Documents/GitHub/Rainfall-POC/KinectSkeletonRenderer/KinectSkeletonRenderer/default.html",
+		"/C/Users/David/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/David/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/David/AppData/Roaming/Sublime Text 3/Packages/User/HTML.sublime-settings",
+		"/C/Users/David/Desktop/LearningHTML/LearningHtmlProjectWithAngular/app/index.html",
+		"/C/Users/David/Desktop/LearningHTML/LearningHtmlProjectWithAngular/app/js/app.js",
+		"/C/Users/David/AppData/Roaming/Sublime Text 3/Packages/BracketHighlighter/Example.sublime-keymap",
+		"/C/Users/David/Desktop/LearningHTML/LearningHtmlProjectWithAngular/bower.json",
+		"/C/Users/David/Desktop/LearningHTML/LearningHtmlProjectWithAngular/.idea/LearningHtmlProjectWithAngular.iml",
+		"/C/Users/David/Desktop/LearningHTML/LearningHtmlProjectWithAngular/app/css/home.css",
+		"/C/Users/David/Desktop/Steganography/Steganography/Program.cs",
+		"/C/Users/David/Desktop/Steganography/Steganography/Crypto.cs",
+		"/C/Users/David/Desktop/Steganography/Steganography/obj/x86/Debug/Steganography.csproj.GenerateResource.Cache",
+		"/C/Users/David/Desktop/Steganography/Steganography/app.config"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 96.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"{{#if",
+			"{{else}}",
+			"card",
+			"findFromPlayer",
+			"currentMax",
+			"readFile",
+			"WinJS.Utilities",
+			"$",
+			"\n",
+			"\n                ",
+			"                ",
+			"\n",
+			"kinect"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": ".meteor/.finished-upgraders",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 229,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 32.0
+	},
+	"input":
+	{
+		"height": 44.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 235.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "deckbuilder.sublime-project",
+	"replace":
+	{
+		"height": 60.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"css",
+				"KinectSkeletonRenderer\\css\\default.css"
+			],
+			[
+				"defjs",
+				"KinectSkeletonRenderer\\js\\default.js"
+			],
+			[
+				"",
+				"KinectSkeletonRenderer\\default.html"
+			],
+			[
+				"js",
+				"app\\js\\app.js"
+			],
+			[
+				"html",
+				"app\\index.html"
+			],
+			[
+				".cs",
+				"Steganography\\Program.cs"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 35.0,
+		"selected_items":
+		[
+		],
+		"width": 392.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 301.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
