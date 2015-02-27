@@ -17,13 +17,14 @@
         {{/with}}
     {{else}}
         <form>
-                <fieldset>
-                        <legend>Planechase cards to include</legend>
-                                {{#each planes}}
-                                <input type="checkbox" name="planechoice" value="{{name}}" checked/>{{name}} <br />
-                                {{/each}}
-                                <input id="startplanechase" type="submit" value="Start Game" />
-                </fieldset>
+            <input id="startplanechase" class="btn btn-primary btn-block" type="submit" value="Start Game" />
+            <fieldset>
+                <legend>Planechase cards to include</legend>
+                {{#each planes}}
+                    <input type="checkbox" name="planechoice" value="{{name}}" checked/>{{name}} <br />
+                {{/each}}
+                            
+            </fieldset>
         </form>
     {{/if}}
 </template>
