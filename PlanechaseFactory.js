@@ -19,7 +19,7 @@ if(Meteor.isServer){
 			return PlaneGames.insert({
 				startedBy: Meteor.userId(),
 				startedAt: new Date(),
-				planedeck: _.shuffle(desiredCards),
+				planedeck: _.shuffle(desiredCards), 		//Potentially unsafe. Law 1: Thou shalt not trust thine user
 				planecurrent: undefined,
 				planegraveyard: [],
 				finished: false
@@ -29,10 +29,23 @@ if(Meteor.isServer){
 			PlaneGames.remove({startedBy: Meteor.userId()});
 		},
 		drawNextPlane: function(){
+			// Lookup the game using the player ID
 			var planegame = PlaneGames.findOne({startedBy: Meteor.userId()});
 			if(!planegame) return;
+
+			// Put the current plane in the graveyard
 			if(planegame.planecurrent) planegame.planegraveyard.push(planegame.planecurrent);
+			
+			// Shuffle the graveyard into the deck if it's empty
+			if(planegame.planedeck.length === 0){
+				planegame.planedeck = _.shuffle(planegame.planegraveyard);
+				planegame.planegraveyard = [];
+			}
+
+			// Put the first card from the deck onto the board
 			planegame.planecurrent = planegame.planedeck.pop();
+
+			// Update the game
 			PlaneGames.update({_id: planegame._id}, planegame);
 		}
 	})	
