@@ -1,7 +1,12 @@
-.plane-img img {
+.plane-img {
 	width: 100%;
 }
 
-.loading {
-	display: none;
-}
+/* Note that 78 + 20 != 100 due to borders and padding from Bootstrap */
+	.dominant-height{	
+		height: 78%; 
+	}
+
+	.secondary-height{
+		height: 20%;
+	}

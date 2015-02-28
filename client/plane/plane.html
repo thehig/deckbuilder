@@ -1,18 +1,41 @@
 <template name="plane">
     {{#if gameInProgress}}
         {{#with gameInProgress}}
-            <div class="plane-btn col-md-offset-1 col-md-10">
-                <div id="btnNext" class="btn btn-success btn-block">Planeswalk ({{count}})</div>
+
+
+            
+
+            <!-- <div class="fullheight">
+                <table class="fullheight">
+                    <tr>
+                        <td class="quaterwidth">
+                            <div id="btnNext" class="fullheight btn btn-success btn-block">Planeswalk ({{count}})</div>
+                        </td>
+            
+                        <td class="halfwidth fullheight">
+                            {{#with planecurrent}}
+                                {{>vplanecardimg}}
+                            {{/with}}
+                        </td>
+            
+                        <td class="quaterwidth">
+                            <div id="btnEnd" class="fullheight btn btn-warning btn-block">End Game</div> 
+                        </td>
+                    </tr>
+                </table>
+            </div> -->
+            <div class="fullheight col-xs-1">
+                {{>vplanecontrols}}
             </div>
 
-            <div class="plane-img col-md-offset-1 col-md-10">
+            <div class="fullheight col-xs-offset-1 col-xs-8">
                 {{#with planecurrent}}
                     {{>vplanecardimg}}
                 {{/with}}
             </div>
 
-            <div class="plane-btn col-md-offset-1 col-md-10">
-                <div id="btnEnd" class="btn btn-warning btn-block">End Game</div> 
+            <div class="fullheight col-xs-offset-1 col-xs-1">
+                {{>vplanecontrols}}
             </div>
         {{/with}}
     {{else}}
@@ -27,6 +50,16 @@
             </fieldset>
         </form>
     {{/if}}
+</template>
+
+<template name="vplanecontrols">
+    <div class="action-next-plane dominant-height btn btn-success btn-block">
+        <p>({{count}})</p>
+    </div>
+
+    <div class="action-end-plane secondary-height btn btn-warning btn-block">
+        <p>End</p>
+    </div> 
 </template>
 
 <template name="vplanedeck">
@@ -62,5 +95,5 @@
 
 
 <template name="vplanecardimg">
-    <img src="http://mtgimage.com/card/{{me.name}}.jpg">
+    <img class="plane-img" src="http://mtgimage.com/card/{{me.name}}.jpg">
 </template>

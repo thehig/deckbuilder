@@ -12,11 +12,6 @@ Template.plane.helpers({
 	planes: function (){
 		console.log("Planes");
 		return Planes.find({});
-	},
-	
-	count: function(){
-		// this: planeGame
-		return this.planedeck.length;
 	}
 })
 
@@ -32,23 +27,29 @@ Template.plane.events({
 			// console.log(data);
 		});
 	},
-	'click #btnNext': function(evt, template){
+	'click .action-next-plane': function(evt, template){
 		evt.preventDefault();
 
-		$('.plane-img').addClass('loading');
+		$('.plane-img').addClass('hidden');
 
 		Meteor.call('drawNextPlane', function(err, data){
 
 		});
 	},
-	'click #btnEnd': function(evt, template){
+	'click .action-end-plane': function(evt, template){
 		evt.preventDefault();
 		Meteor.call('destroyPlanechaseGame', function(err, data){
 
 		});
 	}
-})
+});
 
+Template.vplanecontrols.helpers({
+	count: function(){
+		// this: planeGame
+		return this.planedeck.length;
+	}
+});
 
 Template.vplanegraveyard.helpers({
 	yard: function() {
@@ -80,6 +81,6 @@ Template.vplanecardimg.helpers({
 
 Template.vplanecardimg.events({
 	'load img': function(evt, template){
-		$('.plane-img').removeClass('loading');
+		$('.plane-img').removeClass('hidden');
 	}
 });
