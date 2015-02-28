@@ -34,6 +34,9 @@ Template.plane.events({
 	},
 	'click #btnNext': function(evt, template){
 		evt.preventDefault();
+
+		$('.plane-img').addClass('loading');
+
 		Meteor.call('drawNextPlane', function(err, data){
 
 		});
@@ -67,9 +70,16 @@ Template.vplanecard.helpers({
 		return Planes.findOne({_id: id});
 	}
 });
+
 Template.vplanecardimg.helpers({
 	me: function(){
 		var id = "" + this;
 		return Planes.findOne({_id: id});
+	}
+});
+
+Template.vplanecardimg.events({
+	'load img': function(evt, template){
+		$('.plane-img').removeClass('loading');
 	}
 });
