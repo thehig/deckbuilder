@@ -12,6 +12,11 @@ Template.plane.helpers({
 	planes: function (){
 		console.log("Planes");
 		return Planes.find({});
+	},
+	
+	count: function(){
+		// this: planeGame
+		return this.planedeck.length;
 	}
 })
 

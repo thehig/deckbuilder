@@ -1,35 +1,32 @@
 <template name="plane">
-
-
     {{#if gameInProgress}}
         {{#with gameInProgress}}
-            {{>vplanedeck }}            
-            <button id="btnNext">Next</button>
-            {{>vplanecurrent }}
-            {{>vplanegraveyard }}
-            <button id="btnEnd">End Game</button>
+            <div class="plane-btn col-md-offset-1 col-md-10">
+                <div id="btnNext" class="btn btn-success btn-block">Planeswalk ({{count}})</div>
+            </div>
+
+            <div class="plane-img col-md-offset-1 col-md-10">
+                {{#with planecurrent}}
+                    {{>vplanecardimg}}
+                {{/with}}
+            </div>
+
+            <div class="plane-btn col-md-offset-1 col-md-10">
+                <div id="btnEnd" class="btn btn-warning btn-block">End Game</div> 
+            </div>
         {{/with}}
     {{else}}
         <form>
-                <fieldset>
-                        <legend>Planechase cards to include</legend>
-                                {{#each planes}}
-                                <input type="checkbox" name="planechoice" value="{{name}}" checked/>{{name}} <br />
-                                {{/each}}
-                                <input id="startplanechase" type="submit" value="Start Game" />
-                </fieldset>
+            <input id="startplanechase" class="btn btn-primary btn-block" type="submit" value="Start Game" />
+            <fieldset>
+                <legend>Planechase cards to include</legend>
+                {{#each planes}}
+                    <input type="checkbox" name="planechoice" value="{{name}}" checked/>{{name}} <br />
+                {{/each}}
+                            
+            </fieldset>
         </form>
     {{/if}}
-
-<!-- 
-    <ul>
-    {{#each planes}}
-		<li>
-		</li>
-    {{/each}}
-
-    
-    </ul> -->
 </template>
 
 <template name="vplanedeck">
