@@ -15,6 +15,11 @@ if(Meteor.isServer){
 
 
 	Meteor.methods({
+		/**
+		 * Given a list of card IDs, create a Planechase Game
+		 * @param  {[String]} desiredCards Collection of MongoDB Planechase Card IDs
+		 * @return {Object}                JSON Planechase Game
+		 */
 		createPlanechaseGame: function (desiredCards){
 			return PlaneGames.insert({
 				startedBy: Meteor.userId(),
@@ -25,9 +30,15 @@ if(Meteor.isServer){
 				finished: false
 			});
 		},
+		/**
+		 * Shortcut for MongoDB Game Removal of game owned by current player
+		 */
 		destroyPlanechaseGame: function(){
 			PlaneGames.remove({startedBy: Meteor.userId()});
 		},
+		/**
+		 * Draw the next Planechase Card from the deck to current
+		 */
 		drawNextPlane: function(){
 			// Lookup the game using the player ID
 			var planegame = PlaneGames.findOne({startedBy: Meteor.userId()});
