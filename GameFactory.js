@@ -41,6 +41,7 @@ if(Meteor.isServer){
                 player.library = _.shuffle(cards);
             });
             game.inProgress = true;
+            game.misc.history.push(utils.datastructures.createhistorymessage("Game Started"));
             Games.update({_id: game._id}, game);
         },
         /**
@@ -51,7 +52,10 @@ if(Meteor.isServer){
             var res = utils.server.lookup(gameId);
             if(!res || !res.me || res.me.library.length <= 0) return;
 
-            res.me.hand.push(res.me.library.pop());
+            var card = res.me.library.pop();
+            res.me.hand.push(card);
+
+            res.game.misc.history.push(utils.datastructures.createhistorymessage("Draw Card", {card: card._id}));
             utils.server.update(res.game);
         },
         /**
@@ -63,6 +67,8 @@ if(Meteor.isServer){
             if(!res.me || !res.me.deckId) return;
 
             res.me.ready = !res.me.ready;
+
+            res.game.misc.history.push(utils.datastructures.createhistorymessage("Game Started"));
             utils.server.update(res.game);
         },
         /**
@@ -78,6 +84,8 @@ if(Meteor.isServer){
             if(!res.me) return;
 
             res.me.deckId = deckId;
+
+            res.game.misc.history.push(utils.datastructures.createhistorymessage("Choose Deck", {deck: deckId}));
             utils.server.update(res.game);
         },
         /**
@@ -89,6 +97,8 @@ if(Meteor.isServer){
             if(!res.me) return;
 
             res.me.life++;
+            res.game.misc.history.push(utils.datastructures.createhistorymessage("Gain Life"));
+
             utils.server.update(res.game);
         },        
         /**
@@ -100,6 +110,7 @@ if(Meteor.isServer){
             if(!res.me) return;
 
             res.me.life--;
+            res.game.misc.history.push(utils.datastructures.createhistorymessage("Subtract Life"));
             utils.server.update(res.game);
         },
         /**
@@ -161,6 +172,13 @@ if(Meteor.isServer){
                     break;
             }
 
+            
+            //TODO: Add source of move
+            res.game.misc.history.push(utils.datastructures.createhistorymessage("Move Card", {
+                card: poppedCard._id,
+                destination: cardDestination
+            }));
+
             //Save
             utils.server.update(res.game);
         },
@@ -196,6 +214,13 @@ if(Meteor.isServer){
             else
                 actualCard.tapped = true;
 
+
+            //TODO: Add source of move
+            res.game.misc.history.push(utils.datastructures.createhistorymessage("Tap Card", {
+                card: card._id,
+                tapped: actualCard.tapped
+            }));
+
             utils.server.update(res.game);
         },
         /**
@@ -212,6 +237,11 @@ if(Meteor.isServer){
             game.misc.chat.push(
                 utils.datastructures.createchatmessage(messageObject.message)
             );
+
+            //TODO: Add source of move
+            game.misc.history.push(utils.datastructures.createhistorymessage("Chat", {
+                message: messageObject.message,
+            }));
 
             utils.server.update(game);
         }
