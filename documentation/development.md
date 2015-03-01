@@ -45,6 +45,24 @@ For basic Meteor security the following default packages are removed
 
 Further reading can be found [here](https://www.discovermeteor.com/blog/meteor-and-security/)
 
+## Code Editor
+
+I have gotten most of my setup from [tutsplus](https://code.tutsplus.com/courses/perfect-workflow-in-sublime-text-2) and [Meteorpedia](http://www.meteorpedia.com/read/Sublime_Text)
+
+I use [Sublime Text 3]() with the following plugins:
+
+* [BetterJavascript](https://github.com/int3h/sublime-better-javascript)
+* [CSSComb](https://github.com/csscomb/sublime-csscomb)
+* [Emmet](http://emmet.io/)
+* [Bracketeer](https://github.com/colinta/SublimeBracketeer)
+* [BracketHilighter](https://github.com/facelessuser/BracketHighlighter)
+* [DocBlockr](https://github.com/spadgos/sublime-jsdocs)
+* [Gists](https://github.com/condemil/Gist)
+* [Meteor Snippets](https://github.com/mrtnbroder/meteor-snippets)
+* [SublimeLinter](http://www.sublimelinter.com/en/latest/)
+* [SublimeLinter-jshint](https://packagecontrol.io/packages/SublimeLinter-jshint)
+* [TernJS](http://emmet.io/blog/sublime-tern/)
+
 ## Vagrant
 
 Vagrant Setup:
