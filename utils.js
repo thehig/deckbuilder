@@ -118,6 +118,18 @@ utils = {
                 creator: Meteor.userId(),
                 message: chatmessage
             }
+        },
+        /**
+         * Take in a message and create the history equivalent
+         * @param  {String} historymessage Message to be added to history
+         */
+        createhistorymessage: function(historymessage, params){
+            return {
+                timestamp: new Date(),
+                creator: Meteor.userId(),
+                message: historymessage,
+                params: params
+            }
         }
     }
 };
