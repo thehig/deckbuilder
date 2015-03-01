@@ -1,3 +1,5 @@
+
+
 /*Template.play.helpers({
     game: function(){
         console.log(this);
@@ -77,6 +79,44 @@ Template.bf_stack.helpers({
         });
     }
 });
+
+
+// Chat
+Template.bf_chat.events({
+    'click .action-send-message, keydown .input-bf-chat': function(evt, template){
+        // TODO : Disable button when sending message
+        //      : Check if disabled when sending by enter-key
+        //      : Re-enable button upon reciept of message
+
+
+        // Ignore all key-down events except Enter (13)
+        if(evt.type == "keydown" && evt.keyCode != 13) return; 
+
+        evt.preventDefault();
+
+        var input = $('.input-bf-chat').val();
+        if(input.length == 0) return;
+
+
+
+        Meteor.call('chat', 
+            {
+                id: Session.get("currentGame")._id,
+                message: input
+            },
+            function (err, data){
+                $('.input-bf-chat').val('');
+            }
+        );
+    }
+});
+
+Template.bf_chatmessage.helpers({
+    name: function(){
+        return utils.lookup.username(this.creator);
+    }
+});
+
 
 /*
 

@@ -36,6 +36,7 @@
 
     <div class="col-xs-2">
         {{> bf_stack}}
+        {{> bf_chat}}
     </div>
 
 </template>
@@ -188,4 +189,23 @@
             {{> card_group }}
         {{/with}}
     </div>
+</template>
+
+<template name="bf_chat">
+    <!-- this: game -->
+    <div id="chatbox">
+        {{#each misc.chat}}
+            {{>bf_chatmessage}}
+        {{/each}}
+    </div>
+ 
+    <div class="input-group">
+      <input type="text" class="form-control input-bf-chat" placeholder="Message">
+      <span class="action-send-message input-group-addon btn btn-default">Send</span>
+    </div>
+</template>
+
+<template name="bf_chatmessage">
+    <!-- this: chat message -->
+    <p>{{name}}: {{message}}</p>
 </template>

@@ -62,6 +62,17 @@ utils = {
                 owner: Meteor.userId(),
                 tapped: false
             };
+        },
+        createchatmessage: function(chatmessage){
+            if(chatmessage.length > 140) chatmessage = chatmessage.substring(0, 140);
+
+            //TODO: Secure the input message instead of accepting it as good
+
+            return {
+                timestamp: new Date(),
+                creator: Meteor.userId(),
+                message: chatmessage
+            }
         }
     }
 };

@@ -161,6 +161,19 @@ if(Meteor.isServer){
                 actualCard.tapped = true;
 
             utils.server.update(res.game);
+        },
+        chat: function(messageObject){
+
+            // Lookup the game
+            var game = Games.findOne({_id: messageObject.id});
+            if(!game) return;
+
+            // Create a chat datastructure and to the game
+            game.misc.chat.push(
+                utils.datastructures.createchatmessage(messageObject.message)
+            );
+
+            utils.server.update(game);
         }
     });
 }
