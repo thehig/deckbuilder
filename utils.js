@@ -103,9 +103,15 @@ utils = {
          * @return {Object}             JSON object of the chat message and metadata
          */
         createchatmessage: function(chatmessage){
+            // This substring is also done client side, but just in case...
             if(chatmessage.length > 140) chatmessage = chatmessage.substring(0, 140);
 
-            //TODO: Secure the input message instead of accepting it as good
+            // Meteor is auto-sanitizing input, so no need to do this
+            /*chatmessage = chatmessage.replace(/&/g, '&amp;')
+                          .replace(/</g, '&lt;')
+                          .replace(/>/g, '&gt;')
+                          .replace(/\"/g, '&quot;')
+                          .replace(/\'/g, '&#39;');*/
 
             return {
                 timestamp: new Date(),
