@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"remin",
+				"remainingCharacters"
+			],
+			[
+				"mess",
+				"messageObject〔argument〕"
+			],
+			[
+				"bf_cha",
+				"bf_chatmessage"
+			],
+			[
+				"chat",
+				"chatmessage〔argument〕"
+			],
+			[
+				"planede",
+				"planegraveyard"
+			],
+			[
+				"vplane",
+				"vplanecardimg"
+			],
+			[
 				"continu",
 				"continuousResult〔variable〕"
 			],
@@ -15,21 +39,21 @@
 	},
 	"buffers":
 	[
-		{
-			"file": ".meteor/.finished-upgraders",
-			"settings":
-			{
-				"buffer_size": 229,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "Packages/Python/Python.sublime-build",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 288.0,
 		"selected_items":
 		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"list pack",
+				"Package Control: List Packages"
+			],
 			[
 				"gi",
 				"Gist: Open Gist"
@@ -41,10 +65,6 @@
 			[
 				"open g",
 				"Gist: Open Gist"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
 			],
 			[
 				"list ",
@@ -89,13 +109,9 @@
 			[
 				"install pack",
 				"Package Control: Install Package"
-			],
-			[
-				"list pack",
-				"Package Control: List Packages"
 			]
 		],
-		"width": 408.0
+		"width": 632.0
 	},
 	"console":
 	{
@@ -121,20 +137,27 @@
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play",
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/server"
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/plane"
 	],
 	"file_history":
 	[
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/GameFactory.js",
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play/dragndrop.js",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play/play.html",
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/plane/plane.html",
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/default.html",
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/server/DeckFactory.js",
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/PlanechaseFactory.js",
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/lib/collections.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play/play.js",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/utils.js",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/deckbuilder.sublime-project",
+		"/C/Users/David/AppData/Roaming/Sublime Text 3/Packages/TernJS/ternjs/plugin/meteor.js",
+		"/C/Users/David/AppData/Roaming/Sublime Text 3/Packages/TernJS/TernJS.sublime-settings",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/GameFactory.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/plane/plane.css",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/PlanechaseFactory.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/plane/plane.html",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/plane/plane.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/default.css",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/.meteor/.finished-upgraders",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play/dragndrop.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/default.html",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/server/DeckFactory.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/lib/collections.js",
 		"/C/Users/David/Documents/GitHub/Manabase/decks/rdw-ver1.txt",
 		"/C/Users/David/Documents/GitHub/Manabase/decks/mardont-ver3.txt",
 		"/C/Users/David/Documents/GitHub/Manabase/test_manabase.py",
@@ -196,6 +219,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			" \n",
+			"p>",
+			"p",
+			"table",
 			"{{#if",
 			"{{else}}",
 			"card",
@@ -226,37 +253,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": ".meteor/.finished-upgraders",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 229,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
