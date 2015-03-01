@@ -80,32 +80,51 @@ Template.bf_stack.helpers({
     }
 });
 
-
 // Chat
 Template.bf_chat.events({
-    'click .action-send-message, keydown .input-bf-chat': function(evt, template){
-        // TODO : Disable button when sending message
-        //      : Check if disabled when sending by enter-key
-        //      : Re-enable button upon reciept of message
+    'keyup .input-bf-chat': function(evt, template){
+        evt.preventDefault();
 
+        var remainingElement = $('.send-remaining');
+        var inputElement = $('.input-bf-chat');
 
-        // Ignore all key-down events except Enter (13)
-        if(evt.type == "keydown" && evt.keyCode != 13) return; 
+        var inputMessage = "" + inputElement.val();
+        var length = inputMessage.length;
+        if(length >= 140){
+            inputMessage = inputMessage.substr(0, 140);
+            length = 140;
+            inputElement.val(inputMessage);
+        }
+
+        var remaining = 140 - length;
+        remainingElement.text(remaining);
+    },
+    'click .action-send-message, keyup .input-bf-chat': function(evt, template){   
+        // If it's a keypress and it's not "Enter" ignore
+        if(evt.type == "keyup" && evt.keyCode != 13) return; 
+
+        // If the button is disabled (sending) ignore
+        var buttonElement = $('.action-send-message');
+        if(buttonElement.attr('disabled')) return;
+
+        // If the input length is 0, ignore
+        var inputElement = $('.input-bf-chat');
+        var input = inputElement.val();
+        if(input.length == 0) return;
 
         evt.preventDefault();
 
-        var input = $('.input-bf-chat').val();
-        if(input.length == 0) return;
-
-
-
+        // Disable Button, send chat
+        buttonElement.attr("disabled", true);
         Meteor.call('chat', 
             {
                 id: Session.get("currentGame")._id,
                 message: input
             },
             function (err, data){
-                $('.input-bf-chat').val('');
+                // Enable button, clear chat
+                buttonElement.attr("disabled", false);
+                inputElement.val('');
             }
         );
     }
