@@ -7,34 +7,46 @@ if(Meteor.isServer){
          game.lastActivity = new Date();
          Games.update({_id: game._id}, game);
          },*/
+
+         /**
+          * Create a new game between the current player and another player
+          * @param  {String} otherPlayerId MongoDB Player ID
+          */
         createGame: function(otherPlayerId){
-            console.log("Creating game");
             Games.insert(utils.datastructures.creategame([Meteor.userId(), otherPlayerId]));
         },
+        /**
+         * Given a game ID, start the game up, shuffle decks, create IDs and put the game together
+         * @param  {String} gameId MongoDB Game ID
+         */
         startGame: function(gameId){
             var game = Games.findOne({_id: gameId});
-            if(game){
-                game.players.forEach(function(player){
-                    var deck = Decks.findOne({_id: player.deckId});
-                    if(!deck){ return; }
+            if(!game) return;
 
-                    var cards = [];
-                    deck.mainboard.forEach(function(card){
-                       for(var i = 0; i < card.quantity; i++){
-                           cards.push({
-                               _id: new Meteor.Collection.ObjectID()._str,
-                               cardId: card.card_id,
-                               owner: player.playerId
-                           });
-                       }
-                    });
+            game.players.forEach(function(player){
+                var deck = Decks.findOne({_id: player.deckId});
+                if(!deck){ return; }
 
-                    player.library = _.shuffle(cards);
+                var cards = [];
+                deck.mainboard.forEach(function(card){
+                   for(var i = 0; i < card.quantity; i++){
+                       cards.push({
+                           _id: new Meteor.Collection.ObjectID()._str,
+                           cardId: card.card_id,
+                           owner: player.playerId
+                       });
+                   }
                 });
-                game.inProgress = true;
-                Games.update({_id: game._id}, game);
-            }
+
+                player.library = _.shuffle(cards);
+            });
+            game.inProgress = true;
+            Games.update({_id: game._id}, game);
         },
+        /**
+         * Given a game ID, draw a card for the current player
+         * @param  {String} gameId MongoDB Game ID
+         */
         drawCard: function(gameId){
             var res = utils.server.lookup(gameId);
             if(!res || !res.me || res.me.library.length <= 0) return;
@@ -42,6 +54,10 @@ if(Meteor.isServer){
             res.me.hand.push(res.me.library.pop());
             utils.server.update(res.game);
         },
+        /**
+         * Given a game ID, toggle the current players ready status
+         * @param  {String} gameId MongoDB Game ID
+         */
         playerReady: function(gameId){
             var res = utils.server.lookup(gameId);
             if(!res.me || !res.me.deckId) return;
@@ -49,7 +65,12 @@ if(Meteor.isServer){
             res.me.ready = !res.me.ready;
             utils.server.update(res.game);
         },
+        /**
+         * Given a game set the users deck
+         * @param  {[String]} ids MongoDB Game ID and MongoDB Deck ID
+         */
         chooseDeck: function(ids){
+            //TODO: Change ids[] to ids{}
             if(ids.length !== 2) return;
             var gameId = ids[0],
                 deckId = ids[1];
@@ -60,13 +81,21 @@ if(Meteor.isServer){
             res.me.deckId = deckId;
             utils.server.update(res.game);
         },
+        /**
+         * Given a gameId, increase the current players life by one
+         * @param {String} gameId MongoDB Game ID
+         */
         addLife: function(gameId){
             var res = utils.server.lookup(gameId);
             if(!res.me) return;
 
             res.me.life++;
             utils.server.update(res.game);
-        },
+        },        
+        /**
+         * Given a gameId, subtract the current players life by one
+         * @param {String} gameId MongoDB Game ID
+         */
         subtractLife: function(gameId){
             var res = utils.server.lookup(gameId);
             if(!res.me) return;
@@ -74,6 +103,10 @@ if(Meteor.isServer){
             res.me.life--;
             utils.server.update(res.game);
         },
+        /**
+         * Move a card from source to destination
+         * @param  {Object} moveInformation JSON Object with card destination, cardUid and gameId
+         */
         moveCard: function(moveInformation){
             //console.log("Move Card");
             //Check our parameters
@@ -132,6 +165,10 @@ if(Meteor.isServer){
             //Save
             utils.server.update(res.game);
         },
+        /**
+         * Tap a specific card, if possible
+         * @param  {Object} ids Object containing gameId and cardId
+         */
         tapCard: function(ids){
             var gameId = ids.gameId;
             var cardId = ids.cardId;
@@ -162,6 +199,10 @@ if(Meteor.isServer){
 
             utils.server.update(res.game);
         },
+        /**
+         * Send a message to the game
+         * @param  {Object} messageObject Object with a game ID and a message
+         */
         chat: function(messageObject){
 
             // Lookup the game
