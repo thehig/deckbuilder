@@ -67,13 +67,12 @@ if(Meteor.isServer){
         },
         /**
          * Given a game set the users deck
-         * @param  {[String]} ids MongoDB Game ID and MongoDB Deck ID
+         * @param  {Object} ids JSON Object with MongoDB gameId and MongoDB deckId
          */
         chooseDeck: function(ids){
-            //TODO: Change ids[] to ids{}
-            if(ids.length !== 2) return;
-            var gameId = ids[0],
-                deckId = ids[1];
+            var gameId = ids.gameId,
+                deckId = ids.deckId;
+
 
             var res = utils.server.lookup(gameId);
             if(!res.me) return;

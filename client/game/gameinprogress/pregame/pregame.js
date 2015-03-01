@@ -51,6 +51,6 @@ Template.pregame_deckdropdown.events({
         var clickedDeckName = $(evt.target).text();
         var deck = Decks.findOne({name: clickedDeckName});
         var game = Session.get('currentGame');
-        Meteor.call('chooseDeck', [game._id, deck._id]);
+        Meteor.call('chooseDeck', {gameId: game._id, deckId: deck._id});
     }
 });
