@@ -9,6 +9,11 @@ Future = Meteor.npmRequire('fibers/future');
 
 
 Meteor.methods({
+    /**
+     * Given a URL, go get the cards from tappedOut
+     * @param  {String} url     TappedOut URL
+     * @return {[Object]}       Array of Card Objects with name, quantity, board and category
+     */
     scrapeFromTappedOut: function(url) {
         if(!url) return [];
         console.log("Getting " + url);
@@ -195,16 +200,17 @@ Meteor.methods({
 });
 
 
-
 /**
- * Look up a card by name with the mtgJsonDB API
- * @param cardName
- * @returns {*}
+ * Given a card name, look it up in the MtgDB API
+ * @param  {String} cardName The plain-string name of the card
+ * @return {Object}          The JSON detailed version of the card
  */
 function apiLookup(cardName) {
     if (!cardName) return {};
 
     var sanitizedCardName = sanitizeCardName(cardName);
+
+    //TODO Remove Future in favor of Bluebird
     var myFuture = new Future();
 
     var safeurl = "http://api.mtgdb.info/cards/" + sanitizedCardName;
@@ -221,11 +227,16 @@ function apiLookup(cardName) {
 }
 
 /**
+ * @param cardName
+ * @returns {string}
+ */
+
+/**
  * Clean up a name for api safe lookup
  * Remove ':' symbol (Circle of protection: Red)
  * Remove '/' symbol (Turn / Burn)
- * @param cardName
- * @returns {string}
+ * @param  {String} cardName Card Name to safely encode
+ * @return {String}          Encoded card name
  */
 function sanitizeCardName(cardName){
     return encodeURIComponent(cardName.replace(':', '').replace(' / ', ''));
@@ -233,8 +244,8 @@ function sanitizeCardName(cardName){
 
 /**
  * When multiple cards (printings) are returned, always store the latest printing (highest set)
- * @param mtgDbCardResult
- * @returns {*}
+ * @param {Object} mtgDbCardResult  Result of a request to MtgDB
+ * @returns {Object}                Most recent printing of a card
  */
 function parseMtgDbResponse(mtgDbCardResult){
     var mtgCard = [-1, null];
