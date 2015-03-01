@@ -54,7 +54,7 @@ Taken from [File Load Order](http://docs.meteor.com/#/full/fileloadorder)
 > 
 > After sorting as described above, all files under directories named lib are moved before everything else, preserving their order.
 > 
-> ** main.* **
+> **main.***
 > 
 > All files that match main.* are moved after everything else, preserving their order.
 
