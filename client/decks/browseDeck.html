@@ -36,7 +36,7 @@
 <template name="browse_cardList">
     <ul>
         {{#each this}}
-          <li>{{quantity}} x {{card.name}}</li>
+          <li>{{quantity}} x <a href="http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid={{card.id}}">{{card.name}}</a></li>
         {{/each}}
     </ul>
 </template>

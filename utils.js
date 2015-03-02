@@ -6,7 +6,8 @@ utils = {
          * @return {String}        Plaintext name for User
          */
         username: function (userId) {
-            return Meteor.users.findOne({_id: userId}).username;
+            var user = Meteor.users.findOne({_id: userId});
+            return user ? user.username : "Unknown";
         },
         /**
          * Gets a Deck by ID
