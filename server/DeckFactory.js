@@ -1,9 +1,6 @@
 //Virtual DOM manager
 $ = Meteor.npmRequire('cheerio');
 
-//Promise management
-Future = Meteor.npmRequire('fibers/future');
-
 
 
 
@@ -138,98 +135,10 @@ Meteor.methods({
             }));
         }));
     },
-    createDeck: function(deck){
-
-        var apiCards = deck.cards.map(function(card){
-
-            var lookupCard = Cards.findOne({name: card.name}),
-                cardId = -1;
-
-            if(lookupCard) cardId = lookupCard._id;
-            else{
-                //todo: Better error handling here
-                console.log("Creating card " + card.name);
-                var apiResult = apiLookup(card.name);
-                if(apiResult) Cards.insert(apiResult);
-                //String replace for (Turn / Burn) => (Turn // Burn)
-                var lookupResult = Cards.findOne({name: card.name.replace('/', '//')});
-
-                cardId = lookupResult ? lookupResult._id : -1;
-            }
-
-            //Cards that can't be looked up will just be ignored for the moment
-            //Current issue card: 'Wear' from 'Wear // Tear' not having an individual mtgDbApi entry
-            if(cardId){
-                return {
-                    card_id: cardId,
-                    quantity: card.quantity,
-                    board: card.board,
-                    category: card.category
-                };
-            }
-        });
-
-        var mainboard = [],
-            sideboard = [],
-            other = {};
-
-        apiCards.forEach(function(apiCard){
-            if(apiCard.board === 'main') mainboard.push(apiCard);
-            else if(apiCard.board === 'side') sideboard.push(apiCard);
-            else {
-                if(other[apiCard.board]) other[apiCard.board].push(apiCard);
-                else other[apiCard.board] = [apiCard];
-            }
-        });
-
-
-        console.log("Creating deck " + deck.name);
-        Decks.insert({
-            created: new Date(),
-            createdBy: Meteor.userId(),
-            origin: deck.origin,
-            name: deck.name,
-            mainboard: mainboard,
-            sideboard: sideboard,
-            other: other
-        });
-    },
     deleteDeck: function(deckId){
         Decks.remove({_id: deckId, createdBy: Meteor.userId()});
     }
 });
-
-
-/**
- * Given a card name, look it up in the MtgDB API
- * @param  {String} cardName The plain-string name of the card
- * @return {Object}          The JSON detailed version of the card
- */
-function apiLookup(cardName) {
-    if (!cardName) return {};
-
-    var sanitizedCardName = sanitizeCardName(cardName);
-
-    //TODO Remove Future in favor of Bluebird
-    var myFuture = new Future();
-
-    var safeurl = "http://api.mtgdb.info/cards/" + sanitizedCardName;
-    Meteor.http.get(safeurl, function (error, result) {
-        if (error) {
-            myFuture.throw(error);
-        }
-
-        var parsedResult = parseMtgDbResponse(JSON.parse(result.content));
-        myFuture.return(parsedResult);
-    });
-
-    return myFuture.wait();
-}
-
-/**
- * @param cardName
- * @returns {string}
- */
 
 /**
  * Clean up a name for api safe lookup

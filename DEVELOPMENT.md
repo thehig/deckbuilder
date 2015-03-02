@@ -79,7 +79,7 @@ Taken from [File Load Order](http://docs.meteor.com/#/full/fileloadorder)
 Configured by the [packages](packages.json) file, loads npm packages into Meteor by using the npm-container package
 
 * cheerio 	- Used for server-side HTML interpertation. Acts like JQuery, but without a DOM.
-* future 	- Used for promise management. Depricated in favor of bluebird
+* ~~future 	- Used for promise management. Depricated in favor of bluebird~~
 
 ### Meteor Security
 
