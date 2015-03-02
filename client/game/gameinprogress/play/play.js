@@ -125,6 +125,7 @@ Template.bf_chat.events({
                 // Enable button, clear chat
                 buttonElement.attr("disabled", false);
                 inputElement.val('');
+                $('.send-remaining').text('140');
             }
         );
     }
