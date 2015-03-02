@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"hi",
+				"historymessage	(?)"
+			],
+			[
+				"pre",
+				"preventDefault"
+			],
+			[
+				"remainin",
+				"remainingElement	{}"
+			],
+			[
+				"in",
+				"inputElement	{}"
+			],
+			[
 				"remin",
 				"remainingCharacters"
 			],
@@ -43,7 +59,7 @@
 	"build_system": "Packages/Python/Python.sublime-build",
 	"command_palette":
 	{
-		"height": 288.0,
+		"height": 392.0,
 		"selected_items":
 		[
 			[
@@ -133,21 +149,19 @@
 	"expanded_folders":
 	[
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder",
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client",
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game",
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress",
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play",
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/plane"
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client"
 	],
 	"file_history":
 	[
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play/play.html",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play/play.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/default.html",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/GameFactory.js",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/utils.js",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play/play.html",
+		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/pregame/pregame.js",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/deckbuilder.sublime-project",
 		"/C/Users/David/AppData/Roaming/Sublime Text 3/Packages/TernJS/ternjs/plugin/meteor.js",
 		"/C/Users/David/AppData/Roaming/Sublime Text 3/Packages/TernJS/TernJS.sublime-settings",
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/GameFactory.js",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/plane/plane.css",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/PlanechaseFactory.js",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/plane/plane.html",
@@ -155,7 +169,6 @@
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/default.css",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/.meteor/.finished-upgraders",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/game/gameinprogress/play/dragndrop.js",
-		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/client/default.html",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/server/DeckFactory.js",
 		"/C/Vagrant/Ubuntu 14.04/shared/deckbuilder/lib/collections.js",
 		"/C/Users/David/Documents/GitHub/Manabase/decks/rdw-ver1.txt",
@@ -219,6 +232,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"button",
+			"chooseDeck",
+			"splicePlayer",
 			" \n",
 			"p>",
 			"p",
@@ -337,11 +353,11 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{
