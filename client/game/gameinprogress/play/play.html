@@ -163,7 +163,9 @@
 </template>
 <template name="card_data">
     <!-- this: card with apicard -->
-    <img class="card-image {{#if tapped}}tapped{{/if}}" src="http://mtgimage.com/card/{{imagename}}.jpg">
+    {{#if cardid}}
+    <img class="card-image {{#if tapped}}tapped{{/if}}" src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{cardid}}&type=card">
+    {{/if}}
 </template>
 
 
