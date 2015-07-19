@@ -19,7 +19,7 @@ Meteor.methods({
             cardsCollection = [];
 
         tappedOutPageContents('.member a').each(function(index, element){
-            if(this.attribs['data-name'])
+            if(this.attribs['data-name'] && this.attribs['data-quantity'])
             {
                 var card = {
                     name: this.attribs['data-name'],
@@ -27,6 +27,7 @@ Meteor.methods({
                     board: this.attribs['data-board'],
                     category: this.attribs['data-category']
                 };
+
                 cardsCollection.push(card);
             }
         });
